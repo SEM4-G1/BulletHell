@@ -6,6 +6,7 @@
 hs_err_pid*
 
 .vscode
+.idea/*
 
 ## Robovm
 /ios/robovm-build/
