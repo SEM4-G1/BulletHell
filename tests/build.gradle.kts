@@ -11,24 +11,23 @@ repositories {
 }
 
 dependencies {
-
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
     testImplementation(project(mapOf("path" to ":core")))
     testImplementation(project(mapOf("path" to ":desktop")))
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
-
 }
 
 tasks.getByName<Test>("test") {
     useJUnitPlatform()
+
 }
 
 tasks.test {
-    useJUnitPlatform()
     testLogging {
         events("passed")
     }
+    testLogging.showStandardStreams = true
     filter {
         //include all tests from package
         includeTestsMatching("suite.*")
