@@ -12,4 +12,8 @@ public class DesktopLauncher {
 		config.setTitle("bullethell");
 		new Lwjgl3Application(new CoreEngine(), config);
 	}
+
+	public static int add(int a, int b){
+		return a+b;
+	}
 }
