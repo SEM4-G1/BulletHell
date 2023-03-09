@@ -5,6 +5,8 @@ sourceSets.main.resources.srcDirs = ["../assets"]
 project.ext.mainClassName = "sdu.dk.group.one.DesktopLauncher"
 project.ext.assetsDir = new File("../assets")
 
+
+
 import org.gradle.internal.os.OperatingSystem
 
 task a_run(dependsOn: classes, type: JavaExec) {
@@ -52,7 +54,11 @@ task dist(type: Jar) {
     with jar
 }
 
+testing {
+    suites {
 
+    }
+}
 dist.dependsOn classes
 
 eclipse.project.name = appName + "-desktop"

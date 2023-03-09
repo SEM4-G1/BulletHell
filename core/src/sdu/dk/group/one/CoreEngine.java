@@ -28,4 +28,7 @@ public class CoreEngine extends ApplicationAdapter {
 		batch.dispose();
 		img.dispose();
 	}
+	public int multiply(int a, int b){
+		return a*b;
+	}
 }

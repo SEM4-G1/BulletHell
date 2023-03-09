@@ -1,2 +1,6 @@
 rootProject.name = 'bullethell'
 include 'desktop', 'core'
+include 'core:tests'
+findProject(':core:tests')?.name = 'tests'
+include 'tests'
+
