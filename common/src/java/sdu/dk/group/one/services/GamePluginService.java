@@ -1,7 +1,7 @@
-package sdu.dk.group.one;
+package sdu.dk.group.one.services;
 
-import java.sdu.dk.group.one.Entitylist;
 
+import sdu.dk.group.one.data.Entitylist;
 
 public interface GamePluginService {
     /**
