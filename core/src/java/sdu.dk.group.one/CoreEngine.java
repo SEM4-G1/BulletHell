@@ -1,4 +1,4 @@
-package java.sdu.dk.group.one;
+package sdu.dk.group.one;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;

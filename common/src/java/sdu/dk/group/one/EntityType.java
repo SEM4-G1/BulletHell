@@ -1,4 +1,4 @@
-package java.sdu.dk.group.one;
+package sdu.dk.group.one;
 
 
 public enum EntityType {
