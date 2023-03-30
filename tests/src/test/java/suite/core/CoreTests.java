@@ -1,5 +1,6 @@
 package suite.core;
 
+import sdu.dk.group.one.CoreEngine;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
