@@ -3,11 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>dk.sdu.mmmi.cbse</groupId>
-        <artifactId>asteroids.jpms</artifactId>
+        <groupId>dk.sdu.group.one</groupId>
+        <artifactId>bullethell.jpms</artifactId>
         <version>1.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>dk.sdu.cbse.asteroids</groupId>
     <artifactId>Core</artifactId>
     <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -27,18 +26,17 @@
             <url>https://maven.pkg.github.com/sweat-tek/ShadedLibGDX</url>
         </repository>
     </repositories>
-
     <dependencies>
         <dependency>
             <groupId>dk.sdu.mmmi.cbse</groupId>
             <artifactId>shadedlibgdx</artifactId>
             <version>1.0.1-SNAPSHOT</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>dk.sdu.group.one</groupId>-->
-<!--            <artifactId>Common</artifactId>-->
-<!--            <version>1.0.1-SNAPSHOT</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>dk.sdu.group.one</groupId>
+            <artifactId>Common</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

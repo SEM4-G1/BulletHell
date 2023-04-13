@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>dk.sdu.mmmi.cbse</groupId>
-    <artifactId>asteroids.jpms</artifactId>
+    <groupId>dk.sdu.group.one</groupId>
+    <artifactId>bullethell.jpms</artifactId>
     <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>AsteroidsJPMS</name>
+    <name>BulletHell</name>
     <repositories>
     </repositories>
 
@@ -76,7 +76,7 @@
                         in "java.lang.module.FindException: Module monitor.observer.zero not found";
                         strange... -->
                         <!--<argument>&#45;&#45;add-modules=monitor.observer.zero</argument>-->
-                        <argument>--module=Core/sdu.dk.group.one.Main</argument>
+                        <argument>--module=Core/dk.sdu.group.one.Main</argument>
                     </arguments>
                 </configuration>
             </plugin>

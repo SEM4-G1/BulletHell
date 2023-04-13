@@ -7,5 +7,5 @@ public interface PostProcessingService {
      *
      * @param entitylist list of entities
      */
-    void postProcess(Entitylist entitylist);
+    void postProcess(EntityList entitylist);
 }
