@@ -39,7 +39,7 @@ com_crashlytics_export_strings.xml
 .project
 .metadata/
 /android/bin/
-/core/bin/
+/Core/bin/
 /desktop/bin/
 /html/bin/
 /ios/bin/
@@ -56,35 +56,35 @@ com_crashlytics_export_strings.xml
 
 /nbproject/private/
 /android/nbproject/private/
-/core/nbproject/private/
+/Core/nbproject/private/
 /desktop/nbproject/private/
 /html/nbproject/private/
 /ios/nbproject/private/
 
 /build/
 /android/build/
-/core/build/
+/Core/build/
 /desktop/build/
 /html/build/
 /ios/build/
 
 /nbbuild/
 /android/nbbuild/
-/core/nbbuild/
+/Core/nbbuild/
 /desktop/nbbuild/
 /html/nbbuild/
 /ios/nbbuild/
 
 /dist/
 /android/dist/
-/core/dist/
+/Core/dist/
 /desktop/dist/
 /html/dist/
 /ios/dist/
 
 /nbdist/
 /android/nbdist/
-/core/nbdist/
+/Core/nbdist/
 /desktop/nbdist/
 /html/nbdist/
 /ios/nbdist/
@@ -99,7 +99,7 @@ nb-configuration.xml
 gradle-app.setting
 /build/
 /android/build/
-/core/build/
+/Core/build/
 /desktop/build/
 /html/build/
 /ios/build/
