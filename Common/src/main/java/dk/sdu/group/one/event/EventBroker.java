@@ -2,6 +2,7 @@ package dk.sdu.group.one.event;
 
 
 import java.util.*;
+
 import dk.sdu.group.one.event.events.EventType;
 
 public class EventBroker{

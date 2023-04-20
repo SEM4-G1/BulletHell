@@ -37,6 +37,11 @@
             <artifactId>Common</artifactId>
             <version>1.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>dk.sdu.group.one</groupId>
+            <artifactId>Player</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

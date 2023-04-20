@@ -1,4 +1,4 @@
-package dk.sdu.group.one;
+package dk.sdu.group.one.player;
 
 import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
