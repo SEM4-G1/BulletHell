@@ -1,4 +1,4 @@
-package dk.sdu.group.one.data;
+package dk.sdu.group.one.player.data;
 
 import java.util.ArrayList;
 import java.util.List;

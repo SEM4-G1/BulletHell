@@ -1,6 +1,7 @@
-package dk.sdu.group.one.event.events;
+package dk.sdu.group.one.player.event.events;
 
-import dk.sdu.group.one.event.Event;
+import dk.sdu.group.one.player.event.Event;
+
 public class ShootEvent extends Event {
     public String message;
 

@@ -1,6 +1,6 @@
-package dk.sdu.group.one.event;
+package dk.sdu.group.one.player.event;
 
-import dk.sdu.group.one.event.events.EventType;
+import dk.sdu.group.one.player.event.events.EventType;
 
 import java.util.UUID;
 

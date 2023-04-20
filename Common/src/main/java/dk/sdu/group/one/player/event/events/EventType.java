@@ -1,4 +1,4 @@
-package dk.sdu.group.one.event.events;
+package dk.sdu.group.one.player.event.events;
 
 public enum EventType {
     PickUpEvent, ShootEvent, Collision

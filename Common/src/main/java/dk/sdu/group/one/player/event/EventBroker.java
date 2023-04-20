@@ -1,8 +1,8 @@
-package dk.sdu.group.one.event;
+package dk.sdu.group.one.player.event;
 
 
 import java.util.*;
-import dk.sdu.group.one.event.events.EventType;
+import dk.sdu.group.one.player.event.events.EventType;
 
 public class EventBroker{
 
