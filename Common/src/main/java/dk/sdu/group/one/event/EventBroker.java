@@ -1,6 +1,5 @@
 package dk.sdu.group.one.event;
 
-
 import java.util.*;
 import dk.sdu.group.one.event.events.EventType;
 
@@ -21,9 +20,6 @@ public class EventBroker{
     @SuppressWarnings("unchecked")
     public <T extends Event> void publish(T event, EventType eventType) {
         events.put(eventType, event);
-        for (EventProcessor<?> processor : subscribers.get(eventType)) {
-            ((EventProcessor<T>) processor).handleEvent(event);
-        }
     }
 
     public EventBroker() {
