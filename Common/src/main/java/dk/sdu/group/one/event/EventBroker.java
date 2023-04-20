@@ -19,12 +19,8 @@ public class EventBroker{
 
     private final Map<EventType, Set<EventProcessor<? extends Event>>> subscribers = new EnumMap<>(EventType.class);
 
-    @SuppressWarnings("unchecked")
     public <T extends Event> void publish(T event, EventType eventType) {
         events.put(eventType, event);
-        for (EventProcessor<?> processor : subscribers.get(eventType)) {
-            ((EventProcessor<T>) processor).handleEvent(event);
-        }
     }
 
     public EventBroker() {
