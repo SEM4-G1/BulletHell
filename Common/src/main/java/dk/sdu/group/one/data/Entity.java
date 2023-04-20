@@ -8,10 +8,17 @@ public abstract class Entity {
     Texture sprite;
     int x, y;
 
-    public Entity(String spritePath, int x, int y) {
+    EntityType type;
+
+    public Entity(EntityType entityType, String spritePath int x, int y) {
+        this.type = entityType;
         this.sprite = new Texture(Gdx.files.internal("assets/" + spritePath));
         this.x = x;
         this.y = y;
+    }
+    
+    public EntityType getType() {
+        return this.type;
     }
 
     int getX() { return this.x; }
@@ -20,6 +27,6 @@ public abstract class Entity {
 
     public abstract void process();
 
-    public abstract void start(MapService mapService);
+    public abstract void start(MapService mapService, EntityList entityList);
 
 }
