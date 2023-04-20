@@ -1,0 +1,6 @@
+dk\sdu\group\weapon\Main.class
+dk\sdu\group\weapon\weaponfacade\WeaponPickUpPart.class
+dk\sdu\group\weapon\weaponfacade\WeaponShooterPart.class
+dk\sdu\group\weapon\Weapon.class
+module-info.class
+dk\sdu\group\weapon\weapontypes\Pistol.class

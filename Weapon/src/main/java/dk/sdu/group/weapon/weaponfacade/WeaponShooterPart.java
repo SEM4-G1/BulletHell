@@ -1,4 +1,4 @@
-package dk.sdu.group.one.weaponfacade;
+package dk.sdu.group.weapon.weaponfacade;
 
 import dk.sdu.group.one.event.EventProcessor;
 import dk.sdu.group.one.event.events.ShootEvent;

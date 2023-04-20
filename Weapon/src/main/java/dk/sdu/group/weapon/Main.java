@@ -1,4 +1,4 @@
-package dk.sdu.group.one;
+package dk.sdu.group.weapon;
 
 public class Main {
     public static void main(String[] args) {
