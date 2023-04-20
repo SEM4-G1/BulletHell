@@ -1,8 +1,10 @@
 package dk.sdu.group.one.data;
 
 import dk.sdu.group.one.map.MapService;
+import com.badlogic.gdx.graphics.Texture;
 
 public abstract class Entity {
+    Texture sprite;
     int x, y;
 
     int getX() { return this.x; }
