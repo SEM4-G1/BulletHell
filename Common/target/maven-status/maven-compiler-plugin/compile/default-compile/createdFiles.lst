@@ -1,12 +1,2 @@
-dk\sdu\group\one\data\Entity.class
-dk\sdu\group\one\event\EventBroker.class
-dk\sdu\group\one\map\MapService.class
+dk/sdu/group/one/data/EntityManager.class
 module-info.class
-dk\sdu\group\one\event\EventProcessor.class
-dk\sdu\group\one\data\EntityList.class
-dk\sdu\group\one\event\events\PickUpEvent.class
-dk\sdu\group\one\event\Event.class
-dk\sdu\group\one\event\events\EventType.class
-dk\sdu\group\one\event\events\ShootEvent.class
-dk\sdu\group\one\services\PostProcessingService.class
-dk\sdu\group\one\data\EntityType.class
