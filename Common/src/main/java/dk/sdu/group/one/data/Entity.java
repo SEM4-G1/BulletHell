@@ -10,23 +10,35 @@ public abstract class Entity {
 
     EntityType type;
 
-    public Entity(EntityType entityType, String spritePath int x, int y) {
+    public Entity(EntityType entityType, String spritePath, int x, int y) {
         this.type = entityType;
         this.sprite = new Texture(Gdx.files.internal("assets/" + spritePath));
         this.x = x;
         this.y = y;
     }
-    
+
     public EntityType getType() {
         return this.type;
     }
 
-    int getX() { return this.x; }
+    public EntityType getType() {
+        return this.type;
+    }
 
-    int getY() { return this.y; }
+    int getX() {
+        return this.x;
+    }
+
+    int getY() {
+        return this.y;
+    }
 
     public abstract void process();
 
-    public abstract void start(MapService mapService, EntityList entityList);
+    <<<<<<<HEAD
+
+    public abstract void start(MapService mapService, EntityList entityList);=======
+
+    public abstract void start(MapService mapService, EntityManager entityList);>>>>>>>6d f10ca3a78e1f66c7e7c6771eaeb7d3056d298f
 
 }
