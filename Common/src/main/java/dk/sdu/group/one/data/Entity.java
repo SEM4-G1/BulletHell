@@ -1,11 +1,9 @@
 package dk.sdu.group.one.data;
 
-import com.badlogic.gdx.Gdx;
 import dk.sdu.group.one.map.MapService;
-import com.badlogic.gdx.graphics.Texture;
 
 public abstract class Entity {
-    Texture texture;
+    String texturePath;
     int x, y;
     float radians;
 
@@ -13,7 +11,7 @@ public abstract class Entity {
 
     public Entity(EntityType entityType, String spritePath, int x, int y) {
         this.type = entityType;
-        this.texture = new Texture(Gdx.files.internal("assets/" + spritePath));
+        this.texturePath = spritePath;
         this.x = x;
         this.y = y;
     }
@@ -38,12 +36,12 @@ public abstract class Entity {
         return this.y;
     }
 
-    public Texture getTexture() {
-        return this.texture;
+    public String getTexturePath() {
+        return this.texturePath;
     }
 
     public abstract void process(EntityManager entityManager);
 
-    public abstract void start(MapService mapService, EntityManager entityList);>>>>>>>6d f10ca3a78e1f66c7e7c6771eaeb7d3056d298f
+    public abstract void start(MapService mapService, EntityManager entityList);
 
 }
