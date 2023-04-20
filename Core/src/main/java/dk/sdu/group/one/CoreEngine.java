@@ -15,12 +15,18 @@ public class CoreEngine extends ApplicationAdapter {
         img = new Texture(Gdx.files.internal("assets/test.jpg"));
     }
 
+
     @Override
     public void render() {
+        update();
         Gdx.gl.glClearColor(1, 0, 0, 1);
         batch.begin();
         batch.draw(img, 0, 0);
         batch.end();
+    }
+
+    public void update() {
+
     }
 
     @Override
