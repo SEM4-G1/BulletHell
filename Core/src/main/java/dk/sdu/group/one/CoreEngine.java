@@ -4,7 +4,6 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import dk.sdu.group.one.player.Player;
 import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
 
@@ -17,7 +16,6 @@ public class CoreEngine extends ApplicationAdapter {
     public void create() {
         this.entityManager = new EntityManager();
         batch = new SpriteBatch();
-        entityManager.addEntity(new Player("player.png", 100, 100));
 //        img = new Texture(Gdx.files.internal("assets/test.jpg"));
     }
 
