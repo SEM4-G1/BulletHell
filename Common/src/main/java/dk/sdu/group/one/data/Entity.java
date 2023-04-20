@@ -7,6 +7,12 @@ public abstract class Entity {
     Texture sprite;
     int x, y;
 
+    public Entity(Texture sprite, int x, int y) {
+        this.sprite = sprite;
+        this.x = x;
+        this.y = y;
+    }
+
     int getX() { return this.x; }
 
     int getY() { return this.y; }
