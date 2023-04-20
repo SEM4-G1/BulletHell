@@ -6,9 +6,9 @@
         <artifactId>bullethell.jpms</artifactId>
         <version>1.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>Common</artifactId>
+    <artifactId>Player</artifactId>
     <packaging>jar</packaging>
-    <name>Common</name>
+    <name>Player</name>
     <build>
         <plugins>
             <plugin>
