@@ -4,13 +4,16 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import dk.sdu.group.one.data.EntityManager;
 
 public class CoreEngine extends ApplicationAdapter {
     SpriteBatch batch;
     Texture img;
+    EntityManager entityManager;
 
     @Override
     public void create() {
+        this.entityManager = new EntityManager();
         batch = new SpriteBatch();
         img = new Texture(Gdx.files.internal("assets/test.jpg"));
     }
