@@ -14,7 +14,7 @@
         <module>Common</module>
         <module>Player</module>
         <module>Weapon</module>
-        <module>Map</module>
+        <module>Bullet</module>
     </modules>
     <properties>
         <java>java</java>
@@ -78,7 +78,7 @@
                         in "java.lang.module.FindException: Module monitor.observer.zero not found";
                         strange... -->
                         <!--<argument>&#45;&#45;add-modules=monitor.observer.zero</argument>-->
-                        <argument>--module=Core/dk.sdu.group.one.Map</argument>
+                        <argument>--module=Core/dk.sdu.group.one.Main</argument>
                     </arguments>
                 </configuration>
             </plugin>
