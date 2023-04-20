@@ -1,3 +1,7 @@
+## custom
+*.jar
+libs/
+mods-mvn/
 ## Java
 
 *.class
