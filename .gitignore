@@ -2,6 +2,7 @@
 *.jar
 libs/
 mods-mvn/
+*/target/**
 ## Java
 
 *.class
