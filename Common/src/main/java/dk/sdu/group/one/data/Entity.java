@@ -5,14 +5,15 @@ import dk.sdu.group.one.map.MapService;
 import com.badlogic.gdx.graphics.Texture;
 
 public abstract class Entity {
-    Texture sprite;
+    Texture texture;
     int x, y;
+    float radians;
 
     EntityType type;
 
     public Entity(EntityType entityType, String spritePath, int x, int y) {
         this.type = entityType;
-        this.sprite = new Texture(Gdx.files.internal("assets/" + spritePath));
+        this.texture = new Texture(Gdx.files.internal("assets/" + spritePath));
         this.x = x;
         this.y = y;
     }
@@ -21,15 +22,27 @@ public abstract class Entity {
         return this.type;
     }
 
-    int getX() {
+    public int getX() {
         return this.x;
     }
 
-    int getY() {
+    public void setRadians(float rads) {
+        this.radians = rads;
+    }
+
+    public float getRadians() {
+        return this.radians;
+    }
+
+    public int getY() {
         return this.y;
     }
 
-    public abstract void process();
+    public Texture getTexture() {
+        return this.texture;
+    }
+
+    public abstract void process(EntityManager entityManager);
 
     public abstract void start(MapService mapService, EntityManager entityList);>>>>>>>6d f10ca3a78e1f66c7e7c6771eaeb7d3056d298f
 

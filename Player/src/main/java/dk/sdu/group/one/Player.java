@@ -11,7 +11,7 @@ public class Player extends Entity {
     }
 
     @Override
-    public void process() {
+    public void process(EntityManager entityManager) {
 
     }
 
