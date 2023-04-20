@@ -5,8 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dk.sdu.group.one.player.Player;
-import dk.sdu.group.one.player.data.Entity;
-import dk.sdu.group.one.player.data.EntityManager;
+import dk.sdu.group.one.data.Entity;
+import dk.sdu.group.one.data.EntityManager;
 
 
 public class CoreEngine extends ApplicationAdapter {

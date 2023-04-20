@@ -1,6 +1,7 @@
-package dk.sdu.group.one.player.services;
+package dk.sdu.group.one.services;
 
-import dk.sdu.group.one.player.data.EntityManager;
+import dk.sdu.group.one.data.EntityManager;
+
 public interface PostProcessingService {
     /**
      *Runs once for each implementation on each game loop

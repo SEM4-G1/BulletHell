@@ -1,6 +1,6 @@
-package dk.sdu.group.one.player.event.events;
+package dk.sdu.group.one.event.events;
 
-import dk.sdu.group.one.player.event.Event;
+import dk.sdu.group.one.event.Event;
 
 public class PickUpEvent extends Event {
     public int code;

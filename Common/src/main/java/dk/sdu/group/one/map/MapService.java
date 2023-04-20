@@ -1,4 +1,4 @@
-package dk.sdu.group.one.player.map;
+package dk.sdu.group.one.map;
 
 public abstract class MapService {
 

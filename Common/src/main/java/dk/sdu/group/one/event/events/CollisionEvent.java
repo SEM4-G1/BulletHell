@@ -1,7 +1,7 @@
-package dk.sdu.group.one.player.event.events;
+package dk.sdu.group.one.event.events;
 
-import dk.sdu.group.one.player.data.Entity;
-import dk.sdu.group.one.player.event.Event;
+import dk.sdu.group.one.data.Entity;
+import dk.sdu.group.one.event.Event;
 
 public class CollisionEvent extends Event{
     Entity e1;

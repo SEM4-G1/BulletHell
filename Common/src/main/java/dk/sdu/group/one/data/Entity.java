@@ -1,6 +1,6 @@
-package dk.sdu.group.one.player.data;
+package dk.sdu.group.one.data;
 
-import dk.sdu.group.one.player.map.MapService;
+import dk.sdu.group.one.map.MapService;
 
 public abstract class Entity {
     String texturePath;
