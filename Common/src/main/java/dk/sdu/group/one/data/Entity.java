@@ -21,10 +21,6 @@ public abstract class Entity {
         return this.type;
     }
 
-    public EntityType getType() {
-        return this.type;
-    }
-
     int getX() {
         return this.x;
     }
@@ -34,10 +30,6 @@ public abstract class Entity {
     }
 
     public abstract void process();
-
-    <<<<<<<HEAD
-
-    public abstract void start(MapService mapService, EntityList entityList);=======
 
     public abstract void start(MapService mapService, EntityManager entityList);>>>>>>>6d f10ca3a78e1f66c7e7c6771eaeb7d3056d298f
 
