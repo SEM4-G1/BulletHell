@@ -3,6 +3,7 @@ module Core {
     requires Player;
     requires java.desktop;
     requires com.badlogic.gdx;
+    requires Weapon;
 }
 
 

@@ -1,6 +1,6 @@
-package dk.sdu.group.one.weaponfacade;
+package dk.sdu.group.weapon.weaponfacade;
 
-import dk.sdu.group.one.Weapon;
+import dk.sdu.group.weapon.Weapon;
 import dk.sdu.group.one.event.events.PickUpEvent;
 import dk.sdu.group.one.event.EventProcessor;
 

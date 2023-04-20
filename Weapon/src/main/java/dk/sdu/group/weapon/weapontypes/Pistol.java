@@ -1,6 +1,6 @@
-package dk.sdu.group.one.weapontypes;
+package dk.sdu.group.weapon.weapontypes;
 
-import dk.sdu.group.one.Weapon;
+import dk.sdu.group.weapon.Weapon;
 import dk.sdu.group.one.data.EntityManager;
 import dk.sdu.group.one.data.EntityType;
 import dk.sdu.group.one.map.MapService;

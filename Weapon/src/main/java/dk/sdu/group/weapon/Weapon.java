@@ -1,13 +1,11 @@
-package dk.sdu.group.one;
+package dk.sdu.group.weapon;
 
 import dk.sdu.group.one.data.Entity;
-import dk.sdu.group.one.data.EntityManager;
 import dk.sdu.group.one.data.EntityType;
 import dk.sdu.group.one.event.EventBroker;
 import dk.sdu.group.one.event.events.EventType;
-import dk.sdu.group.one.map.MapService;
-import dk.sdu.group.one.weaponfacade.WeaponPickUpPart;
-import dk.sdu.group.one.weaponfacade.WeaponShooterPart;
+import dk.sdu.group.weapon.weaponfacade.WeaponPickUpPart;
+import dk.sdu.group.weapon.weaponfacade.WeaponShooterPart;
 
 public abstract class Weapon extends Entity {
     public WeaponPickUpPart pickUpPart = new WeaponPickUpPart(this);
