@@ -1,6 +1,0 @@
-rootProject.name = 'bullethell'
-include 'desktop', 'core', 'common'
-include 'core:tests'
-findProject(':core:tests')?.name = 'tests'
-include 'tests'
-
