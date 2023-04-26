@@ -1,13 +1,16 @@
 package dk.sdu.group.one;
 
 import dk.sdu.group.one.map.MapService;
+
+import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import static dk.sdu.group.one.Node.printPath;
 
 public class Map extends MapService{
-    int width = 15;
-    int height = 15;
+    int width = 30;
+    int height = 30;
 
     Node[][] grid;
     public Map(){
