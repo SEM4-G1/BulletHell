@@ -116,7 +116,6 @@ public class Node implements Comparable<Node> {
     }
 
     public static void printPath(Node target, Node[][] grid){
-        
         Node n = target;
 
         if(n==null)
