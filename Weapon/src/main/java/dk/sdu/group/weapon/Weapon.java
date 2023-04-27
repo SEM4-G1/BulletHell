@@ -8,8 +8,9 @@ import dk.sdu.group.weapon.weaponfacade.WeaponPickUpPart;
 import dk.sdu.group.weapon.weaponfacade.WeaponShooterPart;
 
 public abstract class Weapon extends Entity {
+    public BulletService bulletService;
     public WeaponPickUpPart pickUpPart = new WeaponPickUpPart(this);
-    public WeaponShooterPart weaponShooterPart = new WeaponShooterPart();
+    public WeaponShooterPart weaponShooterPart = new WeaponShooterPart(this);
     public Weapon(EntityType entityType, String spritePath, float x, float y) {
         super(entityType, spritePath, x, y, 100);
     }
