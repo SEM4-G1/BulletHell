@@ -11,7 +11,7 @@ public abstract class Weapon extends Entity {
     public WeaponPickUpPart pickUpPart = new WeaponPickUpPart(this);
     public WeaponShooterPart weaponShooterPart = new WeaponShooterPart();
     public Weapon(EntityType entityType, String spritePath, int x, int y) {
-        super(entityType, spritePath, x, y);
+        super(entityType, spritePath, x, y, 1);
     }
     public void pickUp(){
         System.out.println("weapon picked up!");

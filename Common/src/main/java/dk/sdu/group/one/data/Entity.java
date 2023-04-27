@@ -20,6 +20,13 @@ public abstract class Entity {
         this.maxHealth = maxHealth;
         this.currentHealth = this.maxHealth;
     }
+    
+    public Entity(EntityType entityType, String spritePath, int x, int y) {
+        this.type = entityType;
+        this.texturePath = spritePath;
+        this.x = x;
+        this.y = y;
+    }
 
     public EntityType getType() {
         return this.type;
