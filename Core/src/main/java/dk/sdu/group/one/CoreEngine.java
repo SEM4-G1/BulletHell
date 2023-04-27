@@ -33,9 +33,10 @@ public class CoreEngine extends ApplicationAdapter {
 
     @Override
     public void create() {
-        this.currentMap = new Texture("assets/"+mapProvider.getCurrentLevel().getMapAsset());
-        this.entityManager = new EntityManager();
         this.textureCache = new TextureCache();
+        this.currentMap = textureCache.loadTexture(mapProvider.getCurrentLevel().getMapAsset());
+        this.entityManager = new EntityManager();
+
         startEntities();
         batch = new SpriteBatch();
 //        img = new Texture(Gdx.files.internal("assets/test.jpg"));

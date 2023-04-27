@@ -21,12 +21,13 @@ public class Rock extends Entity{
     @Override
     public void start(MapService mapService, EntityManager entityList) {
         for (int[] position : mapService.getObstaclePositions()) {
-            // THIS IS HARDCODED
+            //TODO THIS IS HARDCODED AND SHOULD BE CHANGED
             double cellWidth = 1980/30;
             double cellHeight = 1080/30;
             int x = position[0] * (int) cellWidth;
             int y = position[1] * (int) cellHeight;
-            System.out.println("x: " + x + " y: " + y);
+            //System.out.println("index: " + position[0] + " " + position[1] +
+            //        "\nx: " + x + " y: " + y);
             entityList.addEntity(new Rock(EntityType.OBSTACLE, x, y));
         }
     }
