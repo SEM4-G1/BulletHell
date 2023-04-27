@@ -19,4 +19,9 @@ public class Player extends Entity {
     public void start(MapService mapService, EntityManager entityManager) {
 
     }
+
+    @Override
+    public void Start(MapService mapService, EntityManager entityManager) {
+
+    }
 }
