@@ -5,7 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
-import dk.sdu.group.one.player.Player;
+import dk.sdu.group.one.data.EntityType;
+import dk.sdu.group.weapon.weapontypes.Pistol;
 
 
 public class CoreEngine extends ApplicationAdapter {
@@ -22,6 +23,7 @@ public class CoreEngine extends ApplicationAdapter {
         entityManager.addEntity(player);
         batch = new SpriteBatch();
 //        img = new Texture(Gdx.files.internal("assets/test.jpg"));
+        entityManager.addEntity(new Pistol(EntityType.Weapon,0, 0));
     }
 
 

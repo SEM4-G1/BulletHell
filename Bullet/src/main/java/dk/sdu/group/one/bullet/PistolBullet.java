@@ -8,10 +8,9 @@ import dk.sdu.group.weapon.BulletService;
 
 public class PistolBullet extends Entity implements BulletService {
     double speed = 5;
-    final String assetPath = "bullet.png";
-
-    public PistolBullet(EntityType entityType, String spritePath, float x, float y) {
-        super(entityType, spritePath, x, y, 10);
+    public static final String assetPath = "bullet.png";
+    public PistolBullet(EntityType entityType, float x, float y) {
+        super(entityType, assetPath, x, y, 10);
     }
 
     @Override
@@ -20,7 +19,7 @@ public class PistolBullet extends Entity implements BulletService {
         float y = entity.getY();
         x *= Math.cos(entity.getRadians());
         y *= Math.sin(entity.getRadians());
-        Entity bullet = new PistolBullet(EntityType.BULLET, assetPath, x, y);
+        Entity bullet = new PistolBullet(EntityType.BULLET, x, y);
         bullet.setRadians(entity.getRadians());
         entityManager.addEntity(bullet);
     }
@@ -41,6 +40,5 @@ public class PistolBullet extends Entity implements BulletService {
 
     @Override
     public void start(MapService mapService, EntityManager entityList) {
-
     }
 }
