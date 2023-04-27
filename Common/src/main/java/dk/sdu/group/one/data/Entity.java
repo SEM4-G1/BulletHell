@@ -19,7 +19,13 @@ public abstract class Entity {
         this.y = y;
         this.maxHealth = maxHealth;
         this.currentHealth = this.maxHealth;
-        //TODO rewrite to use lifepart instead of current healthsystem????
+    }
+    
+    public Entity(EntityType entityType, String spritePath, int x, int y) {
+        this.type = entityType;
+        this.texturePath = spritePath;
+        this.x = x;
+        this.y = y;
     }
 
     public EntityType getType() {
