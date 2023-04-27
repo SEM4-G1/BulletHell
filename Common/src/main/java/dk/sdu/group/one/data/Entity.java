@@ -4,7 +4,7 @@ import dk.sdu.group.one.map.MapService;
 
 public abstract class Entity {
     String texturePath;
-    int x, y;
+    float x, y;
     float radians;
     int maxHealth;
     int currentHealth;
@@ -12,7 +12,7 @@ public abstract class Entity {
 
     EntityType type;
 
-    public Entity(EntityType entityType, String spritePath, int x, int y, int maxHealth) {
+    public Entity(EntityType entityType, String spritePath, float x, float y, int maxHealth) {
         this.type = entityType;
         this.texturePath = spritePath;
         this.x = x;
@@ -25,7 +25,7 @@ public abstract class Entity {
         return this.type;
     }
 
-    public int getX() {
+    public float getX() {
         return this.x;
     }
 
@@ -37,7 +37,7 @@ public abstract class Entity {
         return this.radians;
     }
 
-    public int getY() {
+    public float getY() {
         return this.y;
     }
 
@@ -45,7 +45,7 @@ public abstract class Entity {
         return this.texturePath;
     }
 
-    public abstract void process(EntityManager entityManager);
+    public abstract void process(EntityManager entityManager, double dt);
 
     public abstract void start(MapService mapService, EntityManager entityList);
 
@@ -82,4 +82,11 @@ public abstract class Entity {
         }
     }
 
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
 }
