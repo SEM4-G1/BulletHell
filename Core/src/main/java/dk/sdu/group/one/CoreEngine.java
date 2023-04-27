@@ -2,11 +2,19 @@ package dk.sdu.group.one;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+<<<<<<< HEAD
+=======
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+>>>>>>> 102cc59 (shooting works)
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
 import dk.sdu.group.one.data.EntityType;
 import dk.sdu.group.weapon.weapontypes.Pistol;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CoreEngine extends ApplicationAdapter {
@@ -31,6 +39,7 @@ public class CoreEngine extends ApplicationAdapter {
     public void render() {
         update();
         Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT |  GL20.GL_DEPTH_BUFFER_BIT );
         batch.begin();
 
         for (Entity entity : entityManager.getEntityList()) {
@@ -43,7 +52,10 @@ public class CoreEngine extends ApplicationAdapter {
     }
 
     public void update() {
-
+        List<Entity> entities = List.copyOf(entityManager.getEntityList());
+        entities.forEach(
+                entity -> entity.process(entityManager, Gdx.graphics.getDeltaTime())
+        );
     }
 
     @Override

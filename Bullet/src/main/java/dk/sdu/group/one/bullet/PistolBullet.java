@@ -7,8 +7,12 @@ import dk.sdu.group.one.map.MapService;
 import dk.sdu.group.weapon.BulletService;
 
 public class PistolBullet extends Entity implements BulletService {
-    double speed = 5;
+    double speed = 30;
     public static final String assetPath = "bullet.png";
+    public PistolBullet() {
+        super(EntityType.BULLET, assetPath, 0, 0,
+                10);
+    }
     public PistolBullet(EntityType entityType, float x, float y) {
         super(entityType, assetPath, x, y, 10);
     }
