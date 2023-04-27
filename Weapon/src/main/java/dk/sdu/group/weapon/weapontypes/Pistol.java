@@ -8,12 +8,12 @@ import dk.sdu.group.one.data.EntityType;
 import dk.sdu.group.one.map.MapService;
 
 public class Pistol extends Weapon {
-    public Pistol(EntityType entityType, String spritePath, int x, int y) {
+    public Pistol(EntityType entityType, String spritePath, float x, float y) {
         super(entityType, spritePath, x, y);
     }
 
     @Override
-    public void process(EntityManager entityManager) {
+    public void process(EntityManager entityManager, double dt) {
 
     }
 

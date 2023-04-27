@@ -10,8 +10,8 @@ import dk.sdu.group.weapon.weaponfacade.WeaponShooterPart;
 public abstract class Weapon extends Entity {
     public WeaponPickUpPart pickUpPart = new WeaponPickUpPart(this);
     public WeaponShooterPart weaponShooterPart = new WeaponShooterPart();
-    public Weapon(EntityType entityType, String spritePath, int x, int y) {
-        super(entityType, spritePath, x, y, 1);
+    public Weapon(EntityType entityType, String spritePath, float x, float y) {
+        super(entityType, spritePath, x, y, 100);
     }
     public void pickUp(){
         System.out.println("weapon picked up!");
