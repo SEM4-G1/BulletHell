@@ -4,4 +4,7 @@ module Core {
     requires java.desktop;
     requires com.badlogic.gdx;
     requires Weapon;
+    requires Obstacle;
+    uses dk.sdu.group.one.map.MapService;
+    uses dk.sdu.group.one.services.LevelService;
 }
