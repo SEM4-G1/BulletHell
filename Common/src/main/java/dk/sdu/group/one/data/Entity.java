@@ -6,14 +6,20 @@ public abstract class Entity {
     String texturePath;
     int x, y;
     float radians;
+    int maxHealth;
+    int currentHealth;
+
 
     EntityType type;
 
-    public Entity(EntityType entityType, String spritePath, int x, int y) {
+    public Entity(EntityType entityType, String spritePath, int x, int y, int maxHealth) {
         this.type = entityType;
         this.texturePath = spritePath;
         this.x = x;
         this.y = y;
+        this.maxHealth = maxHealth;
+        this.currentHealth = this.maxHealth;
+        //TODO rewrite to use lifepart instead of current healthsystem????
     }
 
     public EntityType getType() {
@@ -43,5 +49,38 @@ public abstract class Entity {
     public abstract void process(EntityManager entityManager);
 
     public abstract void start(MapService mapService, EntityManager entityList);
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+        if(getCurrentHealth()>maxHealth){
+            setCurrentHealth(maxHealth);
+        }
+    }
+
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
+
+    public void setCurrentHealth(int currentHealth) {
+        this.currentHealth = currentHealth;
+    }
+
+    public void takeDamage(int amount){
+        this.currentHealth -= amount;
+        if(getCurrentHealth() < 1){
+            //dies
+        }
+    }
+
+    public void heal(int amount){
+        this.currentHealth += amount;
+        if(getCurrentHealth() > getMaxHealth()){
+            setCurrentHealth(getMaxHealth());
+        }
+    }
 
 }
