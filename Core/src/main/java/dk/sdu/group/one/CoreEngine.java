@@ -2,11 +2,8 @@ package dk.sdu.group.one;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-<<<<<<< HEAD
-=======
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
->>>>>>> 102cc59 (shooting works)
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
