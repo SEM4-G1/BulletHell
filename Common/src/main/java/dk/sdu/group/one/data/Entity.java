@@ -89,4 +89,5 @@ public abstract class Entity {
         }
     }
 
+    public abstract void Start(MapService mapService, EntityManager entityManager);
 }
