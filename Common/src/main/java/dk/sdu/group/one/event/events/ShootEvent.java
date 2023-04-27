@@ -7,6 +7,6 @@ public class ShootEvent extends Event {
     public EntityManager entityManager;
     public ShootEvent(EventType eventType, String msg, EntityManager entityManager) {
         super(eventType, msg);
-
+        this.entityManager = entityManager;
     }
 }

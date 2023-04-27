@@ -21,6 +21,9 @@ public class EventBroker{
 
     public <T extends Event> void publish(T event, EventType eventType) {
         events.put(eventType, event);
+        for (EventProcessor<? extends Event> subscriber : subscribers.get(eventType)) {
+            ((EventProcessor<T>) subscriber).handleEvent(event);
+        }
     }
 
     public EventBroker() {

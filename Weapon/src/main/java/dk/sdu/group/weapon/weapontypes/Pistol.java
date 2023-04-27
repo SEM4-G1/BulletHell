@@ -11,20 +11,19 @@ import dk.sdu.group.one.map.MapService;
 import dk.sdu.group.weapon.weaponfacade.WeaponShooterPart;
 
 import java.util.Scanner;
+import java.util.ServiceLoader;
 
 public class Pistol extends Weapon {
+    boolean testFlag = false;
     public static final String spritePath = "gun.png";
     public Pistol(EntityType entityType, float x, float y) {
         super(entityType, spritePath, x, y);
+        this.bulletService = ServiceLoader.load(BulletService.class).findFirst().get();
+        System.out.println("found" + this.bulletService);
     }
 
     @Override
     public void process(EntityManager entityManager, double dt) {
-        Scanner scanner = new Scanner(System.in);
-        if (scanner.nextInt() == 1){
-            this.pickUp();
-            EventBroker.getInstance().publish(new ShootEvent(EventType.ShootEvent, "pistol shooting", entityManager), EventType.ShootEvent);
-        }
     }
 
     @Override
