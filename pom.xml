@@ -15,6 +15,7 @@
         <module>Player</module>
         <module>Weapon</module>
         <module>Bullet</module>
+        <module>Map</module>
     </modules>
     <properties>
         <java>java</java>

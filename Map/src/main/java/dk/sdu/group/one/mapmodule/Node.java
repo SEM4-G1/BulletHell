@@ -1,4 +1,4 @@
-package dk.sdu.group.one;
+package dk.sdu.group.one.mapmodule;
 
 import java.util.ArrayList;
 import java.util.Collections;

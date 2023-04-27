@@ -9,7 +9,6 @@ public abstract class Entity {
     int maxHealth;
     int currentHealth;
 
-
     EntityType type;
 
     public Entity(EntityType entityType, String spritePath, float x, float y, int maxHealth) {

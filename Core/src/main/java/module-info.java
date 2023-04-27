@@ -4,4 +4,5 @@ module Core {
     requires java.desktop;
     requires com.badlogic.gdx;
     requires Weapon;
+    requires Map;
 }

@@ -1,12 +1,8 @@
-package dk.sdu.group.one;
+package dk.sdu.group.one.mapmodule;
 
 import dk.sdu.group.one.map.MapService;
 
-import java.sql.Time;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-
-import static dk.sdu.group.one.Node.printPath;
+import static dk.sdu.group.one.mapmodule.Node.printPath;
 
 public class Map extends MapService{
     int width = 30;
@@ -30,11 +26,4 @@ public class Map extends MapService{
         Node res = Node.aStar(start, target, grid);
         printPath(res, grid);
     }
-
-    public static void main(String[] args) {
-        Map map = new Map();
-        //map.printMap();
-    }
-
-
 }
