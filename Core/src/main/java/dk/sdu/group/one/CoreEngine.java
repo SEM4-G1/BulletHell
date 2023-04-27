@@ -2,19 +2,24 @@ package dk.sdu.group.one;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
+import dk.sdu.group.one.player.Player;
 
 
 public class CoreEngine extends ApplicationAdapter {
     SpriteBatch batch;
     EntityManager entityManager;
 
+    TextureCache textureCache;
+
     @Override
     public void create() {
         this.entityManager = new EntityManager();
+        this.textureCache = new TextureCache();
+        Player player = new Player("player.png", 5, 5);
+        entityManager.addEntity(player);
         batch = new SpriteBatch();
 //        img = new Texture(Gdx.files.internal("assets/test.jpg"));
     }
@@ -27,9 +32,8 @@ public class CoreEngine extends ApplicationAdapter {
         batch.begin();
 
         for (Entity entity : entityManager.getEntityList()) {
-            System.out.println(entity.getTexturePath());
             batch.draw(
-                    new Texture(Gdx.files.internal("assets/" + entity.getTexturePath())),
+                    textureCache.loadTexture(entity.getTexturePath()),
                     entity.getX(),
                     entity.getY());
         }
