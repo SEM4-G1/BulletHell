@@ -11,8 +11,7 @@ public abstract class Enemy extends Entity{
     }
 
     @Override
-    public void process(EntityManager entityManager){
-
+    public void process(EntityManager entityManager, double dt){
 
     }
     @Override

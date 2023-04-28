@@ -1,8 +1,8 @@
 package dk.sdu.group.one.mapmodule;
 
 import dk.sdu.group.one.map.MapService;
+import dk.sdu.group.one.map.Node;
 
-import static dk.sdu.group.one.mapmodule.Node.printPath;
 
 public class Map extends MapService{
     int width = 30;
@@ -21,9 +21,5 @@ public class Map extends MapService{
                 }
             }
         }
-        Node start = grid[0][0];
-        Node target = grid[width-1][height-1];
-        Node res = Node.aStar(start, target, grid);
-        printPath(res, grid);
     }
 }

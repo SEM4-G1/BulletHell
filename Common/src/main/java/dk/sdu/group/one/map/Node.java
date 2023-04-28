@@ -1,4 +1,4 @@
-package dk.sdu.group.one.mapmodule;
+package dk.sdu.group.one.map;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +25,7 @@ public class Node implements Comparable<Node> {
     int xPos;
     int yPos;
 
-    Node(boolean isObstacle, int xPos, int yPos) {
+    public Node(boolean isObstacle, int xPos, int yPos) {
         this.yPos = yPos;
         this.xPos = xPos;
         this.isObstacle = isObstacle;
@@ -39,15 +39,7 @@ public class Node implements Comparable<Node> {
         neighbors.add(newEdge);
     }
 
-    public static class Edge {
-        Edge(double weight, Node node) {
-            this.weight = weight;
-            this.node = node;
-        }
 
-        public double weight;
-        public Node node;
-    }
 
     @Override
     public int compareTo(Node n) {
@@ -118,7 +110,6 @@ public class Node implements Comparable<Node> {
         }
     }
 
-
         public static Node aStar (Node start, Node target, Node[][]grid){
             PriorityQueue<Node> closedList = new PriorityQueue<>();
             PriorityQueue<Node> openList = new PriorityQueue<>();
@@ -132,7 +123,7 @@ public class Node implements Comparable<Node> {
                     return n;
                 }
                 n.calculateEdges(grid);
-                for (Node.Edge edge : n.neighbors) {
+                for (Edge edge : n.neighbors) {
                     Node m = edge.node;
                     double totalWeight = n.g + edge.weight;
 

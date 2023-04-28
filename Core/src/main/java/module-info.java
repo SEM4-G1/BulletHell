@@ -5,4 +5,5 @@ module Core {
     requires com.badlogic.gdx;
     requires Weapon;
     requires Map;
+    requires Enemy;
 }
