@@ -16,7 +16,7 @@
         <module>Weapon</module>
         <module>Bullet</module>
         <module>Map</module>
-        <module>Enemy</module>
+        <module>Obstacle</module>
     </modules>
     <properties>
         <java>java</java>

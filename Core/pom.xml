@@ -15,8 +15,6 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
     <repositories>
@@ -35,6 +33,11 @@
         <dependency>
             <groupId>dk.sdu.group.one</groupId>
             <artifactId>Common</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>dk.sdu.group.one</groupId>
+            <artifactId>Obstacle</artifactId>
             <version>1.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -95,6 +98,14 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>10</source>
+                    <target>10</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>

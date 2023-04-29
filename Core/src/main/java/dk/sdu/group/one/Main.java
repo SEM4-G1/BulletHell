@@ -10,8 +10,8 @@ public class Main {
 
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setTitle("Asteroids");
-        config.setWindowSizeLimits(1000,600,1000,600);
-
+        config.setWindowSizeLimits(1980,1080,1980,1980);
+        config.setWindowedMode(1980, 1080);
         new Lwjgl3Application(new CoreEngine(), config);
     }
 
