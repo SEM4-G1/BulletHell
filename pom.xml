@@ -17,6 +17,7 @@
         <module>Bullet</module>
         <module>Map</module>
         <module>Obstacle</module>
+        <module>AI_AStar</module>
     </modules>
     <properties>
         <java>java</java>

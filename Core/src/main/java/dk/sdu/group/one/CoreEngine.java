@@ -2,7 +2,6 @@ package dk.sdu.group.one;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,15 +9,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
 import dk.sdu.group.one.enemy.enemytypes.Melee;
-import dk.sdu.group.one.mapmodule.Map;
 import dk.sdu.group.one.player.Player;
-import dk.sdu.group.one.enemy.Enemy;
 
-import dk.sdu.group.one.player.Player;
 import dk.sdu.group.one.rock.Rock;
 import dk.sdu.group.one.services.LevelService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ServiceLoader;
 
@@ -27,7 +22,6 @@ public class CoreEngine extends ApplicationAdapter {
     SpriteBatch batch;
     EntityManager entityManager;
     Texture mapTexture;
-    Map map = new Map();
 
     Texture currentMap;
     LevelService mapProvider;
@@ -41,15 +35,12 @@ public class CoreEngine extends ApplicationAdapter {
     public void create() {
         this.textureCache = new TextureCache();
         Player player = new Player("player.png", 5, 5);
-        Enemy enemy = new Melee("bullet.png", 10,10, map);
-        //entityManager.addEntity(player);
-        entityManager.addEntity(enemy);
+        //entityManager.addEntity(player)
         this.currentMap = textureCache.loadTexture(mapProvider.getCurrentLevel().getMapAsset());
         this.entityManager = new EntityManager();
 
         startEntities();
         batch = new SpriteBatch();
-        mapTexture = new Texture("assets/"+map.texture);
         //TODO this is a wonky way of loading map, so it should be changed to be more clean
 //        img = new Texture(Gdx.files.internal("assets/test.jpg"));
 
@@ -87,6 +78,7 @@ public class CoreEngine extends ApplicationAdapter {
         batch.dispose();
 //        img.dispose();
     }
+
     private void setUpCamera(){
         int width = 1980;
         int height = 1080;

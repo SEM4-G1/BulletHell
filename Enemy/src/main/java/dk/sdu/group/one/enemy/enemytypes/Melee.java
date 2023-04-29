@@ -1,14 +1,16 @@
 package dk.sdu.group.one.enemy.enemytypes;
 
+import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
-import dk.sdu.group.one.enemy.Enemy;
+import dk.sdu.group.one.data.EntityType;
+import dk.sdu.group.one.map.Coordinate;
 import dk.sdu.group.one.map.MapService;
 
-public class Melee extends Enemy {
-    MapService mapService;
-    public Melee(String spritePath, int x, int y, MapService mapService) {
-        super(spritePath, x, y, mapService);
-        this.mapService = mapService;
+public class Melee extends Entity {
+    private static String spritePath ="enemy.png";
+
+    public Melee() {
+        super(EntityType.ENEMY,spritePath, 1.0f, 1.0f, 100);
     }
 
     @Override
@@ -17,6 +19,11 @@ public class Melee extends Enemy {
 
     @Override
     public void start(MapService mapService, EntityManager entityList) {
-        System.out.println("start");
+        Melee melee = new Melee();
+        Coordinate coordinate = new Coordinate((int)(Math.random()*mapService.getHeight()),(int)(Math.random()*mapService.getWidth()) );
+        while (mapService.getObstaclePositions().contains(coordinate))
+        melee.setX(coordinate.getX());
+        melee.setY(coordinate.getY());
+        entityList.addEntity(melee);
     }
 }

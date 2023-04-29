@@ -9,17 +9,7 @@
         <version>1.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>Enemy</artifactId>
-    <packaging>jar</packaging>
     <name>Enemy</name>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.1</version>
-            </plugin>
-        </plugins>
-    </build>
     <dependencies>
         <dependency>
             <groupId>dk.sdu.group.one</groupId>
@@ -27,5 +17,4 @@
             <version>1.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
-
 </project>

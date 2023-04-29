@@ -25,9 +25,4 @@ public class Player extends Entity {
     public void start(MapService mapService, EntityManager entityManager) {
         entityManager.addEntity(new Player(spritePath, 100, 100));
     }
-
-    @Override
-    public void Start(MapService mapService, EntityManager entityManager) {
-
-    }
 }

@@ -1,7 +1,7 @@
-package dk.sdu.group.one.map;
+package dk.sdu.group.one.ai_astar;
 
 public class Edge {
-    Edge(double weight, Node node) {
+    public Edge(double weight, Node node) {
         this.weight = weight;
         this.node = node;
     }

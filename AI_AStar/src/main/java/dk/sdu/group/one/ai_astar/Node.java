@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:Common/src/main/java/dk/sdu/group/one/map/Node.java
-package dk.sdu.group.one.map;
-========
-package dk.sdu.group.one.mapimplementations;
->>>>>>>> origin/obstacle:Map/src/main/java/dk/sdu/group/one/mapimplementations/Node.java
+package dk.sdu.group.one.ai_astar;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -114,7 +110,7 @@ public class Node implements Comparable<Node> {
         }
     }
 
-        public static Node aStar (Node start, Node target, Node[][]grid){
+        public Node aStar (Node start, Node target, Node[][]grid){
             PriorityQueue<Node> closedList = new PriorityQueue<>();
             PriorityQueue<Node> openList = new PriorityQueue<>();
 
@@ -156,7 +152,7 @@ public class Node implements Comparable<Node> {
             return null;
         }
 
-        public static void printPath (Node target, Node[][]grid){
+        public void printPath (Node target, Node[][]grid){
             Node n = target;
 
             if (n == null)
