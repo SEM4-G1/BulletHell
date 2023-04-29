@@ -43,9 +43,4 @@ public class PistolBullet extends Entity implements BulletService {
     public void start(MapService mapService, EntityManager entityList) {
 
     }
-
-    @Override
-    public void Start(MapService mapService, EntityManager entityManager) {
-
-    }
 }

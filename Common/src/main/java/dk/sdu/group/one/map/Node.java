@@ -110,7 +110,7 @@ public class Node implements Comparable<Node> {
         }
     }
 
-        public static Node aStar (Node start, Node target, Node[][]grid){
+        public Node aStar (Node start, Node target, Node[][]grid){
             PriorityQueue<Node> closedList = new PriorityQueue<>();
             PriorityQueue<Node> openList = new PriorityQueue<>();
 

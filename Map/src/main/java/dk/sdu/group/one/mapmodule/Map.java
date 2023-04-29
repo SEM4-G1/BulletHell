@@ -8,7 +8,6 @@ public class Map extends MapService{
     int width = 30;
     int height = 30;
 
-    Node[][] grid;
     public Map(){
         grid = new Node[width][height];
         for (int i = 0; i < width; i++) {
