@@ -19,4 +19,7 @@ public abstract class MapService {
     public void setObstaclePositions(List<int[]> obstaclePositions){
         this.obstaclePositions = obstaclePositions;
     }
+    public String texture = new String("test.jpg");
+    public Node[][] grid;
+
 }

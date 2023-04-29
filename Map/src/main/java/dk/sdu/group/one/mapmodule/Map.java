@@ -19,7 +19,6 @@ public class Map extends MapService {
     int width = 30;
     int height = 30;
 
-    Node[][] grid;
     public Map(){
         List<int[]> obstaclePositions = new ArrayList<int[]>();
         super.setMapAsset("map.jpg");

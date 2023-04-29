@@ -95,5 +95,4 @@ public abstract class Entity {
     public void setY(float y) {
         this.y = y;
     }
-    public abstract void Start(MapService mapService, EntityManager entityManager);
 }

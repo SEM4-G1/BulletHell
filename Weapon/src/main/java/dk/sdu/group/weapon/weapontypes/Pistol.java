@@ -31,9 +31,4 @@ public class Pistol extends Weapon {
         EventBroker.getInstance().subscribe(EventType.PickUpEvent, pistol.pickUpPart);
         entityList.addEntity(pistol);
     }
-
-    @Override
-    public void Start(MapService mapService, EntityManager entityManager) {
-
-    }
 }

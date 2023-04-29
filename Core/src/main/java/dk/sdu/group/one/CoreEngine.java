@@ -41,7 +41,7 @@ public class CoreEngine extends ApplicationAdapter {
     public void create() {
         this.textureCache = new TextureCache();
         Player player = new Player("player.png", 5, 5);
-        Enemy enemy = new Melee("bullet.png", 10,10);
+        Enemy enemy = new Melee("bullet.png", 10,10, map);
         //entityManager.addEntity(player);
         entityManager.addEntity(enemy);
         this.currentMap = textureCache.loadTexture(mapProvider.getCurrentLevel().getMapAsset());
@@ -65,6 +65,7 @@ public class CoreEngine extends ApplicationAdapter {
         batch.draw(mapTexture, 0,0);
         batch.draw(currentMap, 0, 0);
         for (Entity entity : entityManager.getEntityList()) {
+            entity.process(entityManager,1);
             //System.out.println(entity.getTexturePath());
             batch.draw(
                     textureCache.loadTexture(entity.getTexturePath()),
