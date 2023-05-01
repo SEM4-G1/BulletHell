@@ -26,12 +26,12 @@ public class Melee extends Entity {
         
         for (int i = 0; i < 30; i++) {
 
-
             Melee melee = new Melee();
-
-            Coordinate coordinate = new Coordinate((int)(Math.random()*mapService.getWidth()),(int)(Math.random()*mapService.getHeight()), true);
+            Coordinate coordinate = new Coordinate((int)(Math.random()*mapService.getWidth()),(int)(Math.random()*mapService.getHeight()));
             while (mapService.getObstaclePositions().contains(coordinate)){
-
+                System.out.println("------------------");
+                System.out.println(coordinate);
+                System.out.println(melee.hashCode());
                 coordinate.setX((int)Math.floor((Math.random()*mapService.getWidth())));
                 coordinate.setY((int)Math.floor((Math.random()*mapService.getHeight())));
             }

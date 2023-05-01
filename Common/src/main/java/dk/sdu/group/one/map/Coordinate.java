@@ -39,11 +39,6 @@ public class Coordinate {
         if (!(o instanceof Coordinate)) {
             return false;
         }
-        System.out.println("---------------");
-        System.out.println(this.x);
-        System.out.println(((Coordinate) o).getX());
-        System.out.println(this.y);
-        System.out.println(((Coordinate) o).getY());
         return this.x == ((Coordinate) o).getX() && this.y == ((Coordinate) o).getY();
     }
 
@@ -51,4 +46,10 @@ public class Coordinate {
     public int hashCode() {
         return 100*x+y;
     }
+
+    @Override
+    public String toString(){
+        return "x: "+x+ ", y: "+ y+ ", hash: "+hashCode();
+    }
+
 }

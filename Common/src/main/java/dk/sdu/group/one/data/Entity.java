@@ -95,4 +95,9 @@ public abstract class Entity {
     public void setY(float y) {
         this.y = y;
     }
+
+    @Override
+    public String toString(){
+        return this.getClass()+ ", x: "+ getX() + ", y: " +getY() + ", coordinate hash:"+ this.hashCode();
+    }
 }
