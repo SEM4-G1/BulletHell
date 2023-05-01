@@ -18,6 +18,7 @@
         <module>Map</module>
         <module>Obstacle</module>
         <module>AI_AStar</module>
+        <module>Enemy</module>
     </modules>
     <properties>
         <java>java</java>
