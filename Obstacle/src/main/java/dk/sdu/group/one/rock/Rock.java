@@ -22,7 +22,7 @@ public class Rock extends Entity{
     @Override
     public void start(MapService mapService, EntityManager entityList) {
         for (Coordinate coordinate : mapService.getObstaclePositions()) {
-            double cellWidth = 1980/mapService.getWidth();
+            double cellWidth = 1920/mapService.getWidth();
             double cellHeight = 1080/mapService.getHeight();
             int x = coordinate.getX() * (int) cellWidth;
             int y = coordinate.getY() * (int) cellHeight;

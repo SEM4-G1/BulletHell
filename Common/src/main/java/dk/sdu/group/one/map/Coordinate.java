@@ -26,12 +26,25 @@ public class Coordinate {
         return y;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Coordinate)) {
             return false;
         }
-        return x == ((Coordinate) o).x && y == ((Coordinate) o).y;
+        System.out.println("---------------");
+        System.out.println(this.x);
+        System.out.println(((Coordinate) o).getX());
+        System.out.println(this.y);
+        System.out.println(((Coordinate) o).getY());
+        return this.x == ((Coordinate) o).getX() && this.y == ((Coordinate) o).getY();
     }
 
     @Override

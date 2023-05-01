@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
 import dk.sdu.group.one.enemy.enemytypes.Melee;
+import dk.sdu.group.one.map.Coordinate;
 import dk.sdu.group.one.player.Player;
 
 import dk.sdu.group.one.rock.Rock;
@@ -80,7 +81,7 @@ public class CoreEngine extends ApplicationAdapter {
     }
 
     private void setUpCamera(){
-        int width = 1980;
+        int width = 1920;
         int height = 1080;
         this.camera = new OrthographicCamera(width, height);
         this.camera.translate(width / 2.0f, height / 2.0f);
