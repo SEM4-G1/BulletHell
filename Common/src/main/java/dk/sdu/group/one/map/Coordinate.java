@@ -36,15 +36,18 @@ public class Coordinate {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Coordinate)) {
-            return false;
+        if (o instanceof Coordinate coordinate) {
+            System.out.println("Comparing: "+ this +" with: "+ coordinate);
+            return this.x == coordinate.getX() && this.y == coordinate.getY();
         }
-        return this.x == ((Coordinate) o).getX() && this.y == ((Coordinate) o).getY();
+        return false;
     }
 
     @Override
     public int hashCode() {
-        return 100*x+y;
+        int a = x;
+        int b = y;
+        return 100*a+b;
     }
 
     @Override

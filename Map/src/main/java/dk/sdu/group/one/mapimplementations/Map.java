@@ -25,7 +25,7 @@ public class Map extends MapService {
 
     public Map(){
         HashSet<Coordinate> obstaclePositions = new HashSet<>();
-        super.setMapAsset("black.jpg");
+        super.setMapAsset("map.jpg");
         grid = new HashSet<>();
         for (int i = 0; i < width; i++) {
             for (int j = 0; j <height; j++) {

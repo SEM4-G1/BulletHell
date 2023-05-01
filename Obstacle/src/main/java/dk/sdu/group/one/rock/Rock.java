@@ -8,10 +8,10 @@ import dk.sdu.group.one.map.MapService;
 public class Rock extends Entity{
     private static final String spritePath = "rock.png";
     public Rock() {
-        super(EntityType.OBSTACLE, spritePath, 1, 1);
+        super(EntityType.OBSTACLE, spritePath, 0.0f, 0.0f);
     }
 
-    public Rock(EntityType type, int x, int y) {
+    public Rock(EntityType type, float x, float y) {
         super(type, spritePath, x, y);
     }
     @Override
@@ -21,12 +21,15 @@ public class Rock extends Entity{
 
     @Override
     public void start(MapService mapService, EntityManager entityList) {
+        float cellWidth = (1980.0f/mapService.getWidth());
+        float cellHeight = (1080.0f/mapService.getHeight());
+        System.out.println("Rock: Cell width: " + cellWidth + ", Cell height: " + cellHeight);
         for (Coordinate coordinate : mapService.getObstaclePositions()) {
-            double cellWidth = 1920/mapService.getWidth();
-            double cellHeight = 1080/mapService.getHeight();
-            int x = coordinate.getX() * (int) cellWidth;
-            int y = coordinate.getY() * (int) cellHeight;
+
+            float x = coordinate.getX() * cellWidth;
+            float y = coordinate.getY() * cellHeight;
             entityList.addEntity(new Rock(EntityType.OBSTACLE, x, y));
+            System.out.println("Rock added at: " + x + ", " + y + "(" + coordinate.getX() + ", " + coordinate.getY() + ")" + "hashcode:" +  this.hashCode());
         }
     }
 }
