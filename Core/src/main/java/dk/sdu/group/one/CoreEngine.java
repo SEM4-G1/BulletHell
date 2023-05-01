@@ -53,7 +53,7 @@ public class CoreEngine extends ApplicationAdapter {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT |  GL20.GL_DEPTH_BUFFER_BIT );
         batch.begin();
-        batch.draw(mapTexture, 0,0);
+       // batch.draw(mapTexture, 0,0);
         batch.draw(currentMap, 0, 0);
         for (Entity entity : entityManager.getEntityList()) {
             entity.process(entityManager,1);

@@ -13,7 +13,15 @@ public class Map extends MapService {
     int height = 30;
 
 
+    @Override
+    public int getWidth() {
+        return width;
+    }
 
+    @Override
+    public int getHeight() {
+        return height;
+    }
 
     public Map(){
         HashSet<Coordinate> obstaclePositions = new HashSet<>();

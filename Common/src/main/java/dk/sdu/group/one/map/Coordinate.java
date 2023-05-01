@@ -36,7 +36,6 @@ public class Coordinate {
 
     @Override
     public int hashCode() {
-        int shifted_x = x<<7;
-        return shifted_x^y;
+        return 100*x+y;
     }
 }
