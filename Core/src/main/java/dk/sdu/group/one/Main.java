@@ -13,13 +13,6 @@ import java.io.PrintStream;
 public class Main {
 
     public static void main(String[] args) {
-        try {
-            File file = new File("log.txt");
-            file.createNewFile();
-            System.setOut(new PrintStream("log.txt"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setTitle("Asteroids");
         config.setWindowSizeLimits(1920,1080,1920,1080);
@@ -27,4 +20,13 @@ public class Main {
         new Lwjgl3Application(new CoreEngine(), config);
     }
 
+    private static void useBasedAndRedPilledLoggingSystem() {
+        try {
+            File file = new File("log.txt");
+            file.createNewFile();
+            System.setOut(new PrintStream("log.txt"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

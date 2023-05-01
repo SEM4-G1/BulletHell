@@ -23,13 +23,11 @@ public class Rock extends Entity{
     public void start(MapService mapService, EntityManager entityList) {
         float cellWidth = (1980.0f/mapService.getWidth());
         float cellHeight = (1080.0f/mapService.getHeight());
-        System.out.println("Rock: Cell width: " + cellWidth + ", Cell height: " + cellHeight);
-        for (Coordinate coordinate : mapService.getObstaclePositions()) {
 
+        for (Coordinate coordinate : mapService.getObstaclePositions()) {
             float x = coordinate.getX() * cellWidth;
             float y = coordinate.getY() * cellHeight;
             entityList.addEntity(new Rock(EntityType.OBSTACLE, x, y));
-            System.out.println("Rock added at: " + x + ", " + y + "(" + coordinate.getX() + ", " + coordinate.getY() + ")" + "hashcode:" +  this.hashCode());
         }
     }
 }
