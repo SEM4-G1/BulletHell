@@ -3,11 +3,13 @@ package dk.sdu.group.one.player;
 import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
 import dk.sdu.group.one.data.EntityType;
+import dk.sdu.group.one.data.Vector2;
 import dk.sdu.group.one.map.MapService;
 
 public class Player extends Entity {
     private static final String spritePath = "player.png";
     private int speed = 100;
+
     public Player(){
         super(EntityType.PLAYER, spritePath, 1, 1);
     }
@@ -17,8 +19,9 @@ public class Player extends Entity {
 
     @Override
     public void process(EntityManager entityManager, double dt) {
-        this.setX((float) (this.getX() + speed*dt));
-        this.setY((float) (this.getY() + speed*dt));
+        System.out.println(this.getX());
+        this.setX(this.getX() + (float)(this.getVelocity().getX() + speed * dt));
+        this.setY(this.getX() + (float)(this.getVelocity().getY() + speed * dt));
     }
 
     @Override
