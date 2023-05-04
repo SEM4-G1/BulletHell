@@ -73,7 +73,9 @@ public class CoreEngine extends ApplicationAdapter {
             batch.draw(
                     textureCache.loadTexture(entity.getTexturePath()),
                     entity.getX(),
-                    entity.getY());
+                    entity.getY(),
+                    20,
+                    20);
         }
         batch.end();
     }

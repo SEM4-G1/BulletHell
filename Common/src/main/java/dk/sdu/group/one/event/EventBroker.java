@@ -24,7 +24,6 @@ public class EventBroker{
         for (EventProcessor<? extends Event> subscriber : subscribers.get(eventType)) {
             ((EventProcessor<T>) subscriber).handleEvent(event);
         }
-        System.out.println(event.logMessage);
     }
 
     public EventBroker() {

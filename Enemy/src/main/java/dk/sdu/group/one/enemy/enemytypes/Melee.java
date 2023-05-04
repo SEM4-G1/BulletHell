@@ -13,10 +13,10 @@ public class Melee extends Entity {
     private static String spritePath ="monster_bies.png";
 
     public Melee() {
-        super(EntityType.ENEMY,spritePath, 0, 0, 100);
+        super(EntityType.ENEMY,spritePath, 0, 0, 100, 20, 20);
     }
     public Melee(float x, float y) {
-        super(EntityType.ENEMY,spritePath, x, y, 100);
+        super(EntityType.ENEMY,spritePath, x, y, 20, 20, 100);
     }
 
     @Override
