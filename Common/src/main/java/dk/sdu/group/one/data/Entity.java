@@ -10,7 +10,7 @@ public abstract class Entity {
     int currentHealth;
 
     // Initialize movement vector as 0,0
-    private Vector2 velocity = new Vector2(1, 0);
+    private Vector2 velocity = new Vector2(0, 0);
 
     EntityType type;
 

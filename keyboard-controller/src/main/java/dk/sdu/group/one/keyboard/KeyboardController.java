@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import dk.sdu.group.one.player.ControllerService;
 
-public class KeyBoardController implements ControllerService {
+public class KeyboardController implements ControllerService {
 
     @Override
     public ControllerScheme getInputs() {
