@@ -68,12 +68,12 @@
                     <executable>${java}</executable>
                     <workingDirectory>.</workingDirectory>
                     <longModulepath>false</longModulepath>
+                    <!-- if os is Mac include argument -XstartOnFirstThread, if not don't include it-->
                     <arguments>
                         <argument>-Dorg.lwjgl.util.Debug=true</argument>
                         <argument>-Djava.library.path=libs</argument>
                         <argument>--module-path=mods-mvn</argument>
                         <argument>--class-path=libs/*</argument>
-                        <argument>-XstartOnFirstThread</argument>
                         <!-- because spark.core is an automatic module and actually required,
                         monitor.observer.zero would be resolved as well and does not need
                         to be added explicitly;
@@ -89,6 +89,28 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>MacOS</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                </os>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <configuration>
+                            <!-- Add macOS specific argument -->
+                            <arguments combine.children="append">
+                                <argument>-XstartOnFirstThread</argument>
+                            </arguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <!-- parent project should delete 'mods-mvn' -->
             <id>parent-project</id>

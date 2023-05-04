@@ -4,10 +4,7 @@ import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
 
 
 public class Main {
@@ -26,7 +23,7 @@ public class Main {
         try {
             File file = new File("log.txt");
             file.createNewFile();
-            System.setOut(new PrintStream("log.txt"));
+            System.setOut(new PrintStream(new FileOutputStream("log.txt")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
