@@ -14,6 +14,7 @@ import dk.sdu.group.one.player.Player;
 
 import dk.sdu.group.one.rock.Rock;
 import dk.sdu.group.one.services.LevelService;
+import dk.sdu.group.one.services.PostProcessingService;
 
 import java.util.List;
 import java.util.ServiceLoader;
@@ -23,19 +24,27 @@ public class CoreEngine extends ApplicationAdapter {
     SpriteBatch batch;
     EntityManager entityManager;
     Texture mapTexture;
-
-    Texture currentMap;
+    PostProcessingService postProcessingService;
+    Texture currentMap[][];
     LevelService mapProvider;
     TextureCache textureCache;
     private OrthographicCamera camera;
     public CoreEngine() {
         mapProvider = ServiceLoader.load(LevelService.class).findFirst().get();
+        postProcessingService = ServiceLoader.load(PostProcessingService.class).findFirst().get();
     }
 
     @Override
     public void create() {
+        currentMap = new Texture[30][30];
         this.textureCache = new TextureCache();
-        this.currentMap = textureCache.loadTexture(mapProvider.getCurrentLevel().getMapAsset());
+        String[][] mapAsset = mapProvider.getCurrentLevel().getMapAsset();
+        for (int i = 0; i < 30; i++) {
+            for (int j = 0; j < 30; j++) {
+                this.currentMap[i][j] = textureCache.loadTexture(mapAsset[i][j]);
+            }
+        }
+        setUpCamera();
         this.entityManager = new EntityManager();
 
         startEntities();
@@ -53,7 +62,11 @@ public class CoreEngine extends ApplicationAdapter {
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT |  GL20.GL_DEPTH_BUFFER_BIT );
         batch.begin();
        // batch.draw(mapTexture, 0,0);
-        batch.draw(currentMap, 0, 0);
+        for (int i = 0; i < 30; i++) {
+            for (int j = 0; j < 30; j++) {
+                batch.draw(currentMap[i][j], i*16, j*16);
+            }
+        }
         for (Entity entity : entityManager.getEntityList()) {
             entity.process(entityManager,1);
             //System.out.println(entity.getTexturePath());
@@ -70,6 +83,8 @@ public class CoreEngine extends ApplicationAdapter {
         entities.forEach(
                 entity -> entity.process(entityManager, Gdx.graphics.getDeltaTime())
         );
+        postProcessingService.postProcess(entityManager);
+
     }
 
     @Override
@@ -87,11 +102,22 @@ public class CoreEngine extends ApplicationAdapter {
     }
 
     private void startEntities(){
-//        Entity entity = new Rock();
-//        entity.start(mapProvider.getCurrentLevel(), entityManager);
+        Entity entity = new Rock();
+        entity.start(mapProvider.getCurrentLevel(), entityManager);
         Entity player = new Player();
         player.start(mapProvider.getCurrentLevel(), entityManager);
-//        Entity enemy = new Melee();
-//        enemy.start(mapProvider.getCurrentLevel(), entityManager);
+        Entity enemy = new Melee();
+        enemy.start(mapProvider.getCurrentLevel(), entityManager);
+        Entity entity1 = new Player("player.png" ,5,5);
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        this.camera.viewportWidth =  width;
+        this.camera.viewportHeight = height;
+        this.camera.update();
+        Gdx.gl.glViewport(0, 0, Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight());
+        System.out.println("Resize");
+
     }
 }

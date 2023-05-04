@@ -3,13 +3,15 @@ package dk.sdu.group.one.player;
 import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
 import dk.sdu.group.one.data.EntityType;
+import dk.sdu.group.one.event.EventProcessor;
+import dk.sdu.group.one.event.events.CollisionEvent;
 import dk.sdu.group.one.data.Vector2;
 import dk.sdu.group.one.player.ControllerService.ControllerScheme;
 import dk.sdu.group.one.map.MapService;
 
 import java.util.ServiceLoader;
 
-public class Player extends Entity {
+public class Player extends Entity implements EventProcessor<CollisionEvent>{
     private static final String spritePath = "player.png";
 
     ControllerService controllerService;
@@ -40,5 +42,10 @@ public class Player extends Entity {
         System.out.println(this.hashCode());
         this.controllerService = ServiceLoader.load(ControllerService.class).findFirst().get();
         entityManager.addEntity(this);
+    }
+
+    @Override
+    public void handleEvent(CollisionEvent event) {
+        System.out.println("I Have collided");
     }
 }
