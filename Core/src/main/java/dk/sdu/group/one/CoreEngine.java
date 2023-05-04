@@ -104,8 +104,8 @@ public class CoreEngine extends ApplicationAdapter {
     }
 
     private void startEntities(){
-        Entity entity = new Rock();
-        entity.start(mapProvider.getCurrentLevel(), entityManager);
+//        Entity entity = new Rock();
+//        entity.start(mapProvider.getCurrentLevel(), entityManager);
         Entity player = new Player();
         player.start(mapProvider.getCurrentLevel(), entityManager);
         Entity enemy = new Melee();
