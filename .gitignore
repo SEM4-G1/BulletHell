@@ -5,6 +5,7 @@ mods-mvn/
 */target/**
 ## Java
 
+log.txt
 *.class
 *.war
 *.ear
