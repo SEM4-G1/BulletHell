@@ -5,17 +5,17 @@ import java.util.List;
 import java.util.Set;
 
 public abstract class MapService {
-    private String mapAsset;
+    private String[][] mapAsset;
 
     int height;
     int width;
 
     private Set<Coordinate> obstaclePositions;
-    public String getMapAsset(){
+    public String[][] getMapAsset(){
         return mapAsset;
     }
 
-    public void setMapAsset(String mapAsset){
+    public void setMapAsset(String[][] mapAsset){
         this.mapAsset = mapAsset;
     }
 

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class Melee extends Entity {
-    private static String spritePath ="wormEnemy.png";
+    private static String spritePath ="monster_bies.png";
 
     public Melee() {
         super(EntityType.ENEMY,spritePath, 0, 0, 100);
@@ -25,8 +25,8 @@ public class Melee extends Entity {
 
     @Override
     public void start(MapService mapService, EntityManager entityList) {
-        float cellWidth = 1980.0f/mapService.getWidth();
-        float cellHeight = 1080.0f/mapService.getHeight();
+        float cellWidth = 480.0f/mapService.getWidth();
+        float cellHeight = 480.0f/mapService.getHeight();
 
         for (int i = 0; i < 30; i++) {
              Coordinate melee_coordinate = new Coordinate((int)(Math.random()*mapService.getWidth()),(int)(Math.random()*mapService.getHeight()));
