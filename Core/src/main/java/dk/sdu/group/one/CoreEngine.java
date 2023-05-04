@@ -15,7 +15,6 @@ import dk.sdu.group.one.player.Player;
 import dk.sdu.group.one.rock.Rock;
 import dk.sdu.group.one.services.LevelService;
 
-import javax.swing.*;
 import java.util.List;
 import java.util.ServiceLoader;
 
@@ -25,7 +24,7 @@ public class CoreEngine extends ApplicationAdapter {
     EntityManager entityManager;
     Texture mapTexture;
 
-    Texture currentMap[][];
+    Texture currentMap;
     LevelService mapProvider;
     TextureCache textureCache;
     private OrthographicCamera camera;
@@ -35,18 +34,8 @@ public class CoreEngine extends ApplicationAdapter {
 
     @Override
     public void create() {
-        this.currentMap = new Texture[30][30];
         this.textureCache = new TextureCache();
-        Player player = new Player("player.png", 5, 5);
-        //entityManager.addEntity(player)
-        String[][] mapAsset = mapProvider.getCurrentLevel().getMapAsset();
-        for (int i = 0; i < 30; i++) {
-            for (int j = 0; j < 30; j++) {
-                this.currentMap[i][j] = textureCache.loadTexture(mapAsset[i][j]);
-            }
-        }
-        setUpCamera();
-
+        this.currentMap = textureCache.loadTexture(mapProvider.getCurrentLevel().getMapAsset());
         this.entityManager = new EntityManager();
 
         startEntities();
@@ -64,21 +53,15 @@ public class CoreEngine extends ApplicationAdapter {
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT |  GL20.GL_DEPTH_BUFFER_BIT );
         batch.begin();
        // batch.draw(mapTexture, 0,0);
-        for (int i = 0; i < 30; i++) {
-            for (int j = 0; j < 30; j++) {
-                batch.draw(currentMap[i][j], i*16, j*16);
-            }
-        }
-
-        for (int i = entityManager.getEntityList().size()-1; i >=0 ; i--) {
-            entityManager.getEntityList().get(i).process(entityManager,1);
+        batch.draw(currentMap, 0, 0);
+        for (Entity entity : entityManager.getEntityList()) {
+            entity.process(entityManager,1);
             //System.out.println(entity.getTexturePath());
             batch.draw(
-                    textureCache.loadTexture(entityManager.getEntityList().get(i).getTexturePath()),
-                    entityManager.getEntityList().get(i).getX(),
-                    entityManager.getEntityList().get(i).getY());
+                    textureCache.loadTexture(entity.getTexturePath()),
+                    entity.getX(),
+                    entity.getY());
         }
-
         batch.end();
     }
 
@@ -96,28 +79,19 @@ public class CoreEngine extends ApplicationAdapter {
     }
 
     private void setUpCamera(){
-        int width = 480;
-        int height = 480;
+        int width = 1920;
+        int height = 1080;
         this.camera = new OrthographicCamera(width, height);
-        //this.camera.translate(width / 2.0f, height / 2.0f);
+        this.camera.translate(width / 2.0f, height / 2.0f);
         camera.update();
     }
 
     private void startEntities(){
-        Entity entity = new Rock();
-        entity.start(mapProvider.getCurrentLevel(), entityManager);
+//        Entity entity = new Rock();
+//        entity.start(mapProvider.getCurrentLevel(), entityManager);
         Entity player = new Player();
         player.start(mapProvider.getCurrentLevel(), entityManager);
-        Entity enemy = new Melee();
-        enemy.start(mapProvider.getCurrentLevel(), entityManager);
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        this.camera.viewportWidth =  width;
-        this.camera.viewportHeight = height;
-        this.camera.update();
-        Gdx.gl.glViewport(0, 0, Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight());
-        System.out.println("Resize");
+//        Entity enemy = new Melee();
+//        enemy.start(mapProvider.getCurrentLevel(), entityManager);
     }
 }

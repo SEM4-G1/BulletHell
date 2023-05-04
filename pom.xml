@@ -19,6 +19,7 @@
         <module>Obstacle</module>
         <module>AI_AStar</module>
         <module>Enemy</module>
+        <module>keyboard-controller</module>
     </modules>
     <properties>
         <java>java</java>
