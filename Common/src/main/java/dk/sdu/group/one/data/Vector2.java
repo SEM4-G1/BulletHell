@@ -3,6 +3,7 @@ package dk.sdu.group.one.data;
 public class Vector2 {
     private float x, y;
 
+    // Inspired by Unity
     public static Vector2 left = new Vector2(-1, 0);
     public static Vector2 right = new Vector2(1, 0);
     public static Vector2 up = new Vector2(0, 1);
