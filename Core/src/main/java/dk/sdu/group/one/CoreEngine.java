@@ -14,6 +14,7 @@ import dk.sdu.group.one.player.Player;
 
 import dk.sdu.group.one.rock.Rock;
 import dk.sdu.group.one.services.LevelService;
+import dk.sdu.group.one.services.PostProcessingService;
 
 import javax.swing.*;
 import java.util.List;
@@ -24,13 +25,14 @@ public class CoreEngine extends ApplicationAdapter {
     SpriteBatch batch;
     EntityManager entityManager;
     Texture mapTexture;
-
+    PostProcessingService postProcessingService;
     Texture currentMap[][];
     LevelService mapProvider;
     TextureCache textureCache;
     private OrthographicCamera camera;
     public CoreEngine() {
         mapProvider = ServiceLoader.load(LevelService.class).findFirst().get();
+        postProcessingService = ServiceLoader.load(PostProcessingService.class).findFirst().get();
     }
 
     @Override
@@ -38,7 +40,7 @@ public class CoreEngine extends ApplicationAdapter {
         this.currentMap = new Texture[30][30];
         this.textureCache = new TextureCache();
         Player player = new Player("player.png", 5, 5);
-        //entityManager.addEntity(player)
+        //entityManager.addEntity(player);
         String[][] mapAsset = mapProvider.getCurrentLevel().getMapAsset();
         for (int i = 0; i < 30; i++) {
             for (int j = 0; j < 30; j++) {
@@ -87,6 +89,8 @@ public class CoreEngine extends ApplicationAdapter {
         entities.forEach(
                 entity -> entity.process(entityManager, Gdx.graphics.getDeltaTime())
         );
+        postProcessingService.postProcess(entityManager);
+
     }
 
     @Override
@@ -110,6 +114,10 @@ public class CoreEngine extends ApplicationAdapter {
         player.start(mapProvider.getCurrentLevel(), entityManager);
         Entity enemy = new Melee();
         enemy.start(mapProvider.getCurrentLevel(), entityManager);
+        Entity entity1 = new Player("player.png" ,5,5);
+        entity1.start(mapProvider.getCurrentLevel(), entityManager);
+        Entity entity2 = new Player("player.png" ,5,5);
+        entity2.start(mapProvider.getCurrentLevel(), entityManager);
     }
 
     @Override

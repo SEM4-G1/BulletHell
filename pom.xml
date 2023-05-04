@@ -19,6 +19,7 @@
         <module>Obstacle</module>
         <module>AI_AStar</module>
         <module>Enemy</module>
+        <module>Collision</module>
     </modules>
     <properties>
         <java>java</java>

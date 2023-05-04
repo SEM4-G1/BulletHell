@@ -3,11 +3,13 @@ package dk.sdu.group.one.player;
 import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
 import dk.sdu.group.one.data.EntityType;
+import dk.sdu.group.one.event.EventProcessor;
+import dk.sdu.group.one.event.events.CollisionEvent;
 import dk.sdu.group.one.map.MapService;
 
-public class Player extends Entity {
+public class Player extends Entity implements EventProcessor<CollisionEvent> {
     private static final String spritePath = "player.png";
-    private int speed = 100;
+    private int speed = 2;
     public Player(){
         super(EntityType.PLAYER, spritePath, 1, 1);
     }
@@ -24,5 +26,10 @@ public class Player extends Entity {
     @Override
     public void start(MapService mapService, EntityManager entityManager) {
         entityManager.addEntity(new Player(spritePath, 100, 100));
+    }
+
+    @Override
+    public void handleEvent(CollisionEvent event) {
+        System.out.println("I Have collided");
     }
 }
