@@ -11,7 +11,7 @@ import dk.sdu.group.one.map.MapService;
 
 import java.util.ServiceLoader;
 
-public class Player extends Entity {
+public class Player extends Entity implements EventProcessor<CollisionEvent>{
     private static final String spritePath = "player.png";
 
     ControllerService controllerService;

@@ -8,6 +8,9 @@ import dk.sdu.group.one.services.PostProcessingService;
 import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
 
+import java.security.Timestamp;
+import java.util.Date;
+
 public class squaredCollision implements PostProcessingService {
 
     public squaredCollision() {
@@ -23,7 +26,7 @@ public class squaredCollision implements PostProcessingService {
                 if(isColliding(entity1, entity2)) {
                     EventBroker.getInstance().publish(new CollisionEvent(
                             entity1, entity2,
-                                    EventType.Collision, entity1.toString() + " has collided with " + entity2.toString()),
+                                    EventType.Collision, System.currentTimeMillis() + " " +entity1.toString() + " has collided with " + entity2.toString()),
                             EventType.Collision);
                 }
             }

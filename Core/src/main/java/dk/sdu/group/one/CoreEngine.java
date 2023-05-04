@@ -36,6 +36,7 @@ public class CoreEngine extends ApplicationAdapter {
 
     @Override
     public void create() {
+        currentMap = new Texture[30][30];
         this.textureCache = new TextureCache();
         String[][] mapAsset = mapProvider.getCurrentLevel().getMapAsset();
         for (int i = 0; i < 30; i++) {
@@ -61,7 +62,11 @@ public class CoreEngine extends ApplicationAdapter {
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT |  GL20.GL_DEPTH_BUFFER_BIT );
         batch.begin();
        // batch.draw(mapTexture, 0,0);
-        batch.draw(currentMap, 0, 0);
+        for (int i = 0; i < 30; i++) {
+            for (int j = 0; j < 30; j++) {
+                batch.draw(currentMap[i][j], i*16, j*16);
+            }
+        }
         for (Entity entity : entityManager.getEntityList()) {
             entity.process(entityManager,1);
             //System.out.println(entity.getTexturePath());
@@ -97,16 +102,13 @@ public class CoreEngine extends ApplicationAdapter {
     }
 
     private void startEntities(){
-//        Entity entity = new Rock();
-//        entity.start(mapProvider.getCurrentLevel(), entityManager);
+        Entity entity = new Rock();
+        entity.start(mapProvider.getCurrentLevel(), entityManager);
         Entity player = new Player();
         player.start(mapProvider.getCurrentLevel(), entityManager);
         Entity enemy = new Melee();
         enemy.start(mapProvider.getCurrentLevel(), entityManager);
         Entity entity1 = new Player("player.png" ,5,5);
-        entity1.start(mapProvider.getCurrentLevel(), entityManager);
-        Entity entity2 = new Player("player.png" ,5,5);
-        entity2.start(mapProvider.getCurrentLevel(), entityManager);
     }
 
     @Override
