@@ -1,4 +1,4 @@
-package dk.sdu.group.one;
+package dk.sdu.group.one.keyboard;
 
 import dk.sdu.group.one.player.ControllerService;
 
