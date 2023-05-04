@@ -48,7 +48,7 @@ public class Vector2 {
      * @param y
      * @return
      */
-    public float set(int x, int y) {
+    public void set(int x, int y) {
         this.x = x;
         this.y = y;
     }
