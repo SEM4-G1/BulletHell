@@ -30,11 +30,6 @@ public class Player extends Entity {
         if (controllerScheme.isDown()) movement.add(Vector2.down);
         if (controllerScheme.isLeft()) movement.add(Vector2.left);
         if (controllerScheme.isRight()) movement.add(Vector2.right);
-        System.out.println(controllerScheme);
-
-        System.out.println(movement);
-        System.out.println("Position");
-        System.out.println("X = " + this.getX() + " Y = " + this.getY());
 
         this.setX(this.getX() + (float)Math.floor(movement.getX() + speed * dt));
         this.setY(this.getY() + (float)Math.floor(movement.getY() + speed * dt));
