@@ -4,6 +4,7 @@ public class Vector2 {
     private float x, y;
 
     // Inspired by Unity
+    public static Vector2 zero = new Vector2(0, 0);
     public static Vector2 left = new Vector2(-1, 0);
     public static Vector2 right = new Vector2(1, 0);
     public static Vector2 up = new Vector2(0, 1);
@@ -15,20 +16,16 @@ public class Vector2 {
     }
 
     /**
-     * Calculates the magnitude of the Vector2 object.
-     * @return the vector magnitude
-     */
-    public float getMagnitude() {
-        return (float) Math.sqrt(x*x + y*y);
-    }
-
-    /**
      * Normalizes the Vector2
      * @return the normalized vector
      */
     public Vector2 normalize() {
-        this.x = x/getMagnitude();
-        this.y = y/getMagnitude();
+        double l = Math.pow(x, 2) + Math.pow(y, 2);
+        if (l != 0) {
+            l = Math.sqrt(l);
+            x = (float) (x/l);
+            y = (float) (y/l);
+        }
         return this;
     }
 
@@ -38,6 +35,23 @@ public class Vector2 {
      */
     public float getX() {
         return this.x;
+    }
+
+    /**
+     * Adds two vectors together and returns the result
+     * @param vec
+     * @return
+     */
+    public Vector2 add(Vector2 vec) {
+        this.x += vec.getX();
+        this.y += vec.getY();
+        return this;
+    }
+
+    public Vector2 subtract(Vector2 vec) {
+        this.x -= vec.getX();
+        this.y -= vec.getY();
+        return this;
     }
 
     /**
@@ -57,6 +71,11 @@ public class Vector2 {
     public void set(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    @Override
+    public String toString() {
+        return "Vector2: (" + this.getX() + ", " + this.getY() + ")";
     }
 
 }
