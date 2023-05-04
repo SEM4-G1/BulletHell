@@ -16,19 +16,21 @@ public class Vector2 {
 
     /**
      * Calculates the magnitude of the Vector2 object.
+     * 
      * @return the vector magnitude
      */
     public float getMagnitude() {
-        return (float) Math.sqrt(x*x + y*y);
+        return (float) Math.sqrt(x * x + y * y);
     }
 
     /**
      * Normalizes the Vector2
+     * 
      * @return the normalized vector
      */
     public Vector2 normalize() {
-        this.x = x/getMagnitude();
-        this.y = y/getMagnitude();
+        this.x = x / getMagnitude();
+        this.y = y / getMagnitude();
         return this;
     }
 
@@ -50,6 +52,7 @@ public class Vector2 {
 
     /**
      * Sets the x and y value of the vector
+     * 
      * @param x
      * @param y
      * @return
