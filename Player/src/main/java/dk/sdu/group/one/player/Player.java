@@ -8,10 +8,10 @@ import dk.sdu.group.one.map.MapService;
 
 public class Player extends Entity {
     private static final String spritePath = "player.png";
-    private int speed = 100;
+    private int speed = 1;
 
     public Player(){
-        super(EntityType.PLAYER, spritePath, 1, 1);
+        super(EntityType.PLAYER, spritePath, 200, 200);
     }
     public Player(String spritePath, float x, float y) {
         super(EntityType.PLAYER, spritePath, x, y, 100);
