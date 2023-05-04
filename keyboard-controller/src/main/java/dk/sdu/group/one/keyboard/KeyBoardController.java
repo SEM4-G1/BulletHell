@@ -1,4 +1,4 @@
-package dk.sdu.group.one;
+package dk.sdu.group.one.keyboard;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
