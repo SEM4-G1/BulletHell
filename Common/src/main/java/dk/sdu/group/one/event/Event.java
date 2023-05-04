@@ -14,9 +14,7 @@ public class Event {
     public Event(EventType eventType, String logMessage){
         this.eventType = eventType;
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("timestamp: ");
-        stringBuilder.append(new SimpleDateFormat("HH:mm:ss.SSS'ms'").format(new java.util.Date()));
-        stringBuilder.append(" event type: ");
+        stringBuilder.append("event type: ");
         stringBuilder.append(eventType.name());
         stringBuilder.append(" message: ");
         stringBuilder.append(logMessage);

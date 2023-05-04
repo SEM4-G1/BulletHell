@@ -4,12 +4,18 @@ package dk.sdu.group.one.event;
 import java.util.*;
 
 import dk.sdu.group.one.event.events.EventType;
+import dk.sdu.group.one.services.LoggingService;
 
 public class EventBroker{
+    private static LoggingService loggingService;
 
     private static EventBroker eventBroker;
     public static EventBroker getInstance(){
         if (eventBroker == null){
+            loggingService = ServiceLoader.load(LoggingService.class).findFirst().get();
+            if (loggingService == null){
+                System.out.println("no logging service found");
+            }
             eventBroker = new EventBroker();
         }
         return eventBroker;
@@ -24,7 +30,7 @@ public class EventBroker{
         for (EventProcessor<? extends Event> subscriber : subscribers.get(eventType)) {
             ((EventProcessor<T>) subscriber).handleEvent(event);
         }
-        System.out.println(event.logMessage);
+        loggingService.log(EventBroker.class, event.logMessage);
     }
 
     public EventBroker() {
