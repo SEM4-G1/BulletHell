@@ -35,7 +35,7 @@ public class CoreEngine extends ApplicationAdapter {
     @Override
     public void create() {
         this.textureCache = new TextureCache();
-        Player player = new Player("player.png", 5, 5);
+       // Player player = new Player("player.png", 5, 5);
         //entityManager.addEntity(player)
         this.currentMap = textureCache.loadTexture(mapProvider.getCurrentLevel().getMapAsset());
         this.entityManager = new EntityManager();

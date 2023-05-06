@@ -9,7 +9,7 @@ public class Player extends Entity {
     private static final String spritePath = "player.png";
     private int speed = 100;
     public Player(){
-        super(EntityType.PLAYER, spritePath, 1, 1);
+        super(EntityType.PLAYER, spritePath, 300, 300);
     }
     public Player(String spritePath, float x, float y) {
         super(EntityType.PLAYER, spritePath, x, y, 100);
@@ -17,12 +17,14 @@ public class Player extends Entity {
 
     @Override
     public void process(EntityManager entityManager, double dt) {
-        this.setX((float) (this.getX() + speed*dt));
+    /*    this.setX((float) (this.getX() + speed*dt));
         this.setY((float) (this.getY() + speed*dt));
+     */
+
     }
 
     @Override
     public void start(MapService mapService, EntityManager entityManager) {
-        entityManager.addEntity(new Player(spritePath, 100, 100));
+        entityManager.addEntity(new Player(spritePath, 300, 300));
     }
 }

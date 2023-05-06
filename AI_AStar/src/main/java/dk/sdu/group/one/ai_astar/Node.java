@@ -1,5 +1,9 @@
 package dk.sdu.group.one.ai_astar;
 
+import dk.sdu.group.one.ai_astar.helpers.Mappers;
+import dk.sdu.group.one.map.Coordinate;
+import dk.sdu.group.one.map.MapService;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -110,7 +114,9 @@ public class Node implements Comparable<Node> {
         }
     }
 
-        public Node aStar (Node start, Node target, Node[][]grid){
+        public static Node aStar (Coordinate startCoordinate, Coordinate targetCoordinate, Node[][] grid){
+            Node start = Mappers.coordinateToNode(startCoordinate);
+            Node target = Mappers.coordinateToNode(targetCoordinate);
             PriorityQueue<Node> closedList = new PriorityQueue<>();
             PriorityQueue<Node> openList = new PriorityQueue<>();
 
