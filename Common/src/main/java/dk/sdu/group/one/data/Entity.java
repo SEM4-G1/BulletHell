@@ -9,6 +9,9 @@ public abstract class Entity {
     int maxHealth;
     int currentHealth;
 
+    // Initialize movement vector as 0,0
+    private Vector2 velocity = new Vector2(0, 0);
+
     EntityType type;
 
     public Entity(EntityType entityType, String spritePath, float x, float y, int maxHealth) {
@@ -59,6 +62,10 @@ public abstract class Entity {
         return maxHealth;
     }
 
+    public Vector2 getVelocity() {
+        return this.velocity;
+    }
+
     public void setMaxHealth(int maxHealth) {
         this.maxHealth = maxHealth;
         if(getCurrentHealth()>maxHealth){
@@ -98,6 +105,6 @@ public abstract class Entity {
 
     @Override
     public String toString(){
-        return this.getClass()+ ", x: "+ getX() + ", y: " +getY() + ", coordinate hash:"+ this.hashCode();
+        return this.getClass().getSimpleName() + ", x: "+ getX() + ", y: " +getY() + ", coordinate hash:"+ this.hashCode();
     }
 }

@@ -6,7 +6,7 @@ import dk.sdu.group.one.map.Coordinate;
 import dk.sdu.group.one.map.MapService;
 
 public class Rock extends Entity{
-    private static final String spritePath = "rock.png";
+    private static final String spritePath = "MapSprits/obstacle.png";
     public Rock() {
         super(EntityType.OBSTACLE, spritePath, 0.0f, 0.0f);
     }
@@ -21,8 +21,8 @@ public class Rock extends Entity{
 
     @Override
     public void start(MapService mapService, EntityManager entityList) {
-        float cellWidth = (1980.0f/mapService.getWidth());
-        float cellHeight = (1080.0f/mapService.getHeight());
+        float cellWidth = (480.0f/mapService.getWidth());
+        float cellHeight = (480.0f/mapService.getHeight());
 
         for (Coordinate coordinate : mapService.getObstaclePositions()) {
             float x = coordinate.getX() * cellWidth;
