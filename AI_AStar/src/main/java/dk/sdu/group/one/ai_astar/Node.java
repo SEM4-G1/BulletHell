@@ -140,9 +140,7 @@ public class Node implements Comparable<Node> {
                     n = n.parent;
                 }
                 Collections.reverse(coordinates);
-                for(Coordinate coordinate: coordinates){
-                    System.out.println(coordinate);
-                }
+
                 return coordinates;
             }
 

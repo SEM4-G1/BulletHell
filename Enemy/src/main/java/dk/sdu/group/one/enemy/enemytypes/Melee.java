@@ -5,11 +5,13 @@ import dk.sdu.group.one.ai_astar.helpers.Mappers;
 import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
 import dk.sdu.group.one.data.EntityType;
+import dk.sdu.group.one.data.Vector2;
 import dk.sdu.group.one.enemy.AI.AIservice;
 import dk.sdu.group.one.enemy.AI.Path;
 import dk.sdu.group.one.map.Coordinate;
 import dk.sdu.group.one.map.MapService;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -36,6 +38,7 @@ public class Melee extends Entity implements AIservice {
 
 
     boolean testbool = true;
+
     @Override
     public void process(EntityManager entityManager, double dt){
         for(Entity entity : entityManager.getEntityList()){
@@ -45,11 +48,12 @@ public class Melee extends Entity implements AIservice {
             }
         }
         if(testbool){
-            for(Coordinate coordinate:Node.aStar(currentCoordinate, playerCoordinate, Mappers.GenerateNodes(mapService))){
-                System.out.println(coordinate);
+            for(Path path:getPath()){
+                System.out.println(path);
             }
             testbool = false;
         }
+
         this.setX((float) (this.getX() + speed*dt));
         this.setY((float) (this.getY() + speed*dt));
     }
@@ -70,6 +74,7 @@ public class Melee extends Entity implements AIservice {
              this.currentCoordinate = melee_coordinate;
              entityList.addEntity(this);
         }
+
     }
 
     private boolean isUnique(EntityManager entityList, float cellWidth, float cellHeight, Coordinate finalMelee_coordinate) {
@@ -82,6 +87,19 @@ public class Melee extends Entity implements AIservice {
 
     @Override
     public List<Path> getPath() {
-        return null;
+        List<Path> path = new ArrayList<>();
+        try{
+        ArrayList<Coordinate> coordinates = (ArrayList<Coordinate>) Node.aStar(currentCoordinate, playerCoordinate, Mappers.GenerateNodes(mapService));
+
+            for (int i = 0; i < coordinates.size()-1; i++) {
+                path.add(new Path(coordinates.get(i), new Vector2(coordinates.get(i).getX()-coordinates.get(i+1).getX(),
+                        coordinates.get(i).getY()-coordinates.get(i+1).getY())));
+            }
+
+        } catch (NullPointerException e){
+            System.out.println("no path:(");
+            return path;
+        }
+        return path;
     }
 }
