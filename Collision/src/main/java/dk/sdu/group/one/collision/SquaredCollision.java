@@ -16,16 +16,10 @@ public class SquaredCollision implements PostProcessingService {
 
     @Override
     public void postProcess(EntityManager entityManager){
-        for (Entity entity1 : entityManager.getEntityList()){
-            for (Entity entity2 : entityManager.getEntityList()){
-                if (entity1 == entity2) {
-                    continue;
-                }
-
-                // Ex. rocks with rocks
-                if (entity1.getClass() == entity2.getClass()) {
-                    continue;
-                }
+        for (int i = 0; i < entityManager.getEntityList().size(); i++){
+            for (int j = i + 1; j < entityManager.getEntityList().size(); j++){
+                Entity entity1 = entityManager.getEntityList().get(i);
+                Entity entity2 = entityManager.getEntityList().get(j);
 
                 CollisionDirectionEnum collisionResult = isColliding(entity1, entity2);
 
