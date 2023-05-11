@@ -16,7 +16,7 @@ public abstract class Weapon extends Entity {
     }
 
     public Weapon() {
-        super(EntityType.Weapon, "placeholder", 0, 0, 100);
+        super(EntityType.Weapon, "placeholder", 0, 0, 20, 20, 100);
     }
 
     public void pickUp(){

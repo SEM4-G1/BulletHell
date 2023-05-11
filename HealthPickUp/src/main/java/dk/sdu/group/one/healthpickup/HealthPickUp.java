@@ -17,7 +17,7 @@ public class HealthPickUp extends Entity {
     private boolean isPickedUp;
 
     public HealthPickUp() {
-        super(EntityType.Health, spritePath, 0, 0, 10);
+        super(EntityType.Health, spritePath, 0, 0, 10, 10);
     }
 
 
@@ -27,13 +27,13 @@ public class HealthPickUp extends Entity {
 
     @Override
     public void start(MapService mapService, EntityManager entityList) {
-        HealthPickUp healthPickUp = new HealthPickUp(EntityType.Health, spritePath,0 ,0);
+        HealthPickUp healthPickUp = new HealthPickUp(EntityType.Health, spritePath,0 ,0, 10, 10);
         EventBroker.getInstance().subscribe(EventType.PickUpEvent, healthPickUp.healthPickUpPart);
         entityList.addEntity(healthPickUp);
     }
 
-    public HealthPickUp(EntityType entityType, String spritePath, float x, float y){
-         super(entityType, spritePath, x, y);
+    public HealthPickUp(EntityType entityType, String spritePath, float x, float y, int width, int height){
+         super(entityType, spritePath, x, y, width, height);
      }
 
      public void pickup(){

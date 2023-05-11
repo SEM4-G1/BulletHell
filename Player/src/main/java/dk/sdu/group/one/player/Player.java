@@ -36,22 +36,21 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
         Vector2 movement = new Vector2(0, 0);
 
         // If the player collides with something, the "un"-collide when moving in the opposite direction
-        System.out.println("Moving up " + this.isCollidingUp);
         if (controllerScheme.isUp() && !this.isCollidingUp) {
             movement.add(Vector2.up);
-            this.isCollidingDown = false;
+            resetCollisionStates();
         }
         if (controllerScheme.isDown() && !this.isCollidingDown) {
             movement.add(Vector2.down);
-            this.isCollidingUp = false;
+            resetCollisionStates();
         }
         if (controllerScheme.isLeft() && !this.isCollidingLeft) {
             movement.add(Vector2.left);
-            this.isCollidingRight = false;
+            resetCollisionStates();
         }
         if (controllerScheme.isRight() && !this.isCollidingRight) {
             movement.add(Vector2.right);
-            this.isCollidingLeft = false;
+            resetCollisionStates();
         }
 
         this.setX(this.getX() + (float)Math.floor(movement.getX() + speed * dt));
@@ -77,5 +76,12 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
             }
             System.out.println("Collision with " + event.e2.getType() + " on " + event.collisionDirection);
         }
+    }
+
+    private void resetCollisionStates() {
+        this.isCollidingUp = false;
+        this.isCollidingDown = false;
+        this.isCollidingLeft = false;
+        this.isCollidingRight = false;
     }
 }
