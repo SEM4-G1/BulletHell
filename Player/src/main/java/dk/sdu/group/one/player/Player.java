@@ -33,11 +33,9 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
         if (controllerScheme.isLeft()) movement.add(Vector2.left);
         if (controllerScheme.isRight()) movement.add(Vector2.right);
         movement = movement.normalize();
-
-        Double movex = movement.getX() * speed * dt;
-        Double movey = movement.getY() * speed * dt;
-        this.setX(this.getX() + movex.floatValue());
-        this.setY(this.getY() + movey.floatValue());
+        
+        this.setX(this.getX() + (float) (movement.getX() * speed * dt));
+        this.setY(this.getY() + (float) (movement.getY() * speed * dt));
     }
 
     @Override
