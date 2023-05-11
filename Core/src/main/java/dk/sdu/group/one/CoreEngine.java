@@ -10,7 +10,6 @@ import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
 import dk.sdu.group.one.enemy.enemytypes.Melee;
 import dk.sdu.group.one.map.Coordinate;
-import dk.sdu.group.one.map.MapService;
 import dk.sdu.group.one.player.Player;
 
 import dk.sdu.group.one.rock.Rock;
@@ -18,12 +17,10 @@ import dk.sdu.group.one.services.LevelService;
 import dk.sdu.group.one.services.PostProcessingService;
 
 import java.util.List;
-import java.util.Map;
 import java.util.ServiceLoader;
 
 
 public class CoreEngine extends ApplicationAdapter {
-    MapService mapService;
     SpriteBatch batch;
     EntityManager entityManager;
     Texture mapTexture;
@@ -41,9 +38,6 @@ public class CoreEngine extends ApplicationAdapter {
     public void create() {
         currentMap = new Texture[30][30];
         this.textureCache = new TextureCache();
-       // Player player = new Player("player.png", 5, 5);
-        //entityManager.addEntity(player)
-        //this.currentMap = textureCache.loadTexture(mapProvider.getCurrentLevel().getMapAsset());
         String[][] mapAsset = mapProvider.getCurrentLevel().getMapAsset();
         for (int i = 0; i < 30; i++) {
             for (int j = 0; j < 30; j++) {
@@ -90,6 +84,7 @@ public class CoreEngine extends ApplicationAdapter {
                 entity -> entity.process(entityManager, Gdx.graphics.getDeltaTime())
         );
         postProcessingService.postProcess(entityManager);
+
     }
 
     @Override

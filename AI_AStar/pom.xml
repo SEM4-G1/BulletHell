@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>dk.sdu.group.one</groupId>
-            <artifactId>Common</artifactId>
+            <artifactId>Enemy</artifactId>
             <version>1.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
