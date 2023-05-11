@@ -1,6 +1,6 @@
-package dk.sdu.group.one.HealthPickUp.HealthPickUpFacade;
+package dk.sdu.group.one.healthpickup.HealthPickUpFacade;
 
-import dk.sdu.group.one.HealthPickUp.HealthPickUp;
+import dk.sdu.group.one.healthpickup.HealthPickUp;
 import dk.sdu.group.one.event.EventProcessor;
 import dk.sdu.group.one.event.events.PickUpEvent;
 

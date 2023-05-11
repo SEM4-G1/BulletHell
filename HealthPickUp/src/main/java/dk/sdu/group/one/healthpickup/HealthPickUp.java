@@ -1,15 +1,12 @@
-package dk.sdu.group.one.HealthPickUp;
+package dk.sdu.group.one.healthpickup;
 
-import dk.sdu.group.one.HealthPickUp.HealthPickUpFacade.HealthPickUpPart;
+import dk.sdu.group.one.healthpickup.HealthPickUpFacade.HealthPickUpPart;
 import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
 import dk.sdu.group.one.data.EntityType;
 import dk.sdu.group.one.event.EventBroker;
 import dk.sdu.group.one.event.events.EventType;
-import dk.sdu.group.one.HealthPickUp.HealthPickUp;
 import dk.sdu.group.one.map.MapService;
-
-import java.util.Random;
 
 public class HealthPickUp extends Entity {
      public HealthPickUpPart healthPickUpPart = new HealthPickUpPart(this);
@@ -19,8 +16,12 @@ public class HealthPickUp extends Entity {
 
     private boolean isPickedUp;
 
+    public HealthPickUp() {
+        super(EntityType.Health, spritePath, 0, 0, 10);
+    }
 
-     @Override
+
+    @Override
     public void process(EntityManager entityManager, double dt) {
     }
 
