@@ -21,13 +21,18 @@ public class Vector2 {
      * @return the normalized vector
      */
     public Vector2 normalize() {
-        double l = Math.pow(x, 2) + Math.pow(y, 2);
-        if (l != 0) {
-            l = Math.sqrt(l);
-            x = (float) (x / l);
-            y = (float) (y / l);
-        }
+        // If vector is a zero vector
+        if (this.x == 0 && this.y == 0) return this;
+
+        float length = getMagnitude();
+        x = x / length;
+        y = y / length;
+
         return this;
+    }
+
+    public float getMagnitude() {
+        return (float) Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
     }
 
     /**

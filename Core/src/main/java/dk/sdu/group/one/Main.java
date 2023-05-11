@@ -8,8 +8,6 @@ import java.io.*;
 
 
 public class Main {
-
-
     public static void main(String[] args) {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setTitle("Asteroids");
@@ -17,7 +15,6 @@ public class Main {
         config.setWindowedMode(480, 480);
       //  useBasedAndRedPilledLoggingSystem();
         new Lwjgl3Application(new CoreEngine(), config);
-
     }
 
     private static void useBasedAndRedPilledLoggingSystem() {
