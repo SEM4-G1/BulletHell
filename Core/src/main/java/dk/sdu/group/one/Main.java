@@ -15,7 +15,7 @@ public class Main {
         config.setTitle("Asteroids");
         config.setWindowSizeLimits(480,480,600,600);
         config.setWindowedMode(480, 480);
-        useBasedAndRedPilledLoggingSystem();
+      //  useBasedAndRedPilledLoggingSystem();
         new Lwjgl3Application(new CoreEngine(), config);
 
     }

@@ -22,6 +22,7 @@ public class Melee extends Entity implements AIservice {
     MapService mapService;
 
     Coordinate currentCoordinate;
+    Coordinate playerCoordinate;
 
     float cellWidth;
     float cellHeight;
@@ -34,16 +35,21 @@ public class Melee extends Entity implements AIservice {
     }
 
 
-
+    boolean testbool = true;
     @Override
     public void process(EntityManager entityManager, double dt){
-        Coordinate playerCoordinate = null;
         for(Entity entity : entityManager.getEntityList()){
             if (entity.getType() == EntityType.PLAYER){
-                playerCoordinate = new Coordinate((int) entity.getX()/ (int) cellWidth, (int)entity.getY()/(int) cellHeight);
+                playerCoordinate = new Coordinate((int) entity.getX()/ (int) this.cellWidth, (int)entity.getY()/(int) this.cellHeight);
+                break;
             }
         }
-        Node.aStar(currentCoordinate, playerCoordinate, Mappers.GenerateNodes(mapService));
+        if(testbool){
+            for(Coordinate coordinate:Node.aStar(currentCoordinate, playerCoordinate, Mappers.GenerateNodes(mapService))){
+                System.out.println(coordinate);
+            }
+            testbool = false;
+        }
         this.setX((float) (this.getX() + speed*dt));
         this.setY((float) (this.getY() + speed*dt));
     }
@@ -51,19 +57,18 @@ public class Melee extends Entity implements AIservice {
     @Override
     public void start(MapService mapService, EntityManager entityList) {
         this.mapService = mapService;
-        float cellWidth = 480.0f/mapService.getWidth();
-        float cellHeight = 480.0f/mapService.getHeight();
+        this.cellWidth = 480.0f/mapService.getWidth();
+        this.cellHeight = 480.0f/mapService.getHeight();
 
         for (int i = 0; i < 1; i++) {
              Coordinate melee_coordinate = new Coordinate((int)(Math.random()*mapService.getWidth()),(int)(Math.random()*mapService.getHeight()));
              while (!isUnique(entityList, cellWidth, cellHeight, melee_coordinate)){
                 melee_coordinate = new Coordinate((int)(Math.random()*mapService.getWidth()),(int)(Math.random()*mapService.getHeight()));
              }
-             float x = melee_coordinate.getX() * cellWidth;
-             float y = melee_coordinate.getY() * cellHeight;
+             this.setX(melee_coordinate.getX() * cellWidth);
+             this.setY(melee_coordinate.getY() * cellHeight);
              this.currentCoordinate = melee_coordinate;
-             this.mapService = mapService;
-             entityList.addEntity(new Melee(x, y));
+             entityList.addEntity(this);
         }
     }
 

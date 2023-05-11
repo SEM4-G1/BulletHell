@@ -90,7 +90,6 @@ public class CoreEngine extends ApplicationAdapter {
                 entity -> entity.process(entityManager, Gdx.graphics.getDeltaTime())
         );
         postProcessingService.postProcess(entityManager);
-
     }
 
     @Override

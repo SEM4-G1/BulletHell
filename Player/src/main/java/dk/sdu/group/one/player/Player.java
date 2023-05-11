@@ -26,10 +26,13 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
 
     @Override
     public void process(EntityManager entityManager, double dt) {
-        System.out.println("process player" + this.hashCode());
     /*    this.setX((float) (this.getX() + speed*dt));
         this.setY((float) (this.getY() + speed*dt));
      */
+
+        if(this.controllerService == null){
+            controllerService = ServiceLoader.load(ControllerService.class).findFirst().get();
+        }
 
         ControllerScheme controllerScheme = this.controllerService.getInputs();
         Vector2 movement = new Vector2(0, 0);
@@ -45,11 +48,8 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
     @Override
     public void start(MapService mapService, EntityManager entityManager) {
         entityManager.addEntity(new Player(spritePath, 300, 300));
-        System.out.println(this.hashCode());
         this.controllerService = ServiceLoader.load(ControllerService.class).findFirst().get();
         entityManager.addEntity(this);
-        System.out.println("start player: " + this.hashCode());
-        System.out.println(this.controllerService);
     }
 
     @Override
