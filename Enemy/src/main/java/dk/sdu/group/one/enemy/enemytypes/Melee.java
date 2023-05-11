@@ -5,6 +5,8 @@ import dk.sdu.group.one.ai_astar.helpers.Mappers;
 import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
 import dk.sdu.group.one.data.EntityType;
+import dk.sdu.group.one.enemy.AI.AIservice;
+import dk.sdu.group.one.enemy.AI.Path;
 import dk.sdu.group.one.map.Coordinate;
 import dk.sdu.group.one.map.MapService;
 
@@ -12,7 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
-public class Melee extends Entity {
+public class Melee extends Entity implements AIservice {
     private static String spritePath ="monster_bies.png";
 
     private static int speed = 1;
@@ -21,8 +23,8 @@ public class Melee extends Entity {
 
     Coordinate currentCoordinate;
 
-    float cellWidth = 1980.0f/mapService.getWidth();
-    float cellHeight = 1080.0f/mapService.getHeight();
+    float cellWidth;
+    float cellHeight;
 
     public Melee() {
         super(EntityType.ENEMY,spritePath, 0, 0, 100);
@@ -35,13 +37,13 @@ public class Melee extends Entity {
 
     @Override
     public void process(EntityManager entityManager, double dt){
-        Coordinate playerCoordinate;
+        Coordinate playerCoordinate = null;
         for(Entity entity : entityManager.getEntityList()){
             if (entity.getType() == EntityType.PLAYER){
-                playerCoordinate = new Coordinate((int)entity.getX()/cellWidth, (int)entity.getY()/cellHeight)
+                playerCoordinate = new Coordinate((int) entity.getX()/ (int) cellWidth, (int)entity.getY()/(int) cellHeight);
             }
         }
-        Node.aStar(Mappers.GenerateNodes(mapService));
+        Node.aStar(currentCoordinate, playerCoordinate, Mappers.GenerateNodes(mapService));
         this.setX((float) (this.getX() + speed*dt));
         this.setY((float) (this.getY() + speed*dt));
     }
@@ -60,6 +62,7 @@ public class Melee extends Entity {
              float x = melee_coordinate.getX() * cellWidth;
              float y = melee_coordinate.getY() * cellHeight;
              this.currentCoordinate = melee_coordinate;
+             this.mapService = mapService;
              entityList.addEntity(new Melee(x, y));
         }
     }
@@ -70,5 +73,10 @@ public class Melee extends Entity {
                         &&
                         entity.getY() == finalMelee_coordinate.getY() * cellHeight)
                 .findFirst().isEmpty();
+    }
+
+    @Override
+    public List<Path> getPath() {
+        return null;
     }
 }

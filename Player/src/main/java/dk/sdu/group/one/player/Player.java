@@ -19,7 +19,6 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
 
     public Player(){
         super(EntityType.PLAYER, spritePath, 300, 300);
-        super(EntityType.PLAYER, spritePath, 200, 200);
     }
     public Player(String spritePath, float x, float y) {
         super(EntityType.PLAYER, spritePath, x, y, 100);
@@ -27,6 +26,7 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
 
     @Override
     public void process(EntityManager entityManager, double dt) {
+        System.out.println("process player" + this.hashCode());
     /*    this.setX((float) (this.getX() + speed*dt));
         this.setY((float) (this.getY() + speed*dt));
      */
@@ -48,6 +48,8 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
         System.out.println(this.hashCode());
         this.controllerService = ServiceLoader.load(ControllerService.class).findFirst().get();
         entityManager.addEntity(this);
+        System.out.println("start player: " + this.hashCode());
+        System.out.println(this.controllerService);
     }
 
     @Override
