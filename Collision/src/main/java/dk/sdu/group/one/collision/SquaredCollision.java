@@ -51,25 +51,15 @@ public class SquaredCollision implements PostProcessingService {
         float top2 = entity2.getY() - halfHeight2;
         float bottom2 = entity2.getY() + halfHeight2;
 
-        if (left1 < right2 && right1 > left2 && top1 < bottom2 && bottom1 > top2) {
-            float overlapX = Math.min(right1, right2) - Math.max(left1, left2);
-            float overlapY = Math.min(bottom1, bottom2) - Math.max(top1, top2);
-
-            if (overlapX < overlapY) {
-                if (left1 > left2) {
-                    return CollisionDirectionEnum.LEFT;
-                } else {
-                    return CollisionDirectionEnum.RIGHT;
-                }
-            } else {
-                if (top1 > top2) {
-                    return CollisionDirectionEnum.BOTTOM;
-                } else {
-                    return CollisionDirectionEnum.TOP;
-                }
-            }
+        if (!(left1 < right2 && right1 > left2 && top1 < bottom2 && bottom1 > top2)) {
+            return null;
         }
 
-        return null;
+        float overlapX = Math.min(right1, right2) - Math.max(left1, left2);
+        float overlapY = Math.min(bottom1, bottom2) - Math.max(top1, top2);
+
+        return overlapX < overlapY
+                ? (left1 > left2 ? CollisionDirectionEnum.LEFT : CollisionDirectionEnum.RIGHT)
+                : (top1 > top2 ? CollisionDirectionEnum.BOTTOM : CollisionDirectionEnum.TOP);
     }
 }
