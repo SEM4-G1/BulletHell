@@ -35,31 +35,27 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
         ControllerScheme controllerScheme = this.controllerService.getInputs();
         Vector2 movement = new Vector2(0, 0);
 
-        if (controllerScheme.isRight() && this.isCollidingRight) {
-            movement.add(new Vector2(-5, 0));
+        // If the player collides with something, the "un"-collide when moving in the opposite direction
+        System.out.println("Moving up " + this.isCollidingUp);
+        if (controllerScheme.isUp() && !this.isCollidingUp) {
+            movement.add(Vector2.up);
+            this.isCollidingDown = false;
         }
-
-        if (controllerScheme.isLeft() && this.isCollidingLeft) {
-            movement.add(new Vector2(5, 0));
+        if (controllerScheme.isDown() && !this.isCollidingDown) {
+            movement.add(Vector2.down);
+            this.isCollidingUp = false;
         }
-
-        if (controllerScheme.isUp() && this.isCollidingUp) {
-            movement.add(new Vector2(0, -5));
+        if (controllerScheme.isLeft() && !this.isCollidingLeft) {
+            movement.add(Vector2.left);
+            this.isCollidingRight = false;
         }
-
-        if (controllerScheme.isDown() && this.isCollidingDown) {
-            movement.add(new Vector2(0, 5));
+        if (controllerScheme.isRight() && !this.isCollidingRight) {
+            movement.add(Vector2.right);
+            this.isCollidingLeft = false;
         }
-
-        if (controllerScheme.isUp() && !this.isCollidingUp) movement.add(Vector2.up);
-        if (controllerScheme.isDown() && !this.isCollidingDown) movement.add(Vector2.down);
-        if (controllerScheme.isLeft() && !this.isCollidingLeft) movement.add(Vector2.left);
-        if (controllerScheme.isRight() && !this.isCollidingRight) movement.add(Vector2.right);
 
         this.setX(this.getX() + (float)Math.floor(movement.getX() + speed * dt));
         this.setY(this.getY() + (float)Math.floor(movement.getY() + speed * dt));
-
-        this.resetCollisionStates();
     }
 
     @Override
@@ -71,8 +67,6 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
 
     @Override
     public void handleEvent(CollisionEvent event) {
-        //this.resetCollisionStates();
-
         // Only respond to collisions with other entities
         if (event.e1.getClass() == Player.class && event.e2.getClass() != Player.class) {
             switch (event.collisionDirection) {
@@ -83,12 +77,5 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
             }
             System.out.println("Collision with " + event.e2.getType() + " on " + event.collisionDirection);
         }
-    }
-
-    private void resetCollisionStates() {
-        this.isCollidingLeft = false;
-        this.isCollidingRight = false;
-        this.isCollidingUp = false;
-        this.isCollidingDown = false;
     }
 }
