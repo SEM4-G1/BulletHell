@@ -1,16 +1,33 @@
 package dk.sdu.group.one.enemy.enemytypes;
 
+import dk.sdu.group.one.ai_astar.Node;
+import dk.sdu.group.one.ai_astar.helpers.Mappers;
 import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
 import dk.sdu.group.one.data.EntityType;
+import dk.sdu.group.one.data.Vector2;
+import dk.sdu.group.one.enemy.AI.AIservice;
+import dk.sdu.group.one.enemy.AI.Path;
 import dk.sdu.group.one.map.Coordinate;
 import dk.sdu.group.one.map.MapService;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
-public class Melee extends Entity {
+public class Melee extends Entity implements AIservice {
     private static String spritePath ="monster_bies.png";
+
+    private static int speed = 1;
+
+    MapService mapService;
+
+    Coordinate currentCoordinate;
+    Coordinate playerCoordinate;
+
+    float cellWidth;
+    float cellHeight;
 
     public Melee() {
         super(EntityType.ENEMY,spritePath, 0, 0, 100);
@@ -19,24 +36,45 @@ public class Melee extends Entity {
         super(EntityType.ENEMY,spritePath, x, y, 100);
     }
 
+
+    boolean testbool = true;
+
     @Override
     public void process(EntityManager entityManager, double dt){
+        for(Entity entity : entityManager.getEntityList()){
+            if (entity.getType() == EntityType.PLAYER){
+                playerCoordinate = new Coordinate((int) entity.getX()/ (int) this.cellWidth, (int)entity.getY()/(int) this.cellHeight);
+                break;
+            }
+        }
+        if(testbool){
+            for(Path path:getPath()){
+                System.out.println(path);
+            }
+            testbool = false;
+        }
+
+        this.setX((float) (this.getX() + speed*dt));
+        this.setY((float) (this.getY() + speed*dt));
     }
 
     @Override
     public void start(MapService mapService, EntityManager entityList) {
-        float cellWidth = 480.0f/mapService.getWidth();
-        float cellHeight = 480.0f/mapService.getHeight();
+        this.mapService = mapService;
+        this.cellWidth = 480.0f/mapService.getWidth();
+        this.cellHeight = 480.0f/mapService.getHeight();
 
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 1; i++) {
              Coordinate melee_coordinate = new Coordinate((int)(Math.random()*mapService.getWidth()),(int)(Math.random()*mapService.getHeight()));
              while (!isUnique(entityList, cellWidth, cellHeight, melee_coordinate)){
                 melee_coordinate = new Coordinate((int)(Math.random()*mapService.getWidth()),(int)(Math.random()*mapService.getHeight()));
              }
-             float x = melee_coordinate.getX() * cellWidth;
-             float y = melee_coordinate.getY() * cellHeight;
-             entityList.addEntity(new Melee(x, y));
+             this.setX(melee_coordinate.getX() * cellWidth);
+             this.setY(melee_coordinate.getY() * cellHeight);
+             this.currentCoordinate = melee_coordinate;
+             entityList.addEntity(this);
         }
+
     }
 
     private boolean isUnique(EntityManager entityList, float cellWidth, float cellHeight, Coordinate finalMelee_coordinate) {
@@ -45,5 +83,23 @@ public class Melee extends Entity {
                         &&
                         entity.getY() == finalMelee_coordinate.getY() * cellHeight)
                 .findFirst().isEmpty();
+    }
+
+    @Override
+    public List<Path> getPath() {
+        List<Path> path = new ArrayList<>();
+        try{
+        ArrayList<Coordinate> coordinates = (ArrayList<Coordinate>) Node.aStar(currentCoordinate, playerCoordinate, Mappers.GenerateNodes(mapService));
+
+            for (int i = 0; i < coordinates.size()-1; i++) {
+                path.add(new Path(coordinates.get(i), new Vector2(coordinates.get(i).getX()-coordinates.get(i+1).getX(),
+                        coordinates.get(i).getY()-coordinates.get(i+1).getY())));
+            }
+
+        } catch (NullPointerException e){
+            System.out.println("no path:(");
+            return path;
+        }
+        return path;
     }
 }

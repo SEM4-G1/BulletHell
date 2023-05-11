@@ -1,3 +1,5 @@
 module AI.AStar {
-    requires Enemy;
+    exports dk.sdu.group.one.ai_astar;
+    exports dk.sdu.group.one.ai_astar.helpers;
+    requires Common;
 }

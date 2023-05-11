@@ -26,6 +26,10 @@ public class Coordinate {
         return y;
     }
 
+    public boolean getIsObstacle(){
+        return this.isObstacle;
+    }
+
     public void setX(int x) {
         this.x = x;
     }
