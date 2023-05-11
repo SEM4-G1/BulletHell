@@ -121,6 +121,7 @@ public class Node implements Comparable<Node> {
     public static List<Coordinate> aStar(Coordinate startCoordinate, Coordinate targetCoordinate, Node[][] grid) {
         Node start = Mappers.coordinateToNode(startCoordinate);
         Node target = Mappers.coordinateToNode(targetCoordinate);
+
         PriorityQueue<Node> closedList = new PriorityQueue<>();
         PriorityQueue<Node> openList = new PriorityQueue<>();
 
@@ -129,9 +130,11 @@ public class Node implements Comparable<Node> {
         start.f = start.g + start.calculateHeuristic(target);
         openList.add(start);
 
+
         while (!openList.isEmpty()) {
             Node n = openList.peek();
-            if (n == target) {
+            if (n.xPos == target.xPos && n.yPos == target.yPos) {
+
                 while (n.parent != null) {
                     coordinates.add(new Coordinate(n.xPos, n.yPos));
                     n = n.parent;
@@ -142,6 +145,7 @@ public class Node implements Comparable<Node> {
                 }
                 return coordinates;
             }
+
             n.calculateEdges(grid);
             for (Edge edge : n.neighbors) {
                 Node m = edge.node;
@@ -168,6 +172,7 @@ public class Node implements Comparable<Node> {
             openList.remove(n);
             closedList.add(n);
         }
+        System.out.println("returning null:(");
         return null;
     }
 
@@ -188,27 +193,6 @@ public class Node implements Comparable<Node> {
         }
         ids.add(n.id);
         Collections.reverse(ids);
-
-        for (int id : ids) {
-            System.out.print(id + " ");
-        }
-
-        System.out.println();
-        for (int i = 0; i < grid.length; i++) {
-            System.out.println();
-            for (int j = 0; j < grid.length; j++) {
-                if (grid[i][j].isObstacle) {
-                    System.out.print("\033[0;30m" + " O ");
-                    System.out.print("\033[0m");
-                } else if (ids.contains(grid[i][j].id)) {
-                    System.out.print("\033[0;32m" + " O ");
-                    System.out.print("\033[0m");
-                } else {
-                    System.out.print("\033[0;34m" + " O ");
-                    System.out.print("\033[0m");
-                }
-            }
-        }
     }
 }
 
