@@ -3,4 +3,6 @@ module Weapon {
     exports dk.sdu.group.weapon.weapontypes;
     exports dk.sdu.group.weapon;
     requires Common;
+
+    provides dk.sdu.group.one.data.Entity with dk.sdu.group.weapon.weapontypes.Pistol;
 }
