@@ -22,6 +22,7 @@
         <module>Collision</module>
         <module>keyboard-controller</module>
         <module>Logging4J</module>
+        <module>HealthPickUp</module>
     </modules>
     <properties>
         <java>java</java>
@@ -83,6 +84,14 @@
                         <argument>-Djava.library.path=libs</argument>
                         <argument>--module-path=mods-mvn${path.separator}${settings.localRepository}/org/apache/logging/log4j/log4j-api/2.17.1/log4j-api-2.17.1.jar${path.separator}${settings.localRepository}/org/apache/logging/log4j/log4j-core/2.17.1/log4j-core-2.17.1.jar</argument>
                         <argument>--class-path=libs/*</argument>
+                        <!--<argument>-XstartOnFirstThread</argument>-->
+                        <!-- because spark.core is an automatic module and actually required,
+                        monitor.observer.zero would be resolved as well and does not need
+                        to be added explicitly;
+                        I still wanted to do it for clarity, but for some reason that results
+                        in "java.lang.module.FindException: Module monitor.observer.zero not found";
+                        strange... -->
+                        <!--<argument>&#45;&#45;add-modules=monitor.observer.zero</argument>-->
                         <argument>--module=Core/dk.sdu.group.one.Main</argument>
                     </arguments>
                 </configuration>
