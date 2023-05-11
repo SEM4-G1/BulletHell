@@ -9,4 +9,5 @@ module Core {
     requires Obstacle;
     uses dk.sdu.group.one.services.LevelService;
     uses dk.sdu.group.one.services.PostProcessingService;
+    uses dk.sdu.group.one.data.Entity;
 }

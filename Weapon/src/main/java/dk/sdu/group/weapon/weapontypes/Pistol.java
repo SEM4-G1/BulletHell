@@ -21,6 +21,10 @@ public class Pistol extends Weapon {
         System.out.println("found" + this.bulletService);
     }
 
+    public Pistol() {
+        super();
+    }
+
     @Override
     public void process(EntityManager entityManager, double dt) {
     }
