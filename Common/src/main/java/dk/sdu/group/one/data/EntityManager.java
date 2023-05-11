@@ -19,6 +19,11 @@ public class EntityManager {
         this.entityMap.put(entity.getType(), entity);
     }
 
+    public void removeEntity(Entity entity){
+        this.entityList.remove(entity);
+        this.entityMap.remove(entity.getType(), entity);
+    }
+
     public List<Entity> getEntityList() {
         return this.entityList;
     }
