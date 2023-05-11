@@ -15,7 +15,7 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
     private static final String spritePath = "player.png";
 
     ControllerService controllerService;
-    private float speed = 0.01f;
+    private float speed = 2f;
 
     public Player(){
         super(EntityType.PLAYER, spritePath, 200, 200);
@@ -34,8 +34,10 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
         if (controllerScheme.isRight()) movement.add(Vector2.right);
         movement = movement.normalize();
 
-        this.setX(this.getX() + (float)Math.floor(movement.getX() + speed * dt));
-        this.setY(this.getY() + (float)Math.floor(movement.getY() + speed * dt));
+        Double movex = movement.getX() * speed * dt;
+        Double movey = movement.getY() * speed * dt;
+        this.setX(this.getX() + movex.floatValue());
+        this.setY(this.getY() + movey.floatValue());
     }
 
     @Override

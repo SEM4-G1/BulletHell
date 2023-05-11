@@ -21,6 +21,9 @@ public class Vector2 {
      * @return the normalized vector
      */
     public Vector2 normalize() {
+        // If vector is a zero vector
+        if (this.x == 0 && this.y == 0) return this;
+
         double l = Math.pow(x, 2) + Math.pow(y, 2);
         if (l != 0) {
             l = Math.sqrt(l);
@@ -28,6 +31,10 @@ public class Vector2 {
             y = (float) (y / l);
         }
         return this;
+    }
+
+    public float getMagnitude() {
+        return (float) Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
     }
 
     /**
