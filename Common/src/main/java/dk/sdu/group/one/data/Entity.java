@@ -118,6 +118,6 @@ public abstract class Entity {
 
     @Override
     public String toString(){
-        return this.getClass()+ ", x: "+ getX() + ", y: " +getY() + ", coordinate hash:"+ this.hashCode();
+        return this.getClass().getSimpleName() + ", x: "+ getX() + ", y: " +getY() + ", coordinate hash:"+ this.hashCode();
     }
 }

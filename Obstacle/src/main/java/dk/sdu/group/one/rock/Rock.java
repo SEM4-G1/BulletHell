@@ -1,4 +1,5 @@
 package dk.sdu.group.one.rock;
+
 import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
 import dk.sdu.group.one.data.EntityType;

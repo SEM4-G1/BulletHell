@@ -14,6 +14,11 @@ public abstract class Weapon extends Entity {
     public Weapon(EntityType entityType, String spritePath, float x, float y) {
         super(entityType, spritePath, x, y, 20, 20, 100);
     }
+
+    public Weapon() {
+        super(EntityType.Weapon, "placeholder", 0, 0, 100);
+    }
+
     public void pickUp(){
         System.out.println("weapon picked up!");
         EventBroker.getInstance().subscribe(EventType.ShootEvent, weaponShooterPart);

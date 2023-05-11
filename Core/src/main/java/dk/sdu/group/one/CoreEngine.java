@@ -104,13 +104,12 @@ public class CoreEngine extends ApplicationAdapter {
     }
 
     private void startEntities(){
-        Entity entity = new Rock();
-        entity.start(mapProvider.getCurrentLevel(), entityManager);
-        Entity player = new Player();
-        player.start(mapProvider.getCurrentLevel(), entityManager);
-        Entity enemy = new Melee();
-        enemy.start(mapProvider.getCurrentLevel(), entityManager);
-        Entity entity1 = new Player("player.png" ,5,5);
+        List<Entity> entities = ServiceLoader.load(Entity.class).stream().map(ServiceLoader.Provider::get).toList();
+        System.out.println("Entities: " + entities.size());
+        for (Entity entity : entities) {
+            System.out.println(entity);
+            entity.start(mapProvider.getCurrentLevel(), entityManager);
+        }
     }
 
     @Override
