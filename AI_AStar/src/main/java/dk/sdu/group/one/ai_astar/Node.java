@@ -1,9 +1,5 @@
 package dk.sdu.group.one.ai_astar;
 
-import dk.sdu.group.one.ai_astar.helpers.Mappers;
-import dk.sdu.group.one.map.Coordinate;
-import dk.sdu.group.one.map.MapService;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -29,11 +25,6 @@ public class Node implements Comparable<Node> {
     int xPos;
     int yPos;
 
-    @Override
-    public String toString(){
-        return "x: " + this.xPos + ", y: " + this.yPos + ", is obstacle: " + isObstacle;
-    }
-
     public Node(boolean isObstacle, int xPos, int yPos) {
         this.yPos = yPos;
         this.xPos = xPos;
@@ -43,10 +34,11 @@ public class Node implements Comparable<Node> {
         this.neighbors = new ArrayList<>();
     }
 
-    public void addBranch(int weight, Node node) {
+    public void addBranch(int weight, Node node){
         Edge newEdge = new Edge(weight, node);
         neighbors.add(newEdge);
     }
+
 
 
     @Override
@@ -61,7 +53,7 @@ public class Node implements Comparable<Node> {
     }
 
     public double calculateHeuristic(Node target) {
-        this.h = Math.sqrt(Math.pow(Math.abs(this.xPos - target.xPos), 2) + Math.pow(Math.abs(this.yPos - target.yPos), 2));
+        this.h=Math.sqrt(Math.pow(Math.abs(this.xPos - target.xPos), 2) + Math.pow(Math.abs(this.yPos - target.yPos), 2));
         return this.h;
     }
 
@@ -118,80 +110,84 @@ public class Node implements Comparable<Node> {
         }
     }
 
-    public static List<Coordinate> aStar(Coordinate startCoordinate, Coordinate targetCoordinate, Node[][] grid) {
-        Node start = Mappers.coordinateToNode(startCoordinate);
-        Node target = Mappers.coordinateToNode(targetCoordinate);
+        public Node aStar (Node start, Node target, Node[][]grid){
+            PriorityQueue<Node> closedList = new PriorityQueue<>();
+            PriorityQueue<Node> openList = new PriorityQueue<>();
 
-        PriorityQueue<Node> closedList = new PriorityQueue<>();
-        PriorityQueue<Node> openList = new PriorityQueue<>();
+            start.f = start.g + start.calculateHeuristic(target);
+            openList.add(start);
 
-        List<Coordinate> coordinates = new ArrayList<>();
-
-        start.f = start.g + start.calculateHeuristic(target);
-        openList.add(start);
-
-
-        while (!openList.isEmpty()) {
-            Node n = openList.peek();
-            if (n.xPos == target.xPos && n.yPos == target.yPos) {
-
-                while (n.parent != null) {
-                    coordinates.add(new Coordinate(n.xPos, n.yPos));
-                    n = n.parent;
+            while (!openList.isEmpty()) {
+                Node n = openList.peek();
+                if (n == target) {
+                    return n;
                 }
-                Collections.reverse(coordinates);
+                n.calculateEdges(grid);
+                for (Edge edge : n.neighbors) {
+                    Node m = edge.node;
+                    double totalWeight = n.g + edge.weight;
 
-                return coordinates;
-            }
-
-            n.calculateEdges(grid);
-            for (Edge edge : n.neighbors) {
-                Node m = edge.node;
-                double totalWeight = n.g + edge.weight;
-
-                if (!openList.contains(m) && !closedList.contains(m)) {
-                    m.parent = n;
-                    m.g = totalWeight;
-                    m.f = m.g + m.calculateHeuristic(target);
-                    openList.add(m);
-                } else {
-                    if (totalWeight < m.g) {
+                    if (!openList.contains(m) && !closedList.contains(m)) {
                         m.parent = n;
                         m.g = totalWeight;
                         m.f = m.g + m.calculateHeuristic(target);
+                        openList.add(m);
+                    } else {
+                        if (totalWeight < m.g) {
+                            m.parent = n;
+                            m.g = totalWeight;
+                            m.f = m.g + m.calculateHeuristic(target);
 
-                        if (closedList.contains(m)) {
-                            closedList.remove(m);
-                            openList.add(m);
+                            if (closedList.contains(m)) {
+                                closedList.remove(m);
+                                openList.add(m);
+                            }
                         }
                     }
                 }
+
+                openList.remove(n);
+                closedList.add(n);
             }
-            openList.remove(n);
-            closedList.add(n);
+            return null;
         }
-        System.out.println("returning null:(");
-        return null;
-    }
 
+        public void printPath (Node target, Node[][]grid){
+            Node n = target;
 
+            if (n == null)
+                return;
 
-    public static void printPath(Node target, Node[][] grid) {
+            List<Integer> ids = new ArrayList<>();
 
-        Node n = target;
-
-        if (n == null)
-            return;
-
-        List<Integer> ids = new ArrayList<>();
-
-        while (n.parent != null) {
+            while (n.parent != null) {
+                ids.add(n.id);
+                n = n.parent;
+            }
             ids.add(n.id);
-            n = n.parent;
+            Collections.reverse(ids);
+
+            for (int id : ids) {
+                System.out.print(id + " ");
+            }
+
+            System.out.println();
+            for (int i = 0; i < grid.length; i++) {
+                System.out.println();
+                for (int j = 0; j < grid.length; j++) {
+                    if (grid[i][j].isObstacle) {
+                        System.out.print("\033[0;30m" + " O ");
+                        System.out.print("\033[0m");
+                    } else if (ids.contains(grid[i][j].id)) {
+                        System.out.print("\033[0;32m" + " O ");
+                        System.out.print("\033[0m");
+                    } else {
+                        System.out.print("\033[0;34m" + " O ");
+                        System.out.print("\033[0m");
+                    }
+                }
+            }
         }
-        ids.add(n.id);
-        Collections.reverse(ids);
     }
-}
 
 
