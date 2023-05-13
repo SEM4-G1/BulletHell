@@ -11,6 +11,7 @@ public class Main {
     public static void main(String[] args) {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setTitle("Asteroids");
+        config.setForegroundFPS(60);
         config.setWindowSizeLimits(480,480,600,600);
         config.setWindowedMode(480, 480);
       //  useBasedAndRedPilledLoggingSystem();

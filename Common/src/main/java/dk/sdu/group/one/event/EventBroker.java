@@ -25,12 +25,14 @@ public class EventBroker{
 
     private final Map<EventType, Set<EventProcessor<? extends Event>>> subscribers = new EnumMap<>(EventType.class);
 
-    public <T extends Event> void publish(T event, EventType eventType) {
-        events.put(eventType, event);
-        for (EventProcessor<? extends Event> subscriber : subscribers.get(eventType)) {
+    public <T extends Event> void publish(T event) {
+        events.put(event.eventType, event);
+        for (EventProcessor<? extends Event> subscriber : subscribers.get(event.eventType)) {
             ((EventProcessor<T>) subscriber).handleEvent(event);
         }
-        loggingService.log(EventBroker.class, event.logMessage);
+        if(event.eventType != EventType.Collision){
+            loggingService.log(EventBroker.class, event.logMessage);
+        }
     }
 
     public EventBroker() {
@@ -40,6 +42,7 @@ public class EventBroker{
     }
 
     public <T extends Event> void subscribe(EventType eventType, EventProcessor<T> subscriber) {
+        loggingService.log(EventBroker.class, subscriber + " subscribed to " + eventType);
         subscribers.get(eventType).add(subscriber);
     }
 

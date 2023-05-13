@@ -1,5 +1,6 @@
 package dk.sdu.group.weapon.weaponfacade;
 
+import dk.sdu.group.one.data.EntityType;
 import dk.sdu.group.weapon.Weapon;
 import dk.sdu.group.one.event.events.PickUpEvent;
 import dk.sdu.group.one.event.EventProcessor;
@@ -15,14 +16,16 @@ public class WeaponPickUpPart implements EventProcessor<PickUpEvent> {
 
     @Override
     public void handleEvent(PickUpEvent event) {
-        System.out.println(event.code);
-        if (!isPickedUp){
-            System.out.println("pick up detected by pickupPart!");
+        if (event.getTarget().equals(weapon)) {
             weapon.pickUp();
             this.isPickedUp = true;
-            return;
         }
-        weapon.drop();
-        this.isPickedUp = false;
+        else if(event.getIssuer().getType() == EntityType.Weapon){
+            weapon.drop();
+            this.isPickedUp = false;
+        }
+    }
+    public boolean isPickedUp() {
+        return isPickedUp;
     }
 }

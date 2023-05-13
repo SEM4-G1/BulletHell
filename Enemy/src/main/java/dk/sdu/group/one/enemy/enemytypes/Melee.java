@@ -58,10 +58,6 @@ public class Melee extends Entity implements EventProcessor<CollisionEvent> {
         if(path.isEmpty() || aiUpdateCooldown.isReady()){
             updateCoordinate();
             this.path = aiService.getPath(this.currentGridPos, this.playerGridPos);
-            System.out.println("---------------------------new path---------------------------");
-            for(Path path:aiService.getPath(this.currentGridPos, this.playerGridPos)){
-                System.out.println(path);
-            }
             aiUpdateCooldown.reset();
         }
         aiUpdateCooldown.update(dt);

@@ -23,7 +23,6 @@ public class PathCreator implements AIservice {
                         coordinates.get(i).getY()-coordinates.get(i+1).getY())));
             }
         } catch (NullPointerException e){
-            System.out.println("no path:(");
             return path;
         }
         return path;

@@ -1,12 +1,23 @@
 package dk.sdu.group.one.event.events;
 
+import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.event.Event;
 
 public class PickUpEvent extends Event {
-    public int code;
+    private Entity issuer;
+    private Entity target;
 
-    public PickUpEvent(int code, EventType eventType, String msg) {
+    public PickUpEvent(Entity issuer, Entity target,EventType eventType, String msg) {
         super(eventType, msg);
-        this.code = code;
+        this.issuer = issuer;
+        this.target = target;
+    }
+
+    public Entity getIssuer() {
+        return issuer;
+    }
+
+    public Entity getTarget() {
+        return target;
     }
 }

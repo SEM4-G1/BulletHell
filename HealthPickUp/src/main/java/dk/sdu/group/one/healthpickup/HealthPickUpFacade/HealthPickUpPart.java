@@ -15,7 +15,6 @@ public class HealthPickUpPart implements EventProcessor<PickUpEvent> {
 
     @Override
     public void handleEvent(PickUpEvent event){
-        System.out.println(event.code);
         if (!isPickedUp){
             System.out.println("HealthPickUp Detected by PickUpPart");
             healthPickUp.pickup();

@@ -73,7 +73,7 @@ public class CoreEngine extends ApplicationAdapter {
                 batch.draw(currentMap[i][j], i*16, j*16);
             }
         }
-        for (Entity entity : entityManager.getEntityList()) {
+        for (Entity entity : List.copyOf(entityManager.getEntityList())) {
             entity.process(entityManager,1);
             //System.out.println(entity.getTexturePath());
             batch.draw(

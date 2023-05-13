@@ -3,9 +3,14 @@ package dk.sdu.group.one.player;
 import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
 import dk.sdu.group.one.data.EntityType;
+import dk.sdu.group.one.event.Event;
+import dk.sdu.group.one.event.EventBroker;
 import dk.sdu.group.one.event.EventProcessor;
 import dk.sdu.group.one.event.events.CollisionEvent;
 import dk.sdu.group.one.data.Vector2;
+import dk.sdu.group.one.event.events.EventType;
+import dk.sdu.group.one.event.events.PickUpEvent;
+import dk.sdu.group.one.event.events.ShootEvent;
 import dk.sdu.group.one.player.ControllerService.ControllerScheme;
 import dk.sdu.group.one.map.MapService;
 
@@ -26,9 +31,6 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
 
     @Override
     public void process(EntityManager entityManager, double dt) {
-    /*    this.setX((float) (this.getX() + speed*dt));
-        this.setY((float) (this.getY() + speed*dt));
-     */
 
         if(this.controllerService == null){
             controllerService = ServiceLoader.load(ControllerService.class).findFirst().get();
@@ -36,10 +38,24 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
 
         ControllerScheme controllerScheme = this.controllerService.getInputs();
         Vector2 movement = new Vector2(0, 0);
-        if (controllerScheme.isUp()) movement.add(Vector2.up);
-        if (controllerScheme.isDown()) movement.add(Vector2.down);
-        if (controllerScheme.isLeft()) movement.add(Vector2.left);
-        if (controllerScheme.isRight()) movement.add(Vector2.right);
+        if (controllerScheme.isUp()) {
+            movement.add(Vector2.up);
+            setRadians((float) (Math.PI * 0.5f));
+        }
+        if (controllerScheme.isDown()) {
+            movement.add(Vector2.down);
+            setRadians(
+                    (float) (Math.PI * 1.5f));
+        }
+        if (controllerScheme.isLeft()) {
+            movement.add(Vector2.left);
+            setRadians((float) Math.PI);
+        }
+        if (controllerScheme.isRight()) {
+            movement.add(Vector2.right);
+            setRadians(0);
+        }
+        if (controllerScheme.isStop()) EventBroker.getInstance().publish(new ShootEvent(EventType.ShootEvent, "Shoot", entityManager, this));
         movement = movement.normalize();
         
         this.setX(this.getX() + (float) (movement.getX() * speed * dt));
@@ -51,10 +67,23 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
         entityManager.addEntity(new Player(spritePath, 300, 300));
         this.controllerService = ServiceLoader.load(ControllerService.class).findFirst().get();
         entityManager.addEntity(this);
+        EventBroker.getInstance().subscribe(EventType.Collision, this);
     }
 
     @Override
     public void handleEvent(CollisionEvent event) {
-        System.out.println("I Have collided");
+        if(event.getE1().equals(this)){
+            handleCollision(event.getE2());
+        }
+        else if(event.getE2().equals(this)){
+            handleCollision(event.getE1());
+        }
+    }
+
+    private void handleCollision(Entity entity){
+        if (entity.getType() == EntityType.Weapon){
+            Event newEvent = new PickUpEvent(this, entity, EventType.PickUpEvent, "Picked up a gun");
+            EventBroker.getInstance().publish(newEvent);
+        }
     }
 }

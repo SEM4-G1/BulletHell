@@ -27,6 +27,10 @@ public class Pistol extends Weapon {
 
     @Override
     public void process(EntityManager entityManager, double dt) {
+        if (this.pickUpPart.isPickedUp()){
+            System.out.println("pistol picked up");
+            entityManager.removeEntity(this);
+        }
     }
 
     @Override

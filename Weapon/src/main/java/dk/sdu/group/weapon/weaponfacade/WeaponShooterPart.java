@@ -12,7 +12,7 @@ public class WeaponShooterPart implements EventProcessor<ShootEvent> {
 
     @Override
     public void handleEvent(ShootEvent event) {
-        weapon.bulletService.createBullet(weapon, event.entityManager);
+        weapon.bulletService.createBullet(event.getIssuer(), event.entityManager);
         System.out.println("shooter Part shooting!");
     }
 }

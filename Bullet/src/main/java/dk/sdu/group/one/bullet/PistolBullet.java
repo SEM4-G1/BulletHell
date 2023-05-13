@@ -7,7 +7,7 @@ import dk.sdu.group.one.map.MapService;
 import dk.sdu.group.weapon.BulletService;
 
 public class PistolBullet extends Entity implements BulletService {
-    double speed = 30;
+    double speed = 5f;
     public static final String assetPath = "bullet.png";
     public PistolBullet() {
         super(EntityType.BULLET, assetPath, 0, 0,
@@ -19,27 +19,27 @@ public class PistolBullet extends Entity implements BulletService {
 
     @Override
     public void createBullet(Entity entity, EntityManager entityManager) {
-        float x = entity.getX();
-        float y = entity.getY();
-        x *= Math.cos(entity.getRadians());
-        y *= Math.sin(entity.getRadians());
+        int entityRadius = 8;
+        float x = entity.getX() + (float) (entityRadius * Math.cos(entity.getRadians()));
+        float y = entity.getY() + (float) (entityRadius * Math.sin(entity.getRadians()));
         Entity bullet = new PistolBullet(EntityType.BULLET, x, y);
         bullet.setRadians(entity.getRadians());
+        System.out.println("bullet created with radians " + entity.getRadians() + "sin(rad) Y : " + Math.sin(entity.getRadians()) + "cos(rad) X :" + Math.cos(entity.getRadians()));
         entityManager.addEntity(bullet);
     }
 
     @Override
     public void process(EntityManager entityManager, double dt) {
-        for (Entity entity : entityManager.getEntityList()){
-            if (entity instanceof PistolBullet pistolBullet){
-                applySpeed(dt, pistolBullet);
-            }
+        int screenSize = 1000;
+        if (this.getX() > screenSize || this.getX() < 0 || this.getY() > screenSize || this.getY() < 0){
+            entityManager.removeEntity(this);
         }
+        applySpeed(dt);
     }
 
-    private void applySpeed(double dt, PistolBullet bullet){
-        bullet.setX((float) (bullet.getX()+speed*dt));
-        bullet.setY((float) (bullet.getY()+speed*dt));
+    private void applySpeed(double dt){
+        setX(getX() + (float) (speed * Math.cos(getRadians()) * dt));
+        setY(getY() + (float) (speed * Math.sin(getRadians()) * dt));
     }
 
     @Override

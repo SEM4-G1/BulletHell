@@ -167,7 +167,6 @@ public class Node implements Comparable<Node>{
             openList.remove(n);
             closedList.add(n);
         }
-        System.out.println("returning null:(");
         return null;
     }
 
