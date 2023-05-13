@@ -3,15 +3,17 @@ package dk.sdu.group.one.enemy.enemytypes;
 import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
 import dk.sdu.group.one.data.EntityType;
-import dk.sdu.group.one.data.Vector2;
 import dk.sdu.group.one.enemy.AI.AIservice;
 import dk.sdu.group.one.enemy.AI.Path;
+import dk.sdu.group.one.enemy.Cooldown;
+import dk.sdu.group.one.event.EventProcessor;
+import dk.sdu.group.one.event.events.CollisionEvent;
 import dk.sdu.group.one.map.Coordinate;
 import dk.sdu.group.one.map.MapService;
 
 import java.util.*;
 
-public class Melee extends Entity{
+public class Melee extends Entity implements EventProcessor<CollisionEvent> {
     private static String spritePath ="monster_bies.png";
 
     private List<Path> path = new ArrayList<>();
@@ -24,8 +26,12 @@ public class Melee extends Entity{
 
     MapService mapService;
 
-    Coordinate currentCoordinate;
-    Coordinate playerCoordinate;
+    Coordinate currentGridPos;
+    Coordinate playerGridPos;
+
+    Cooldown attackCooldown;
+
+    Cooldown aiUpdateCooldown;
 
     float cellWidth;
     float cellHeight;
@@ -45,18 +51,21 @@ public class Melee extends Entity{
     public void process(EntityManager entityManager, double dt){
         for(Entity entity : entityManager.getEntityList()){
             if (entity.getType() == EntityType.PLAYER){
-                playerCoordinate = new Coordinate((int) entity.getX()/ (int) this.cellWidth, (int)entity.getY()/(int) this.cellHeight);
+                playerGridPos = new Coordinate((int) entity.getX()/ (int) this.cellWidth, (int)entity.getY()/(int) this.cellHeight);
                 break;
             }
         }
-        if(path.isEmpty()){
+        if(path.isEmpty() || aiUpdateCooldown.isReady()){
             updateCoordinate();
-            this.path = aiService.getPath(this.currentCoordinate, this.playerCoordinate);
+            this.path = aiService.getPath(this.currentGridPos, this.playerGridPos);
             System.out.println("---------------------------new path---------------------------");
-            for(Path path:aiService.getPath(this.currentCoordinate, this.playerCoordinate)){
+            for(Path path:aiService.getPath(this.currentGridPos, this.playerGridPos)){
                 System.out.println(path);
             }
+            aiUpdateCooldown.reset();
         }
+        aiUpdateCooldown.update(dt);
+        attackCooldown.update(dt);
         if(!path.isEmpty()){
             processPath(dt);
         }
@@ -75,9 +84,10 @@ public class Melee extends Entity{
              }
              this.setX(melee_coordinate.getX() * cellWidth);
              this.setY(melee_coordinate.getY() * cellHeight);
-             this.currentCoordinate = melee_coordinate;
+             this.currentGridPos = melee_coordinate;
              this.aiService = ServiceLoader.load(AIservice.class).findFirst().get();
              this.aiService.changeMap(mapService);
+             this.addCooldowns();
              entityList.addEntity(this);
         }
     }
@@ -104,6 +114,7 @@ public class Melee extends Entity{
                 nextPoint = path.get(0).getCoordinate();
                 distanceToNextPoint = (float) Math.sqrt(Math.pow(nextPoint.getX()*cellWidth - getX(), 2) + Math.pow(nextPoint.getY()*cellHeight - getY(), 2));
             }
+
         } else {
             float x = getX();
             float y = getY();
@@ -120,6 +131,27 @@ public class Melee extends Entity{
         }
     }
     private void updateCoordinate(){
-        this.currentCoordinate = new Coordinate((int) (getX()/cellWidth), (int) (getY()/cellHeight));
+        this.currentGridPos = new Coordinate((int) (getX()/cellWidth), (int) (getY()/cellHeight));
+    }
+
+    @Override
+    public void handleEvent(CollisionEvent event) {
+        if (collidedWithPlayer(event.getE1(), event.getE2())){
+            attack();
+        }
+    }
+    private boolean collidedWithPlayer(Entity e1, Entity e2){
+        return (e1.equals(this) && e2.getType() == EntityType.PLAYER) || (e2.equals(this) && e1.getType() == EntityType.PLAYER);
+    }
+    private void attack(){
+        if (attackCooldown.isReady()){
+            attackCooldown.reset();
+            System.out.println("Melee attacked");
+        }
+    }
+
+    private void addCooldowns(){
+        this.aiUpdateCooldown = new Cooldown(2);
+        this.attackCooldown = new Cooldown(5);
     }
 }
