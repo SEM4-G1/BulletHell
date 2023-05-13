@@ -1,8 +1,10 @@
 package dk.sdu.group.one.map;
 
+import dk.sdu.group.one.data.Vector2;
+
 import java.util.Objects;
 
-public class Coordinate {
+public class Coordinate implements Cloneable{
     private int x;
     private int y;
     boolean isObstacle = false;
@@ -51,6 +53,14 @@ public class Coordinate {
         int a = x;
         int b = y;
         return 100*a+b;
+    }
+
+    public Vector2 toVector2() {
+        return new Vector2((float) x, (float) y);
+    }
+
+    public Coordinate clone(){
+        return new Coordinate(this.x, this.y, this.isObstacle);
     }
 
     @Override

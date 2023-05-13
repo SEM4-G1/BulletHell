@@ -1,7 +1,5 @@
 package dk.sdu.group.one.enemy.enemytypes;
 
-import dk.sdu.group.one.ai_astar.Node;
-import dk.sdu.group.one.ai_astar.helpers.Mappers;
 import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
 import dk.sdu.group.one.data.EntityType;
@@ -11,15 +9,18 @@ import dk.sdu.group.one.enemy.AI.Path;
 import dk.sdu.group.one.map.Coordinate;
 import dk.sdu.group.one.map.MapService;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
-public class Melee extends Entity implements AIservice {
+public class Melee extends Entity{
     private static String spritePath ="monster_bies.png";
 
-    private static int speed = 1;
+    private List<Path> path = new ArrayList<>();
+
+    private Coordinate nextPoint;
+
+    private float distanceToNextPoint;
+
+    private static float speed = 0.5f;
 
     MapService mapService;
 
@@ -29,6 +30,8 @@ public class Melee extends Entity implements AIservice {
     float cellWidth;
     float cellHeight;
 
+    AIservice aiService;
+
     public Melee() {
         super(EntityType.ENEMY,spritePath, 0, 0, 100);
     }
@@ -37,7 +40,6 @@ public class Melee extends Entity implements AIservice {
     }
 
 
-    boolean testbool = true;
 
     @Override
     public void process(EntityManager entityManager, double dt){
@@ -47,15 +49,17 @@ public class Melee extends Entity implements AIservice {
                 break;
             }
         }
-        if(testbool){
-            for(Path path:getPath()){
+        if(path.isEmpty()){
+            updateCoordinate();
+            this.path = aiService.getPath(this.currentCoordinate, this.playerCoordinate);
+            System.out.println("---------------------------new path---------------------------");
+            for(Path path:aiService.getPath(this.currentCoordinate, this.playerCoordinate)){
                 System.out.println(path);
             }
-            testbool = false;
         }
-
-        this.setX((float) (this.getX() + speed*dt));
-        this.setY((float) (this.getY() + speed*dt));
+        if(!path.isEmpty()){
+            processPath(dt);
+        }
     }
 
     @Override
@@ -72,9 +76,10 @@ public class Melee extends Entity implements AIservice {
              this.setX(melee_coordinate.getX() * cellWidth);
              this.setY(melee_coordinate.getY() * cellHeight);
              this.currentCoordinate = melee_coordinate;
+             this.aiService = ServiceLoader.load(AIservice.class).findFirst().get();
+             this.aiService.changeMap(mapService);
              entityList.addEntity(this);
         }
-
     }
 
     private boolean isUnique(EntityManager entityList, float cellWidth, float cellHeight, Coordinate finalMelee_coordinate) {
@@ -85,21 +90,36 @@ public class Melee extends Entity implements AIservice {
                 .findFirst().isEmpty();
     }
 
-    @Override
-    public List<Path> getPath() {
-        List<Path> path = new ArrayList<>();
-        try{
-        ArrayList<Coordinate> coordinates = (ArrayList<Coordinate>) Node.aStar(currentCoordinate, playerCoordinate, Mappers.GenerateNodes(mapService));
-
-            for (int i = 0; i < coordinates.size()-1; i++) {
-                path.add(new Path(coordinates.get(i), new Vector2(coordinates.get(i).getX()-coordinates.get(i+1).getX(),
-                        coordinates.get(i).getY()-coordinates.get(i+1).getY())));
-            }
-
-        } catch (NullPointerException e){
-            System.out.println("no path:(");
-            return path;
+    private void processPath(double dt){
+        if (nextPoint == null){
+            nextPoint = path.get(0).getCoordinate();
+            distanceToNextPoint = (float) Math.sqrt(Math.pow(nextPoint.getX()*cellWidth - getX(), 2) + Math.pow(nextPoint.getY()*cellHeight - getY(), 2));
         }
-        return path;
+        float distanceToMove = (float) (speed * dt);
+        if(distanceToNextPoint < distanceToMove) {
+            setX(nextPoint.getX()*cellWidth);
+            setY(nextPoint.getY()*cellHeight);
+            path.remove(0);
+            if(!path.isEmpty()){
+                nextPoint = path.get(0).getCoordinate();
+                distanceToNextPoint = (float) Math.sqrt(Math.pow(nextPoint.getX()*cellWidth - getX(), 2) + Math.pow(nextPoint.getY()*cellHeight - getY(), 2));
+            }
+        } else {
+            float x = getX();
+            float y = getY();
+            float x2 = nextPoint.getX()*cellWidth;
+            float y2 = nextPoint.getY()*cellHeight;
+            float dx = x2 - x;
+            float dy = y2 - y;
+            float distance = (float) Math.sqrt(dx * dx + dy * dy);
+            float xMove = (dx / distance) * distanceToMove;
+            float yMove = (dy / distance) * distanceToMove;
+            setX(x + xMove);
+            setY(y + yMove);
+            distanceToNextPoint -= distanceToMove;
+        }
+    }
+    private void updateCoordinate(){
+        this.currentCoordinate = new Coordinate((int) (getX()/cellWidth), (int) (getY()/cellHeight));
     }
 }

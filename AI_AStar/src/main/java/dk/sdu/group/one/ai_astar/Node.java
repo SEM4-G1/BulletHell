@@ -3,15 +3,14 @@ package dk.sdu.group.one.ai_astar;
 import dk.sdu.group.one.ai_astar.helpers.Mappers;
 import dk.sdu.group.one.map.Coordinate;
 import dk.sdu.group.one.map.MapService;
+import dk.sdu.group.one.services.LoggingService;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
-public class Node implements Comparable<Node> {
+public class Node implements Comparable<Node>{
     // Id for readability of result purposes
     private static int idCounter = 0;
+    private static LoggingService loggingService = ServiceLoader.load(LoggingService.class).findFirst().get();
     public int id;
 
     public boolean isObstacle;
@@ -134,13 +133,11 @@ public class Node implements Comparable<Node> {
         while (!openList.isEmpty()) {
             Node n = openList.peek();
             if (n.xPos == target.xPos && n.yPos == target.yPos) {
-
                 while (n.parent != null) {
                     coordinates.add(new Coordinate(n.xPos, n.yPos));
                     n = n.parent;
                 }
                 Collections.reverse(coordinates);
-
                 return coordinates;
             }
 
