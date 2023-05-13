@@ -16,6 +16,11 @@
                 <Pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Pattern>
             </PatternLayout>
         </File>
+        <File name="enemy-logs" fileName="enemy.log" append="false">
+            <PatternLayout>
+                <Pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Pattern>
+            </PatternLayout>
+        </File>
     </Appenders>
     <Loggers>
         <Logger name="dk.sdu.group.one.collision" level="DEBUG" additivity="false">
@@ -23,6 +28,12 @@
         </Logger>
         <Logger name="dk.sdu.group.one.event" level="DEBUG" additivity="false">
             <AppenderRef ref="event-logs"/>
+        </Logger>
+        <Logger name="dk.sdu.group.one.enemy.enemytypes" level="DEBUG" additivity="false">
+            <AppenderRef ref="enemy-logs"/>
+        </Logger>
+        <Logger name="dk.sdu.group.one.ai_astar" level="DEBUG" additivity="false">
+            <AppenderRef ref="enemy-logs"/>
         </Logger>
         <Root level="info">
             <AppenderRef ref="misc-logs"/>
