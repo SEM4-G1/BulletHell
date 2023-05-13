@@ -13,9 +13,6 @@ public class EventBroker{
     public static EventBroker getInstance(){
         if (eventBroker == null){
             loggingService = ServiceLoader.load(LoggingService.class).findFirst().get();
-            if (loggingService == null){
-                System.out.println("no logging service found");
-            }
             eventBroker = new EventBroker();
         }
         return eventBroker;
@@ -25,7 +22,7 @@ public class EventBroker{
 
     private final Map<EventType, Set<EventProcessor<? extends Event>>> subscribers = new EnumMap<>(EventType.class);
 
-    public <T extends Event> void publish(T event) {
+    public <T extends Event> void publish(T event){
         events.put(event.eventType, event);
         for (EventProcessor<? extends Event> subscriber : subscribers.get(event.eventType)) {
             ((EventProcessor<T>) subscriber).handleEvent(event);

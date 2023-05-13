@@ -31,7 +31,7 @@ public class squaredCollision implements PostProcessingService {
                             entity1, entity2,
                                     EventType.Collision,  " Entities {" +entity1.toString() + " has collided with " + entity2.toString() + "}"));
                 }
-                if(entity1.getType() == EntityType.Weapon || entity2.getType() == EntityType.Weapon){
+                if(entity1.getType() == EntityType.BULLET || entity2.getType() == EntityType.BULLET){
                     loggingService.log(this.getClass(), "Weapon collision detected");
                 }
             }

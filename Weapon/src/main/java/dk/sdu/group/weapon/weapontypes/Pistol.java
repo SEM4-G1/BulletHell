@@ -13,28 +13,30 @@ import dk.sdu.group.weapon.weaponfacade.WeaponShooterPart;
 import java.util.Scanner;
 import java.util.ServiceLoader;
 
-public class Pistol extends Weapon {
+public class Pistol extends Weapon{
     public static final String spritePath = "gun.png";
-    public Pistol(EntityType entityType, float x, float y) {
+    public static final String equippedAsset = "equipped-pistol.png";
+    public Pistol(EntityType entityType, float x, float y){
         super(entityType, spritePath, x, y);
         this.bulletService = ServiceLoader.load(BulletService.class).findFirst().get();
         System.out.println("found" + this.bulletService);
     }
 
-    public Pistol() {
+    public Pistol(){
         super();
     }
 
     @Override
-    public void process(EntityManager entityManager, double dt) {
+    public void process(EntityManager entityManager, double dt){
         if (this.pickUpPart.isPickedUp()){
             System.out.println("pistol picked up");
+            bulletService.equip(equippedAsset, 50f, entityManager, pickUpPart.getPickedUpBy());
             entityManager.removeEntity(this);
         }
     }
 
     @Override
-    public void start(MapService mapService, EntityManager entityList) {
+    public void start(MapService mapService, EntityManager entityList){
         Pistol pistol = new Pistol(EntityType.Weapon, 0, 0);
         EventBroker.getInstance().subscribe(EventType.PickUpEvent, pistol.pickUpPart);
         entityList.addEntity(pistol);

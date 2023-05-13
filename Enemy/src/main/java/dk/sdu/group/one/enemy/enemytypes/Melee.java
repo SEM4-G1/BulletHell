@@ -65,6 +65,9 @@ public class Melee extends Entity implements EventProcessor<CollisionEvent> {
         if(!path.isEmpty()){
             processPath(dt);
         }
+        if(getCurrentHealth() <= 0){
+            entityManager.removeEntity(this);
+        }
     }
 
     @Override
@@ -110,7 +113,6 @@ public class Melee extends Entity implements EventProcessor<CollisionEvent> {
                 nextPoint = path.get(0).getCoordinate();
                 distanceToNextPoint = (float) Math.sqrt(Math.pow(nextPoint.getX()*cellWidth - getX(), 2) + Math.pow(nextPoint.getY()*cellHeight - getY(), 2));
             }
-
         } else {
             float x = getX();
             float y = getY();

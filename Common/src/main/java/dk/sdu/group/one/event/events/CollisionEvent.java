@@ -7,7 +7,7 @@ public class CollisionEvent extends Event{
     private Entity e1;
     private Entity e2;
 
-    public CollisionEvent(Entity e1, Entity e2, EventType eventType, String msg) {
+    public CollisionEvent(Entity e1, Entity e2, EventType eventType, String msg){
         super(eventType, msg);
         this.e1 = e1;
         this.e2 = e2;
