@@ -8,8 +8,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
+import dk.sdu.group.one.data.EntityType;
 import dk.sdu.group.one.enemy.enemytypes.Melee;
 import dk.sdu.group.one.map.Coordinate;
+import dk.sdu.group.one.map.MapService;
 import dk.sdu.group.one.player.Player;
 
 import dk.sdu.group.one.rock.Rock;
@@ -17,10 +19,12 @@ import dk.sdu.group.one.services.LevelService;
 import dk.sdu.group.one.services.PostProcessingService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.ServiceLoader;
 
 
 public class CoreEngine extends ApplicationAdapter {
+    MapService mapService;
     SpriteBatch batch;
     EntityManager entityManager;
     Texture mapTexture;
@@ -38,6 +42,9 @@ public class CoreEngine extends ApplicationAdapter {
     public void create() {
         currentMap = new Texture[30][30];
         this.textureCache = new TextureCache();
+       // Player player = new Player("player.png", 5, 5);
+        //entityManager.addEntity(player)
+        //this.currentMap = textureCache.loadTexture(mapProvider.getCurrentLevel().getMapAsset());
         String[][] mapAsset = mapProvider.getCurrentLevel().getMapAsset();
         for (int i = 0; i < 30; i++) {
             for (int j = 0; j < 30; j++) {
@@ -49,9 +56,6 @@ public class CoreEngine extends ApplicationAdapter {
 
         startEntities();
         batch = new SpriteBatch();
-        //TODO this is a wonky way of loading map, so it should be changed to be more clean
-//        img = new Texture(Gdx.files.internal("assets/test.jpg"));
-
     }
 
 
@@ -62,14 +66,15 @@ public class CoreEngine extends ApplicationAdapter {
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT |  GL20.GL_DEPTH_BUFFER_BIT );
         batch.begin();
        // batch.draw(mapTexture, 0,0);
-        for (int i = 0; i < 30; i++) {
-            for (int j = 0; j < 30; j++) {
+        for (int i = 0; i < 30; i++){
+            for (int j = 0; j < 30; j++){
                 batch.draw(currentMap[i][j], i*16, j*16);
             }
         }
-        for (Entity entity : entityManager.getEntityList()) {
+        for (Entity entity : List.copyOf(entityManager.getEntityList())){
             entity.process(entityManager,1);
             //System.out.println(entity.getTexturePath());
+            drawHealthBars(entity, batch);
             batch.draw(
                     textureCache.loadTexture(entity.getTexturePath()),
                     entity.getX(),
@@ -77,14 +82,12 @@ public class CoreEngine extends ApplicationAdapter {
         }
         batch.end();
     }
-
     public void update() {
         List<Entity> entities = List.copyOf(entityManager.getEntityList());
         entities.forEach(
                 entity -> entity.process(entityManager, Gdx.graphics.getDeltaTime())
         );
         postProcessingService.postProcess(entityManager);
-
     }
 
     @Override
@@ -110,6 +113,17 @@ public class CoreEngine extends ApplicationAdapter {
         }
     }
 
+    private void drawHealthBars(Entity entity, SpriteBatch spriteBatch){
+        if(entity.getMaxHealth() == 0){
+            return;
+        }
+        if(entity.getType() == EntityType.ENEMY || entity.getType() == EntityType.PLAYER){
+            spriteBatch.draw(textureCache.loadTexture("healthbar.png"), entity.getX(), entity.getY() + 16);
+            int healthSpriteWidth = 14 * entity.getCurrentHealth() / entity.getMaxHealth();
+            spriteBatch.draw(textureCache.loadTexture("health.png"), entity.getX(), entity.getY() + 16, 0, 0, healthSpriteWidth, 2 );
+        }
+    }
+
     @Override
     public void resize(int width, int height) {
         this.camera.viewportWidth =  width;
@@ -117,6 +131,5 @@ public class CoreEngine extends ApplicationAdapter {
         this.camera.update();
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight());
         System.out.println("Resize");
-
     }
 }

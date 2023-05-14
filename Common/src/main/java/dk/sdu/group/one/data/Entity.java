@@ -3,7 +3,7 @@ package dk.sdu.group.one.data;
 import dk.sdu.group.one.map.MapService;
 
 public abstract class Entity {
-    String texturePath;
+    private String texturePath;
     float x, y;
     float radians;
     int maxHealth;
@@ -105,6 +105,10 @@ public abstract class Entity {
 
     @Override
     public String toString(){
-        return this.getClass().getSimpleName() + ", x: "+ getX() + ", y: " +getY() + ", coordinate hash:"+ this.hashCode();
+        return this.getClass().getSimpleName() + ", x: "+ getX() + ", y: " +getY() + "type: " + getType();
+    }
+
+    public void setTexturePath(String texturePath) {
+        this.texturePath = texturePath;
     }
 }

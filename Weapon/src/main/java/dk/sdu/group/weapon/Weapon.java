@@ -14,9 +14,8 @@ public abstract class Weapon extends Entity {
     public Weapon(EntityType entityType, String spritePath, float x, float y) {
         super(entityType, spritePath, x, y, 100);
     }
-
     public Weapon() {
-        super(EntityType.Weapon, "placeholder", 0, 0, 100);
+        super(EntityType.WEAPON, "placeholder", 0, 0, 100);
     }
 
     public void pickUp(){
