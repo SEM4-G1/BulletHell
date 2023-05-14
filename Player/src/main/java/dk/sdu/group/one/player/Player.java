@@ -25,7 +25,7 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
     public Player(){
         super(EntityType.PLAYER, spritePath, 300, 300);
     }
-    public Player(String spritePath, float x, float y) {
+    public Player(float x, float y) {
         super(EntityType.PLAYER, spritePath, x, y, 100);
     }
 
@@ -60,14 +60,18 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
         
         this.setX(this.getX() + (float) (movement.getX() * speed * dt));
         this.setY(this.getY() + (float) (movement.getY() * speed * dt));
+        if(getCurrentHealth() <= 0){
+            entityManager.removeEntity(this);
+        }
     }
 
     @Override
     public void start(MapService mapService, EntityManager entityManager) {
-        entityManager.addEntity(new Player(spritePath, 300, 300));
-        this.controllerService = ServiceLoader.load(ControllerService.class).findFirst().get();
-        entityManager.addEntity(this);
-        EventBroker.getInstance().subscribe(EventType.Collision, this);
+        Player player = new Player(40, 40);
+        player.controllerService = ServiceLoader.load(ControllerService.class).findFirst().get();
+        entityManager.addEntity(player);
+        EventBroker.getInstance().subscribe(EventType.Collision, player);
+        System.out.println("player subscribed to collision events");
     }
 
     @Override
@@ -81,9 +85,10 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
     }
 
     private void handleCollision(Entity entity){
-        if (entity.getType() == EntityType.Weapon){
+        if (entity.getType() == EntityType.WEAPON){
             Event newEvent = new PickUpEvent(this, entity, EventType.PickUpEvent, "Picked up a gun");
             EventBroker.getInstance().publish(newEvent);
+            System.out.println("Player picked up a gun");
         }
     }
 }

@@ -105,7 +105,7 @@ public abstract class Entity {
 
     @Override
     public String toString(){
-        return this.getClass().getSimpleName() + ", x: "+ getX() + ", y: " +getY() + ", coordinate hash:"+ this.hashCode();
+        return this.getClass().getSimpleName() + ", x: "+ getX() + ", y: " +getY() + "type: " + getType();
     }
 
     public void setTexturePath(String texturePath) {

@@ -27,12 +27,10 @@ public class squaredCollision implements PostProcessingService {
                 Entity entity1 = entityManager.getEntityList().get(i);
                 Entity entity2 = entityManager.getEntityList().get(j);
                 if(isColliding(entity1, entity2)) {
+                    loggingService.log(this.getClass(),  "calculating: " + entity1 + " : " +entity2 );
                     EventBroker.getInstance().publish(new CollisionEvent(
                             entity1, entity2,
-                                    EventType.Collision,  " Entities {" +entity1.toString() + " has collided with " + entity2.toString() + "}"));
-                }
-                if(entity1.getType() == EntityType.BULLET || entity2.getType() == EntityType.BULLET){
-                    loggingService.log(this.getClass(), "Weapon collision detected");
+                                    EventType.Collision,  " Entities {" + entity1 + " has collided with " + entity2 + "}"));
                 }
             }
         }

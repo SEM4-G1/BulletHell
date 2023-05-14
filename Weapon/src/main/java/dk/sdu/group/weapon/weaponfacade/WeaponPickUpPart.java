@@ -24,7 +24,7 @@ public class WeaponPickUpPart implements EventProcessor<PickUpEvent> {
             pickedUpBy = event.getIssuer();
             this.isPickedUp = true;
         }
-        else if(event.getIssuer().getType() == EntityType.Weapon){
+        else if(event.getIssuer().getType() == EntityType.WEAPON){
             weapon.drop();
             this.isPickedUp = false;
             weapon.bulletService.unequip();

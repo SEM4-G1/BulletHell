@@ -6,8 +6,10 @@ import dk.sdu.group.one.data.EntityType;
 import dk.sdu.group.one.enemy.AI.AIservice;
 import dk.sdu.group.one.enemy.AI.Path;
 import dk.sdu.group.one.enemy.Cooldown;
+import dk.sdu.group.one.event.EventBroker;
 import dk.sdu.group.one.event.EventProcessor;
 import dk.sdu.group.one.event.events.CollisionEvent;
+import dk.sdu.group.one.event.events.EventType;
 import dk.sdu.group.one.map.Coordinate;
 import dk.sdu.group.one.map.MapService;
 
@@ -37,6 +39,7 @@ public class Melee extends Entity implements EventProcessor<CollisionEvent> {
     float cellHeight;
 
     AIservice aiService;
+    boolean isAttacking = false;
 
     public Melee() {
         super(EntityType.ENEMY,spritePath, 0, 0, 100);
@@ -68,6 +71,19 @@ public class Melee extends Entity implements EventProcessor<CollisionEvent> {
         if(getCurrentHealth() <= 0){
             entityManager.removeEntity(this);
         }
+        if (isAttacking){
+            List<Entity> explosions = new ArrayList<>();
+            explosions.add(new MeleeExplosion(EntityType.ATTACK, super.getX()+cellWidth ,super.getY()));
+            explosions.add(new MeleeExplosion(EntityType.ATTACK, super.getX()-cellWidth ,super.getY()));
+            explosions.add(new MeleeExplosion(EntityType.ATTACK, super.getX() ,super.getY()+cellHeight));
+            explosions.add(new MeleeExplosion(EntityType.ATTACK, super.getX() ,super.getY()-cellHeight));
+            explosions.add(new MeleeExplosion(EntityType.ATTACK, super.getX()+cellWidth ,super.getY()+cellHeight));
+            explosions.add(new MeleeExplosion(EntityType.ATTACK, super.getX()-cellWidth ,super.getY()-cellHeight));
+            explosions.add(new MeleeExplosion(EntityType.ATTACK, super.getX()+cellWidth ,super.getY()-cellHeight));
+            explosions.add(new MeleeExplosion(EntityType.ATTACK, super.getX()-cellWidth ,super.getY()+cellHeight));
+            explosions.forEach(entityManager::addEntity);
+            isAttacking = false;
+        }
     }
 
     @Override
@@ -76,11 +92,12 @@ public class Melee extends Entity implements EventProcessor<CollisionEvent> {
         this.cellWidth = 480.0f/mapService.getWidth();
         this.cellHeight = 480.0f/mapService.getHeight();
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 1; i++){
              Coordinate melee_coordinate = new Coordinate((int)(Math.random()*mapService.getWidth()),(int)(Math.random()*mapService.getHeight()));
              while (!isUnique(entityList, cellWidth, cellHeight, melee_coordinate)){
                 melee_coordinate = new Coordinate((int)(Math.random()*mapService.getWidth()),(int)(Math.random()*mapService.getHeight()));
              }
+
              this.setX(melee_coordinate.getX() * cellWidth);
              this.setY(melee_coordinate.getY() * cellHeight);
              this.currentGridPos = melee_coordinate;
@@ -88,6 +105,7 @@ public class Melee extends Entity implements EventProcessor<CollisionEvent> {
              this.aiService.changeMap(mapService);
              this.addCooldowns();
              entityList.addEntity(this);
+             EventBroker.getInstance().subscribe(EventType.Collision, this);
         }
     }
 
@@ -108,23 +126,23 @@ public class Melee extends Entity implements EventProcessor<CollisionEvent> {
         if(distanceToNextPoint < distanceToMove) {
             setX(nextPoint.getX()*cellWidth);
             setY(nextPoint.getY()*cellHeight);
-            path.remove(0);
             if(!path.isEmpty()){
                 nextPoint = path.get(0).getCoordinate();
                 distanceToNextPoint = (float) Math.sqrt(Math.pow(nextPoint.getX()*cellWidth - getX(), 2) + Math.pow(nextPoint.getY()*cellHeight - getY(), 2));
             }
+            path.remove(0);
         } else {
-            float x = getX();
-            float y = getY();
+            float x1 = getX();
+            float y1 = getY();
             float x2 = nextPoint.getX()*cellWidth;
             float y2 = nextPoint.getY()*cellHeight;
-            float dx = x2 - x;
-            float dy = y2 - y;
+            float dx = x2 - x1;
+            float dy = y2 - y1;
             float distance = (float) Math.sqrt(dx * dx + dy * dy);
-            float xMove = (dx / distance) * distanceToMove;
-            float yMove = (dy / distance) * distanceToMove;
-            setX(x + xMove);
-            setY(y + yMove);
+            float xMoveDistance = dx  * (distanceToMove/ distance);
+            float yMoveDisance = dy  * (distanceToMove/ distance);
+            setX(x1 + xMoveDistance);
+            setY(y1 + yMoveDisance);
             distanceToNextPoint -= distanceToMove;
         }
     }
@@ -143,13 +161,13 @@ public class Melee extends Entity implements EventProcessor<CollisionEvent> {
     }
     private void attack(){
         if (attackCooldown.isReady()){
+            this.isAttacking = true;
             attackCooldown.reset();
-            System.out.println("Melee attacked");
         }
     }
 
     private void addCooldowns(){
-        this.aiUpdateCooldown = new Cooldown(2);
-        this.attackCooldown = new Cooldown(5);
+        this.aiUpdateCooldown = new Cooldown(10);
+        this.attackCooldown = new Cooldown(30);
     }
 }

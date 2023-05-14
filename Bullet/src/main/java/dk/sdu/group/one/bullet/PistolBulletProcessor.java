@@ -19,11 +19,6 @@ public class PistolBulletProcessor extends Entity implements BulletService {
         super(EntityType.BULLET, "placeholder", 0, 0, 1000);
     }
 
-    public PistolBulletProcessor(EntityType entityType, String spritePath, float x, float y, int maxHealth, float cooldown){
-        super(entityType, spritePath, x, y, maxHealth);
-        this.cooldownMax = cooldown;
-    }
-
     @Override
     public void process(EntityManager entityManager, double dt){
         cooldown -= dt;
