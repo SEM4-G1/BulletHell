@@ -22,7 +22,6 @@ public class PistolBulletProcessor extends Entity implements BulletService {
     @Override
     public void process(EntityManager entityManager, double dt){
         cooldown -= dt;
-        System.out.println("cooldown: " + cooldown);
         if (isRemoved){
             entityManager.removeEntity(this);
         }

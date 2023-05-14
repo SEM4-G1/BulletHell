@@ -21,7 +21,7 @@ public class MeleeExplosion extends Entity implements EventProcessor<CollisionEv
 
     int currentFrame = 1;
 
-    private int damage = 5;
+    private int damage = 2;
 
     boolean hasAttacked = false;
 
@@ -33,9 +33,9 @@ public class MeleeExplosion extends Entity implements EventProcessor<CollisionEv
     @Override
     public void process(EntityManager entityManager, double dt) {
         timer += dt;
-        if (timer > 75f) {
+        if (timer > 20f){
             timer = 0;
-            switch (currentFrame) {
+            switch (currentFrame){
                 case 1 -> firstFrame();
                 case 2 -> secondFrame();
                 case 3 -> thirdFrame();

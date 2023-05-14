@@ -88,24 +88,26 @@ public class Melee extends Entity implements EventProcessor<CollisionEvent> {
 
     @Override
     public void start(MapService mapService, EntityManager entityList) {
-        this.mapService = mapService;
-        this.cellWidth = 480.0f/mapService.getWidth();
-        this.cellHeight = 480.0f/mapService.getHeight();
 
         for (int i = 0; i < 1; i++){
-             Coordinate melee_coordinate = new Coordinate((int)(Math.random()*mapService.getWidth()),(int)(Math.random()*mapService.getHeight()));
+            Melee melee = new Melee();
+            melee.mapService = mapService;
+            melee.cellWidth = 480.0f/mapService.getWidth();
+            melee.cellHeight = 480.0f/mapService.getHeight();
+
+            Coordinate melee_coordinate = new Coordinate((int)(Math.random()*mapService.getWidth()),(int)(Math.random()*mapService.getHeight()));
              while (!isUnique(entityList, cellWidth, cellHeight, melee_coordinate)){
                 melee_coordinate = new Coordinate((int)(Math.random()*mapService.getWidth()),(int)(Math.random()*mapService.getHeight()));
              }
 
-             this.setX(melee_coordinate.getX() * cellWidth);
-             this.setY(melee_coordinate.getY() * cellHeight);
-             this.currentGridPos = melee_coordinate;
-             this.aiService = ServiceLoader.load(AIservice.class).findFirst().get();
-             this.aiService.changeMap(mapService);
-             this.addCooldowns();
-             entityList.addEntity(this);
-             EventBroker.getInstance().subscribe(EventType.Collision, this);
+             melee.setX(melee_coordinate.getX() * cellWidth);
+             melee.setY(melee_coordinate.getY() * cellHeight);
+             melee.currentGridPos = melee_coordinate;
+             melee.aiService = ServiceLoader.load(AIservice.class).findFirst().get();
+             melee.aiService.changeMap(mapService);
+             melee.addCooldowns();
+             entityList.addEntity(melee);
+             EventBroker.getInstance().subscribe(EventType.Collision, melee);
         }
     }
 

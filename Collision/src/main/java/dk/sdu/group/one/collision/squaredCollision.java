@@ -37,8 +37,8 @@ public class squaredCollision implements PostProcessingService {
     }
 
     public boolean isColliding(Entity entity1, Entity entity2) {
-        float halfWidth = 8;
-        float halfHeight = 8;
+        float halfWidth = 6;
+        float halfHeight = 6;
 
         float left1 = entity1.getX() - halfWidth;
         float right1 = entity1.getX() + halfWidth;
