@@ -45,7 +45,6 @@ public class Pistol extends Weapon{
             while (!isUnique(entityList, cellWidth, cellHeight, melee_coordinate)){
                 melee_coordinate = new Coordinate((int)(Math.random()*mapService.getWidth()),(int)(Math.random()*mapService.getHeight()));
             }
-
             pistol.setX(melee_coordinate.getX() * cellWidth);
             pistol.setY(melee_coordinate.getY() * cellHeight);
             entityList.addEntity(pistol);

@@ -33,7 +33,6 @@ public class PistolBulletProcessor extends Entity implements BulletService {
 
     @Override
     public void start(MapService mapService, EntityManager entityList){
-
     }
 
 
