@@ -27,7 +27,7 @@ public class PistolBulletProcessor extends Entity implements BulletService {
         }
         int xFromEquipper = 8;
         int yFromEquipper = 8;
-        setX(equipper.getX() + (float) (xFromEquipper * Math.cos(equipper.getRadians())));
+        setX(equipper.getX() + 8 + (float) (xFromEquipper * Math.cos(equipper.getRadians())));
         setY(equipper.getY() + (float) (yFromEquipper * Math.sin(equipper.getRadians())));
     }
 

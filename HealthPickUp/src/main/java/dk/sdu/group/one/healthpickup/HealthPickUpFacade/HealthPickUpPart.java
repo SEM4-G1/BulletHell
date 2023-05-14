@@ -17,8 +17,11 @@ public class HealthPickUpPart implements EventProcessor<PickUpEvent> {
     public void handleEvent(PickUpEvent event){
         if (!isPickedUp){
             System.out.println("HealthPickUp Detected by PickUpPart");
-            healthPickUp.pickup();
+            healthPickUp.pickup(event.getIssuer());
             this.isPickedUp = true;
         }
+    }
+    public boolean isPickedUp(){
+            return isPickedUp;
     }
 }

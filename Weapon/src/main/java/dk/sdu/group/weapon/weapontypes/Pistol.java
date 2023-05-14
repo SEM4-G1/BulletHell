@@ -50,8 +50,8 @@ public class Pistol extends Weapon{
             entityList.addEntity(pistol);
             EventBroker.getInstance().subscribe(EventType.PickUpEvent, pistol.pickUpPart);
         }
-
     }
+
     private boolean isUnique(EntityManager entityList, float cellWidth, float cellHeight, Coordinate final_coordinate) {
         return entityList.getEntityList().stream()
                 .filter(entity -> entity.getX() == final_coordinate.getX() * cellWidth

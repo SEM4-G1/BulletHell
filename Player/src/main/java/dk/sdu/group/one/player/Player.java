@@ -90,5 +90,10 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
             EventBroker.getInstance().publish(newEvent);
             System.out.println("Player picked up a gun");
         }
+        if (entity.getType() == EntityType.Health){
+            Event newEvent = new PickUpEvent(this, entity, EventType.PickUpEvent, "Picked up a health pack");
+            EventBroker.getInstance().publish(newEvent);
+            System.out.println("Player picked up a health pack");
+        }
     }
 }
