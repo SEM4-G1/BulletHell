@@ -20,7 +20,7 @@
         <module>AI</module>
         <module>Enemy</module>
         <module>Collision</module>
-        <module>keyboard-controller</module>
+        <module>KeyboardController</module>
         <module>Logging</module>
         <module>HealthPickUp</module>
     </modules>
