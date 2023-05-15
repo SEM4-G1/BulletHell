@@ -17,11 +17,11 @@
         <module>Bullet</module>
         <module>Map</module>
         <module>Obstacle</module>
-        <module>AI_AStar</module>
+        <module>AI</module>
         <module>Enemy</module>
         <module>Collision</module>
         <module>keyboard-controller</module>
-        <module>Logging4J</module>
+        <module>Logging</module>
         <module>HealthPickUp</module>
     </modules>
     <properties>
