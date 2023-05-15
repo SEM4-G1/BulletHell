@@ -88,7 +88,6 @@ public class Melee extends Entity implements EventProcessor<CollisionEvent> {
 
     @Override
     public void start(MapService mapService, EntityManager entityList) {
-
         for (int i = 0; i < 1; i++){
             Melee melee = new Melee();
             melee.mapService = mapService;
@@ -96,6 +95,7 @@ public class Melee extends Entity implements EventProcessor<CollisionEvent> {
             melee.cellHeight = 480.0f/mapService.getHeight();
 
             Coordinate melee_coordinate = new Coordinate((int)(Math.random()*mapService.getWidth()),(int)(Math.random()*mapService.getHeight()));
+            //TODO GETS STUCK IN INFINITE LOOP when more than 1 enemy is spawned
              while (!isUnique(entityList, cellWidth, cellHeight, melee_coordinate)){
                 melee_coordinate = new Coordinate((int)(Math.random()*mapService.getWidth()),(int)(Math.random()*mapService.getHeight()));
              }
