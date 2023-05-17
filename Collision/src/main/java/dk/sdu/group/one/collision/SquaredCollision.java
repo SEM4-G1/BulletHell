@@ -5,19 +5,24 @@ import dk.sdu.group.one.event.EventBroker;
 import dk.sdu.group.one.event.events.CollisionDirectionEnum;
 import dk.sdu.group.one.event.events.CollisionEvent;
 import dk.sdu.group.one.event.events.EventType;
+import dk.sdu.group.one.services.LoggingService;
 import dk.sdu.group.one.services.PostProcessingService;
 import dk.sdu.group.one.data.Entity;
 import dk.sdu.group.one.data.EntityManager;
 
+import java.util.ServiceLoader;
+
 public class SquaredCollision implements PostProcessingService {
+    LoggingService loggingService;
 
     public SquaredCollision() {
+        this.loggingService = ServiceLoader.load(LoggingService.class).findFirst().get();
     }
 
     @Override
     public void postProcess(EntityManager entityManager){
         for (int i = 0; i < entityManager.getEntityList().size(); i++){
-            for (int j = i + 1; j < entityManager.getEntityList().size(); j++){
+            for (int j = i+1; j < entityManager.getEntityList().size(); j++){
                 Entity entity1 = entityManager.getEntityList().get(i);
                 Entity entity2 = entityManager.getEntityList().get(j);
 
@@ -25,11 +30,10 @@ public class SquaredCollision implements PostProcessingService {
 
                 if(collisionResult != null) {
                     EventBroker.getInstance().publish(new CollisionEvent(
-                        entity1,
-                        entity2,
-                        collisionResult,
-                        EventType.Collision,  " Entities {" +entity1.toString() + " has collided with " + entity2.toString() + "}"),
-                        EventType.Collision);
+                                    entity1,
+                                    entity2,
+                                    collisionResult,
+                                    EventType.Collision,  " Entities {" +entity1.toString() + " has collided with " + entity2.toString() + "}"));
                 }
             }
         }
