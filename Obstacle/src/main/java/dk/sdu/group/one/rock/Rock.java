@@ -9,11 +9,11 @@ import dk.sdu.group.one.map.MapService;
 public class Rock extends Entity{
     private static final String spritePath = "MapSprits/obstacle.png";
     public Rock() {
-        super(EntityType.OBSTACLE, spritePath, 0.0f, 0.0f);
+        super(EntityType.OBSTACLE, spritePath, 0.0f, 0.0f, 20, 20);
     }
 
     public Rock(EntityType type, float x, float y) {
-        super(type, spritePath, x, y);
+        super(type, spritePath, x, y, 20, 20);
     }
     @Override
     public void process(EntityManager entityManager, double dt) {

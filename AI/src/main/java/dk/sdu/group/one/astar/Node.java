@@ -1,6 +1,7 @@
-package dk.sdu.group.one.ai_astar;
+package dk.sdu.group.one.astar;
 
-import dk.sdu.group.one.ai_astar.helpers.Mappers;
+import dk.sdu.group.one.astar.helpers.Mappers;
+import dk.sdu.group.one.astar.Edge;
 import dk.sdu.group.one.map.Coordinate;
 import dk.sdu.group.one.map.MapService;
 import dk.sdu.group.one.services.LoggingService;

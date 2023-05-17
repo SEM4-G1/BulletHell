@@ -35,7 +35,7 @@ public class Map extends MapService {
         grid = new HashSet<>();
         for (int i = 0; i < width; i++) {
             for (int j = 0; j <height; j++) {
-                if(Math.random()<0.2){
+                if(Math.random()<0.1){
                     grid.add(new Coordinate(i, j, true));
                     obstaclePositions.add(new Coordinate(i,j, true));
                     continue;

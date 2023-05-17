@@ -1,11 +1,8 @@
-package dk.sdu.group.one.ai_astar.helpers;
+package dk.sdu.group.one.astar.helpers;
 
-import dk.sdu.group.one.ai_astar.Node;
+import dk.sdu.group.one.astar.Node;
 import dk.sdu.group.one.map.Coordinate;
 import dk.sdu.group.one.map.MapService;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class Mappers {
     public static Node[][] GenerateNodes(MapService mapService) {

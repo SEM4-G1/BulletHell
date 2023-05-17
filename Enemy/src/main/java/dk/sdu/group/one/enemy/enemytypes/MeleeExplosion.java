@@ -26,7 +26,7 @@ public class MeleeExplosion extends Entity implements EventProcessor<CollisionEv
     boolean hasAttacked = false;
 
     public MeleeExplosion(EntityType entityType, float x, float y) {
-        super(EntityType.ENEMY, "earth-explosion-1.png", x, y);
+        super(EntityType.ENEMY, "earth-explosion-1.png", x, y, 10, 10);
         EventBroker.getInstance().subscribe(EventType.Collision, this);
     }
 

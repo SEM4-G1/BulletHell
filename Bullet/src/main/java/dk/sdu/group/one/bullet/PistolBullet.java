@@ -20,15 +20,13 @@ public class PistolBullet extends Entity implements EventProcessor<CollisionEven
     public static final String assetPath = "bulle" + "t.png";
 
     public PistolBullet(){
-        super(EntityType.BULLET, assetPath, 0, 0, 10);
+        super(EntityType.BULLET, assetPath, 0, 0, 10, 10, 10);
     }
 
     public PistolBullet(EntityType entityType, float x, float y){
-        super(entityType, assetPath, x, y, 10);
+        super(entityType, assetPath, x, y, 10, 10, 10);
         EventBroker.getInstance().subscribe(EventType.Collision, this);
     }
-
-
 
     @Override
     public void process(EntityManager entityManager, double dt){
