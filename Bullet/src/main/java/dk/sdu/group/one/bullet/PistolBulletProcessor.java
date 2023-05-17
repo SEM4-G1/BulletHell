@@ -16,7 +16,7 @@ public class PistolBulletProcessor extends Entity implements BulletService {
     private Entity equipper;
 
     public PistolBulletProcessor() {
-        super(EntityType.BULLET, "placeholder", 0, 0, 5, 5, 1000);
+        super(EntityType.BULLET, "placeholder", 0, 0, 10, 10, 1000);
     }
 
     @Override

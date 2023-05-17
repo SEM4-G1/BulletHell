@@ -91,7 +91,10 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
         }
 
         // Only respond to collisions with other entities
-        if (event.getE1().equals(this) && !event.getE2().equals(this)) {
+        boolean playerObstacleCollision = event.getE1().getType() == EntityType.PLAYER && event.getE2().getType() == EntityType.OBSTACLE;
+        boolean obstaclePlayerCollision = event.getE1().getType() == EntityType.OBSTACLE && event.getE2().getType() == EntityType.PLAYER;
+
+        if (playerObstacleCollision || obstaclePlayerCollision) {
             switch (event.collisionDirection) {
                 case TOP -> this.isCollidingUp = true;
                 case BOTTOM -> this.isCollidingDown = true;

@@ -42,7 +42,7 @@ public class Melee extends Entity implements EventProcessor<CollisionEvent> {
     boolean isAttacking = false;
 
     public Melee() {
-        super(EntityType.ENEMY,spritePath, 0, 0, 100, 20, 20);
+        super(EntityType.ENEMY,spritePath, 0, 0, 20, 20, 20);
     }
     public Melee(float x, float y) {
         super(EntityType.ENEMY,spritePath, x, y, 20, 20, 100);

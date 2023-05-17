@@ -12,11 +12,11 @@ public abstract class Weapon extends Entity {
     public WeaponPickUpPart pickUpPart = new WeaponPickUpPart(this);
     public WeaponShooterPart weaponShooterPart = new WeaponShooterPart(this);
     public Weapon(EntityType entityType, String spritePath, float x, float y) {
-        super(entityType, spritePath, x, y, 5, 5, 100);
+        super(entityType, spritePath, x, y, 20, 20, 100);
     }
 
     public Weapon() {
-        super(EntityType.WEAPON, "placeholder", 0, 0, 5, 5, 100);
+        super(EntityType.WEAPON, "placeholder", 0, 0, 10, 10, 100);
     }
 
     public void pickUp(){
