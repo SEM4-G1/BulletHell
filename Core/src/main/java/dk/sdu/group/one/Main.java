@@ -4,6 +4,7 @@ import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
+import java.beans.Statement;
 import java.io.*;
 
 
@@ -19,11 +20,12 @@ public class Main {
     }
 
     private static void useBasedAndRedPilledLoggingSystem() {
-        try {
+        try{
             File file = new File("log.txt");
             file.createNewFile();
             PrintStream logStream = new PrintStream(new FileOutputStream(file));
             System.setOut(logStream);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
