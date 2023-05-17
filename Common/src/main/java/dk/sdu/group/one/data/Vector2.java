@@ -1,6 +1,6 @@
 package dk.sdu.group.one.data;
 
-public class Vector2 {
+public class Vector2{
     private float x, y;
 
     // Inspired by Unity
@@ -21,13 +21,18 @@ public class Vector2 {
      * @return the normalized vector
      */
     public Vector2 normalize() {
-        double l = Math.pow(x, 2) + Math.pow(y, 2);
-        if (l != 0) {
-            l = Math.sqrt(l);
-            x = (float) (x / l);
-            y = (float) (y / l);
-        }
+        // If vector is a zero vector
+        if (this.x == 0 && this.y == 0) return this;
+
+        float length = getMagnitude();
+        x = x / length;
+        y = y / length;
+
         return this;
+    }
+
+    public float getMagnitude() {
+        return (float) Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
     }
 
     /**
@@ -81,4 +86,15 @@ public class Vector2 {
         return "Vector2: (" + this.getX() + ", " + this.getY() + ")";
     }
 
+    public Vector2 multiply(float scaleX, float scaleY) {
+        return new Vector2(x * scaleX, y * scaleY);
+    }
+    public Vector2 multiply(float scalar) {
+        return new Vector2(x * scalar, y * scalar);
+    }
+    public float distanceTo(Vector2 other) {
+        float dx = other.x - this.x;
+        float dy = other.y - this.y;
+        return (float) Math.sqrt(dx * dx + dy * dy);
+    }
 }

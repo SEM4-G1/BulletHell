@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <File name="collision-logs" fileName="collision.log" append="false">
+            <PatternLayout>
+                <Pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Pattern>
+            </PatternLayout>
+        </File>
+        <File name="event-logs" fileName="event.log" append="false">
+            <PatternLayout>
+                <Pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Pattern>
+            </PatternLayout>
+        </File>
+        <File name="misc-logs" fileName="misc.log" append="false">
+            <PatternLayout>
+                <Pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Pattern>
+            </PatternLayout>
+        </File>
+        <File name="enemy-logs" fileName="enemy.log" append="false">
+            <PatternLayout>
+                <Pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Pattern>
+            </PatternLayout>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Logger name="dk.sdu.group.one.collision" level="DEBUG" additivity="false">
+            <AppenderRef ref="collision-logs"/>
+        </Logger>
+        <Logger name="dk.sdu.group.one.event" level="DEBUG" additivity="false">
+            <AppenderRef ref="event-logs"/>
+        </Logger>
+        <Logger name="dk.sdu.group.one.enemy.enemytypes" level="DEBUG" additivity="false">
+            <AppenderRef ref="enemy-logs"/>
+        </Logger>
+        <Logger name="dk.sdu.group.one.astar" level="DEBUG" additivity="false">
+            <AppenderRef ref="enemy-logs"/>
+        </Logger>
+        <Root level="info">
+            <AppenderRef ref="misc-logs"/>
+        </Root>
+    </Loggers>
+</Configuration>

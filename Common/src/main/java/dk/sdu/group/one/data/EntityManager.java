@@ -1,5 +1,7 @@
 package dk.sdu.group.one.data;
 
+import dk.sdu.group.one.map.Coordinate;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.EnumMap;
@@ -19,6 +21,11 @@ public class EntityManager {
         this.entityMap.put(entity.getType(), entity);
     }
 
+    public void removeEntity(Entity entity){
+        this.entityList.remove(entity);
+        this.entityMap.remove(entity.getType(), entity);
+    }
+
     public List<Entity> getEntityList() {
         return this.entityList;
     }
@@ -26,7 +33,4 @@ public class EntityManager {
     public Map<EntityType, Entity> getEntityMap() {
         return this.entityMap;
     }
-
-
-
 }
