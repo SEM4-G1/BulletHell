@@ -1,6 +1,6 @@
-package dk.sdu.group.one.ai_astar;
+package dk.sdu.group.one.astar;
 
-import dk.sdu.group.one.ai_astar.helpers.Mappers;
+import dk.sdu.group.one.astar.helpers.Mappers;
 import dk.sdu.group.one.data.Vector2;
 import dk.sdu.group.one.enemy.AI.AIservice;
 import dk.sdu.group.one.enemy.AI.Path;

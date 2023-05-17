@@ -18,46 +18,53 @@ import java.util.ServiceLoader;
 
 public class Player extends Entity implements EventProcessor<CollisionEvent>{
     private static final String spritePath = "player.png";
+    private Boolean isCollidingLeft = false;
+    private Boolean isCollidingRight = false;
+    private Boolean isCollidingUp = false;
+    private Boolean isCollidingDown = false;
 
     ControllerService controllerService;
     private float speed = 2f;
 
     public Player(){
-        super(EntityType.PLAYER, spritePath, 300, 300);
+        super(EntityType.PLAYER, spritePath, 200, 200, 20, 20);
     }
-    public Player(float x, float y) {
-        super(EntityType.PLAYER, spritePath, x, y, 100);
+    public Player(String spritePath, float x, float y) {
+        super(EntityType.PLAYER, spritePath, x, y, 20, 20, 100);
     }
 
     @Override
     public void process(EntityManager entityManager, double dt) {
-
         if(this.controllerService == null){
             controllerService = ServiceLoader.load(ControllerService.class).findFirst().get();
         }
 
         ControllerScheme controllerScheme = this.controllerService.getInputs();
         Vector2 movement = new Vector2(0, 0);
-        if (controllerScheme.isUp()) {
+        if (controllerScheme.isUp() && !this.isCollidingUp) {
             movement.add(Vector2.up);
             setRadians((float) (Math.PI * 0.5f));
+            resetCollisionStates();
         }
-        if (controllerScheme.isDown()) {
+        if (controllerScheme.isDown() && !this.isCollidingDown) {
             movement.add(Vector2.down);
             setRadians(
                     (float) (Math.PI * 1.5f));
+            resetCollisionStates();
         }
-        if (controllerScheme.isLeft()) {
+        if (controllerScheme.isLeft() && !this.isCollidingLeft) {
             movement.add(Vector2.left);
             setRadians((float) Math.PI);
+            resetCollisionStates();
         }
-        if (controllerScheme.isRight()) {
+        if (controllerScheme.isRight() && !this.isCollidingRight) {
             movement.add(Vector2.right);
             setRadians(0);
+            resetCollisionStates();
         }
         if (controllerScheme.isStop()) EventBroker.getInstance().publish(new ShootEvent(EventType.ShootEvent, "Shoot", entityManager, this));
         movement = movement.normalize();
-        
+
         this.setX(this.getX() + (float) (movement.getX() * speed * dt));
         this.setY(this.getY() + (float) (movement.getY() * speed * dt));
         if(getCurrentHealth() <= 0){
@@ -67,7 +74,7 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
 
     @Override
     public void start(MapService mapService, EntityManager entityManager) {
-        Player player = new Player(40, 40);
+        Player player = new Player(this.spritePath, 40, 40);
         player.controllerService = ServiceLoader.load(ControllerService.class).findFirst().get();
         entityManager.addEntity(player);
         EventBroker.getInstance().subscribe(EventType.Collision, player);
@@ -82,6 +89,20 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
         else if(event.getE2().equals(this)){
             handleCollision(event.getE1());
         }
+
+        // Only respond to collisions with other entities
+        boolean playerObstacleCollision = event.getE1().getType() == EntityType.PLAYER && event.getE2().getType() == EntityType.OBSTACLE;
+        boolean obstaclePlayerCollision = event.getE1().getType() == EntityType.OBSTACLE && event.getE2().getType() == EntityType.PLAYER;
+
+        if (playerObstacleCollision || obstaclePlayerCollision) {
+            switch (event.collisionDirection) {
+                case TOP -> this.isCollidingUp = true;
+                case BOTTOM -> this.isCollidingDown = true;
+                case LEFT -> this.isCollidingLeft = true;
+                case RIGHT -> this.isCollidingRight = true;
+            }
+            System.out.println("Collision with " + event.getE1().getType() + " on " + event.collisionDirection);
+        }
     }
 
     private void handleCollision(Entity entity){
@@ -95,5 +116,12 @@ public class Player extends Entity implements EventProcessor<CollisionEvent>{
             EventBroker.getInstance().publish(newEvent);
             System.out.println("Player picked up a health pack");
         }
+    }
+
+    private void resetCollisionStates() {
+        this.isCollidingUp = false;
+        this.isCollidingDown = false;
+        this.isCollidingLeft = false;
+        this.isCollidingRight = false;
     }
 }
