@@ -8,13 +8,15 @@ import dk.sdu.group.one.map.Coordinate;
 import dk.sdu.group.one.map.MapService;
 import dk.sdu.group.one.services.LoggingService;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ServiceLoader;
 
 public class PathCreator implements AIservice {
     //vars for logging runtime
-    static int totalTime = 0;
+    static BigDecimal totalTime = BigDecimal.ZERO;
     static int totalMeasurements = 0;
     MapService mapService;
     LoggingService loggingService;
@@ -26,16 +28,16 @@ public class PathCreator implements AIservice {
     public List<Path> getPath(Coordinate currentCoordinate, Coordinate playerCoordinate) {
         List<Path> path = new ArrayList<>();
         try{
-            long startTime = System.nanoTime();
+            BigDecimal startTime = BigDecimal.valueOf(System.nanoTime());
 
             ArrayList<Coordinate> coordinates = (ArrayList<Coordinate>) Node.aStar(currentCoordinate.clone(), playerCoordinate.clone(), Mappers.GenerateNodes(mapService));
 
-            long endTime = System.nanoTime();
+            BigDecimal endTime = BigDecimal.valueOf(System.nanoTime());
             totalMeasurements += 1;
-            long time = (endTime - startTime);
-            totalTime += time;
-            double average = totalTime*1.0/totalMeasurements;
-            double deviationPercent = (1-(time*1.0/average))*100;
+            BigDecimal time = endTime.subtract(startTime);
+            totalTime = totalTime.add(time);
+            BigDecimal average = totalTime.divide(BigDecimal.valueOf(totalMeasurements), RoundingMode.HALF_UP);
+            BigDecimal deviationPercent = BigDecimal.ONE.subtract(time.divide(average, RoundingMode.HALF_UP)).multiply(BigDecimal.valueOf(100));
             loggingService.log(this.getClass(), "new measurement: " + time + "ns - deviance from average: " + deviationPercent + "%");
             loggingService.log(this.getClass(), "Total logs: " + totalMeasurements + ", average runtime: "
                     + average + "ns");
