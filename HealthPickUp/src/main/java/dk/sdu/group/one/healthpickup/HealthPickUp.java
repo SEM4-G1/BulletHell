@@ -15,13 +15,15 @@ public class HealthPickUp extends Entity {
      private static final String spritePath = "health_pickup.png";
      private int healthRestored;
 
+    private boolean isPickedUp;
+
     public HealthPickUp(int x, int y){
-        super(EntityType.Health, spritePath, x, y, 10);
-    }
-    public HealthPickUp(){
-        super(EntityType.Health, spritePath, 0, 0, 10);
+        super(EntityType.Health, spritePath, x, y, 10, 10);
     }
 
+    public HealthPickUp(){
+        super(EntityType.Health, spritePath, 0, 0, 10, 10);
+    }
 
     @Override
     public void process(EntityManager entityManager, double dt){
@@ -49,11 +51,11 @@ public class HealthPickUp extends Entity {
         }
     }
 
-     public void pickup(Entity entity){
-         System.out.println("health picked up");
-         healthRestored = (int) (Math.random() * 5 + 100);
-         entity.heal(healthRestored);
-     }
+    public void pickup(Entity entity){
+        System.out.println("health picked up");
+        healthRestored = (int) (Math.random() * 5 + 100);
+        entity.heal(healthRestored);
+    }
 
     private boolean isUnique(EntityManager entityList, float cellWidth, float cellHeight, Coordinate final_coordinate) {
         return entityList.getEntityList().stream()

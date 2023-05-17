@@ -1,8 +1,7 @@
 module AI.AStar {
-    exports dk.sdu.group.one.ai_astar;
-    exports dk.sdu.group.one.ai_astar.helpers;
+    exports dk.sdu.group.one.astar;
     requires Common;
     uses dk.sdu.group.one.services.LoggingService;
-    provides dk.sdu.group.one.enemy.AI.AIservice with dk.sdu.group.one.ai_astar.PathCreator;
+    provides dk.sdu.group.one.enemy.AI.AIservice with dk.sdu.group.one.astar.PathCreator;
     requires Enemy;
 }

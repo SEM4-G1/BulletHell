@@ -32,7 +32,7 @@
         <Logger name="dk.sdu.group.one.enemy.enemytypes" level="DEBUG" additivity="false">
             <AppenderRef ref="enemy-logs"/>
         </Logger>
-        <Logger name="dk.sdu.group.one.ai_astar" level="DEBUG" additivity="false">
+        <Logger name="dk.sdu.group.one.astar" level="DEBUG" additivity="false">
             <AppenderRef ref="enemy-logs"/>
         </Logger>
         <Root level="info">

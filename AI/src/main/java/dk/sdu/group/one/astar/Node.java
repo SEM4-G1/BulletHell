@@ -1,6 +1,7 @@
-package dk.sdu.group.one.ai_astar;
+package dk.sdu.group.one.astar;
 
-import dk.sdu.group.one.ai_astar.helpers.Mappers;
+import dk.sdu.group.one.astar.helpers.Mappers;
+import dk.sdu.group.one.astar.Edge;
 import dk.sdu.group.one.map.Coordinate;
 import dk.sdu.group.one.map.MapService;
 import dk.sdu.group.one.services.LoggingService;
@@ -138,7 +139,10 @@ public class Node implements Comparable<Node>{
                     n = n.parent;
                 }
                 Collections.reverse(coordinates);
+
+
                 return coordinates;
+
             }
 
             n.calculateEdges(grid);
