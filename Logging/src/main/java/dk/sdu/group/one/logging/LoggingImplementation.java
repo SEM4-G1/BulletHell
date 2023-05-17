@@ -15,6 +15,7 @@ public class LoggingImplementation implements LoggingService {
     public void log(Class<?> clazz, String message) {
         getLogger(clazz);
         loggers.get(clazz).info(message);
+        System.out.println(clazz);
     }
 
     @Override
