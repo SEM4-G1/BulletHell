@@ -12,7 +12,7 @@ public class EventBroker{
     private static EventBroker eventBroker;
     public static EventBroker getInstance(){
         if (eventBroker == null){
-            loggingService = ServiceLoader.load(LoggingService.class).findFirst().get();
+            //loggingService = ServiceLoader.load(LoggingService.class).findFirst().get();
             eventBroker = new EventBroker();
         }
         return eventBroker;
@@ -39,7 +39,7 @@ public class EventBroker{
     }
 
     public <T extends Event> void subscribe(EventType eventType, EventProcessor<T> subscriber) {
-        loggingService.log(EventBroker.class, subscriber + " subscribed to " + eventType);
+        //loggingService.log(EventBroker.class, subscriber + " subscribed to " + eventType);
         subscribers.get(eventType).add(subscriber);
     }
 

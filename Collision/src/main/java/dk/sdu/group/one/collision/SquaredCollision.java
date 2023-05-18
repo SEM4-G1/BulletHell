@@ -16,7 +16,7 @@ public class SquaredCollision implements PostProcessingService {
     LoggingService loggingService;
 
     public SquaredCollision() {
-        this.loggingService = ServiceLoader.load(LoggingService.class).findFirst().get();
+        //this.loggingService = ServiceLoader.load(LoggingService.class).findFirst().get();
     }
 
     @Override
