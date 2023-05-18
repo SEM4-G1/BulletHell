@@ -1,11 +1,11 @@
 package dk.sdu.group.one.astar;
 
 public class Edge {
-    public Edge(double weight, Node node) {
-        this.weight = weight;
+    public Edge(double moveCost, Node node) {
+        this.moveCost = moveCost;
         this.node = node;
     }
 
-    public double weight;
+    public double moveCost;
     public Node node;
 }

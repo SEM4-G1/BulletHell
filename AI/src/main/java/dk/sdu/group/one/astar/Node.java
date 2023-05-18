@@ -1,9 +1,7 @@
 package dk.sdu.group.one.astar;
 
 import dk.sdu.group.one.astar.helpers.Mappers;
-import dk.sdu.group.one.astar.Edge;
 import dk.sdu.group.one.map.Coordinate;
-import dk.sdu.group.one.map.MapService;
 import dk.sdu.group.one.services.LoggingService;
 
 import java.util.*;
@@ -22,10 +20,12 @@ public class Node implements Comparable<Node>{
     public List<Edge> neighbors;
 
     // Evaluation functions
-    public double f = 0;
-    public double g = 0;
-    // Hardcoded heuristic
-    public double h;
+    //total cost of node
+    public double totalCost = 0;
+    //cost of the path to a node
+    public double moveCost = 0;
+    //the heuristic of a node
+    public double heuristicCost;
     int xPos;
     int yPos;
 
@@ -38,7 +38,7 @@ public class Node implements Comparable<Node>{
         this.yPos = yPos;
         this.xPos = xPos;
         this.isObstacle = isObstacle;
-        this.h = 0;
+        this.heuristicCost = 0;
         this.id = idCounter++;
         this.neighbors = new ArrayList<>();
     }
@@ -51,7 +51,7 @@ public class Node implements Comparable<Node>{
 
     @Override
     public int compareTo(Node n) {
-        return Double.compare(this.f, n.f);
+        return Double.compare(this.totalCost, n.totalCost);
     }
 
 
@@ -61,8 +61,8 @@ public class Node implements Comparable<Node>{
     }
 
     public double calculateHeuristic(Node target) {
-        this.h = Math.sqrt(Math.pow(Math.abs(this.xPos - target.xPos), 2) + Math.pow(Math.abs(this.yPos - target.yPos), 2));
-        return this.h;
+        this.heuristicCost = Math.sqrt(Math.pow(Math.abs(this.xPos - target.xPos), 2) + Math.pow(Math.abs(this.yPos - target.yPos), 2));
+        return this.heuristicCost;
     }
 
     public void calculateEdges(Node[][] grid) {
@@ -127,16 +127,16 @@ public class Node implements Comparable<Node>{
 
         List<Coordinate> coordinates = new ArrayList<>();
 
-        start.f = start.g + start.calculateHeuristic(target);
+        start.totalCost = start.moveCost + start.calculateHeuristic(target);
         openList.add(start);
 
 
         while (!openList.isEmpty()) {
-            Node n = openList.peek();
-            if (n.xPos == target.xPos && n.yPos == target.yPos) {
-                while (n.parent != null) {
-                    coordinates.add(new Coordinate(n.xPos, n.yPos));
-                    n = n.parent;
+            Node currentNode = openList.peek();
+            if (currentNode.xPos == target.xPos && currentNode.yPos == target.yPos) {
+                while (currentNode.parent != null) {
+                    coordinates.add(new Coordinate(currentNode.xPos, currentNode.yPos));
+                    currentNode = currentNode.parent;
                 }
                 Collections.reverse(coordinates);
 
@@ -145,31 +145,31 @@ public class Node implements Comparable<Node>{
 
             }
 
-            n.calculateEdges(grid);
-            for (Edge edge : n.neighbors) {
-                Node m = edge.node;
-                double totalWeight = n.g + edge.weight;
+            currentNode.calculateEdges(grid);
+            for (Edge edge : currentNode.neighbors) {
+                Node neighbourNode = edge.node;
+                double totalWeight = currentNode.moveCost + edge.moveCost;
 
-                if (!openList.contains(m) && !closedList.contains(m)) {
-                    m.parent = n;
-                    m.g = totalWeight;
-                    m.f = m.g + m.calculateHeuristic(target);
-                    openList.add(m);
+                if (!openList.contains(neighbourNode) && !closedList.contains(neighbourNode)) {
+                    neighbourNode.parent = currentNode;
+                    neighbourNode.moveCost = totalWeight;
+                    neighbourNode.totalCost = neighbourNode.moveCost + neighbourNode.calculateHeuristic(target);
+                    openList.add(neighbourNode);
                 } else {
-                    if (totalWeight < m.g) {
-                        m.parent = n;
-                        m.g = totalWeight;
-                        m.f = m.g + m.calculateHeuristic(target);
+                    if (totalWeight < neighbourNode.moveCost) {
+                        neighbourNode.parent = currentNode;
+                        neighbourNode.moveCost = totalWeight;
+                        neighbourNode.totalCost = neighbourNode.moveCost + neighbourNode.calculateHeuristic(target);
 
-                        if (closedList.contains(m)) {
-                            closedList.remove(m);
-                            openList.add(m);
+                        if (closedList.contains(neighbourNode)) {
+                            closedList.remove(neighbourNode);
+                            openList.add(neighbourNode);
                         }
                     }
                 }
             }
-            openList.remove(n);
-            closedList.add(n);
+            openList.remove(currentNode);
+            closedList.add(currentNode);
         }
         return null;
     }
