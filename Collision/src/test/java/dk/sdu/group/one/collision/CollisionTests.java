@@ -7,16 +7,21 @@ import dk.sdu.group.one.event.EventBroker;
 import dk.sdu.group.one.event.EventProcessor;
 import dk.sdu.group.one.event.events.EventType;
 import dk.sdu.group.one.map.MapService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import dk.sdu.group.one.data.Entity;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.ServiceLoader;
 
 
 public class CollisionTests {
+    private static int collisionCounter = 0;
+
+    @BeforeEach
+    void resetCounter(){
+
+    }
+
     @Test
     void squaredCollisionTest() {
         Entity entity1 = new Entity(EntityType.PLAYER, "", 0.0f, 0.0f, 5, 5) {
@@ -42,7 +47,6 @@ public class CollisionTests {
 
     @Test
     void reflectiveCollision(){
-        final BigInteger[] eventCalledTimes = {BigInteger.valueOf(0)};
         Entity entity1 = new Entity(EntityType.PLAYER, "", 0.0f, 0.0f, 5, 5) {
             @Override
             public void process(EntityManager entityManager, double dt) {}
@@ -53,17 +57,16 @@ public class CollisionTests {
         EntityManager entityManager = new EntityManager();
         entityManager.addEntity(entity1);
 
-        EventBroker.getInstance().subscribe(EventType.Collision, event -> eventCalledTimes[0] = eventCalledTimes[0].add(BigInteger.ONE));
+        EventBroker.getInstance().subscribe(EventType.Collision, event -> CollisionTests.collisionCounter++);
 
         SquaredCollision squaredCollision = new SquaredCollision();
         squaredCollision.postProcess(entityManager);
 
-        assertEquals(0, eventCalledTimes[0].intValue());
+        assertEquals(0, collisionCounter);
     }
 
     @Test
     void symmetricCollision(){
-        final BigInteger[] eventCalledTimes = {BigInteger.valueOf(0)};
         Entity entity1 = new Entity(EntityType.PLAYER, "", 0.0f, 0.0f, 5, 5) {
             @Override
             public void process(EntityManager entityManager, double dt) {}
@@ -83,12 +86,12 @@ public class CollisionTests {
         entityManager.addEntity(entity1);
         entityManager.addEntity(entity2);
 
-        EventBroker.getInstance().subscribe(EventType.Collision, event -> eventCalledTimes[0] = eventCalledTimes[0].add(BigInteger.ONE));
+        EventBroker.getInstance().subscribe(EventType.Collision, event -> collisionCounter++));
 
         SquaredCollision squaredCollision = new SquaredCollision();
         squaredCollision.postProcess(entityManager);
 
-        assertEquals(1, eventCalledTimes[0].intValue());
+        assertEquals(1, collisionCounter);
     }
 
 
