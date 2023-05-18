@@ -86,7 +86,7 @@ public class CollisionTests {
         entityManager.addEntity(entity1);
         entityManager.addEntity(entity2);
 
-        EventBroker.getInstance().subscribe(EventType.Collision, event -> collisionCounter++));
+        EventBroker.getInstance().subscribe(EventType.Collision, event -> collisionCounter++);
 
         SquaredCollision squaredCollision = new SquaredCollision();
         squaredCollision.postProcess(entityManager);
